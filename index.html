@@ -1,181 +1,152 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>MANCING GOT V3 - INTERAKTIF</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box} body{background:#050510;display:grid;place-items:center;min-height:100vh;font-family:'Press Start 2P',monospace;color:#fff;padding:8px;overflow:hidden}
-.g{width:100%;max-width:420px;background:#1a1a2e;border:4px solid #000;box-shadow:0 0 0 4px #ffffff11,0 20px 60px #000;overflow:hidden;position:relative}
-.top{padding:8px;background:#2a2a4a;border-bottom:4px solid #000;display:flex;justify-content:space-between;font-size:6px;align-items:center}
-canvas{width:100%;aspect-ratio:4/4.8;display:block;image-rendering:pixelated;cursor:pointer;filter:contrast(1.1)}
-.bars{padding:6px;background:#111;display:none;border-top:3px solid #000}
-.bar{height:20px;background:#222;border:3px solid #000;position:relative;overflow:hidden}
-.fill{height:100%;width:0%;background:linear-gradient(90deg,#f00 0%,#ff0 50%,#0f0 100%);box-shadow:0 0 10px #0f0;transition:width 0.05s}
-.zone{position:absolute;top:0;bottom:0;left:38%;right:38%;border-left:3px solid #fff;border-right:3px solid #fff;background:#ffffff22;animation:pulse 0.5s infinite}
-@keyframes pulse{0%,100%{background:#ffffff22}50%{background:#ffffff44}}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
-.shake{animation:shake 0.1s infinite}
-.btns{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:6px;background:#222232}
-.b{padding:12px 4px;border:3px solid #000;color:#fff;font-family:'Press Start 2P',monospace;font-size:6px;cursor:pointer;position:relative;overflow:hidden}
-.b:active{transform:translateY(2px) scale(0.98)}
-.b::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,#ffffff44,transparent);transition:0.3s}
-.b:active::after{left:100%}
-.gbtn{background:linear-gradient(#4CAF50,#2a7a2a)}.ybtn{background:linear-gradient(#ffcc00,#cc9900);color:#000}.rbtn{background:linear-gradient(#ff4444,#aa2222)}.blbtn{background:linear-gradient(#4488ff,#2244aa)}
-.log{padding:8px;font-size:5px;background:#000;color:#8f8;text-align:center;min-height:22px;border-top:2px solid #222;line-height:1.5}
-.fx{position:absolute;pointer-events:none;font-size:18px;font-family:serif;animation:floatUp 0.8s ease-out forwards;z-index:10}
-@keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-60px) scale(1.5);opacity:0}}
-.inv{display:flex;gap:3px;padding:6px;background:#0a0a14;flex-wrap:wrap;min-height:28px;font-size:6px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon University Confess 🏛️</title>
+    <!-- Menggunakan Tailwind CSS untuk UI yang modern dan cepat -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        :root {
+            --maroon-dark: #5c0000;
+            --maroon-main: #800000;
+            --maroon-light: #a31414;
+            --broken-white: #FDFBF7;
+            --cream-light: #F5F2EB;
+        }
+        body {
+            background-color: var(--broken-white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .bg-maroon { background-color: var(--maroon-main); }
+        .text-maroon { color: var(--maroon-main); }
+        .border-maroon { border-color: var(--maroon-main); }
+        .bg-broken-white { background-color: var(--broken-white); }
+        .bg-cream { background-color: var(--cream-light); }
+    </style>
 </head>
-<body>
-<div class="g" id="gameBox">
-<div class="top"><div>🎣 GOT BEKASI V3 FX</div><div style="display:flex;gap:8px"><span>💰<span id="money">5000</span></span><span id="combo">🔥x1</span></div></div>
-<canvas id="c" width="320" height="380"></canvas>
-<div class="bars" id="bars"><div style="display:flex;justify-content:space-between;font-size:5px;margin-bottom:3px"><span id="fishName">-</span><span id="powerTxt">0%</span></div><div class="bar"><div class="fill" id="fill"></div><div class="zone"></div></div></div>
-<div class="btns">
-<button class="b gbtn" id="castBtn">🎣 LEMPAR!<br><span style="font-size:4px">TAP / SPACE</span></button>
-<button class="b ybtn" id="sellBtn">💰 JUAL<br>Rp<span id="sellVal">0</span></button>
-</div>
-<div class="log" id="log">🔊 Nyalain suara Beben! Tap LEMPAR buat mulai!</div>
-<div class="inv" id="inv">Tas kosong...</div>
-</div>
-<script>
-let canvas=document.getElementById('c'), ctx=canvas.getContext('2d'), box=document.getElementById('gameBox');
-ctx.imageSmoothingEnabled=false;
-let state='idle', money=5000, inv=[], combo=1, currentFish=null, reelPower=0, particles=[], ripples=[], fishesVis=[], time=0.3, bob={x:160,y:170,vy:0};
-let audioCtx=null;
-function initAudio(){ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }
-function playTone(freq,dur,type='sine',vol=0.3){
- initAudio(); let o=audioCtx.createOscillator(), g=audioCtx.createGain();
- o.type=type; o.frequency.value=freq; o.connect(g); g.connect(audioCtx.destination);
- g.gain.setValueAtTime(vol,audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+dur);
- o.start(); o.stop(audioCtx.currentTime+dur);
-}
-function sfxCast(){ playTone(200,0.2,'sawtooth',0.2); playTone(400,0.15,'sine',0.2); }
-function sfxBite(){ playTone(800,0.1,'square',0.4); setTimeout(()=>playTone(1200,0.15,'square',0.4),80); if(navigator.vibrate) navigator.vibrate([50,30,50]); box.classList.add('shake'); setTimeout(()=>box.classList.remove('shake'),300); }
-function sfxReel(){ playTone(100+reelPower*5,0.08,'sine',0.15); }
-function sfxWin(legend){ if(legend){ playTone(523,0.2,'sine',0.5); setTimeout(()=>playTone(659,0.2,'sine',0.5),150); setTimeout(()=>playTone(784,0.4,'sine',0.6),300); } else { playTone(600,0.2,'sine',0.3); } if(navigator.vibrate) navigator.vibrate(100); }
-function sfxFail(){ playTone(150,0.4,'sawtooth',0.3); }
+<body class="min-h-screen text-gray-800 antialiased">
 
-let fishTypes=[
- {name:'Lele Got',emoji:'🐟',price:3000,rare:0.35,color:'#666',power:22},
- {name:'Nila Got',emoji:'🐠',price:6000,rare:0.25,color:'#ff8c42',power:32},
- {name:'Gabus',emoji:'🐡',price:10000,rare:0.18,color:'#2a5a2a',power:45},
- {name:'Sendal Jepit',emoji:'🩴',price:300,rare:0.1,color:'#f00',power:12,trash:true},
- {name:'Lele Raksasa',emoji:'🐋',price:28000,rare:0.07,color:'#111',power:65,legend:true},
- {name:'Lele Hantu',emoji:'👻🐟',price:45000,rare:0.05,color:'#aaf',power:85,legend:true},
-];
+    <!-- 1. HALAMAN MASUK (WELCOME SCREEN) -->
+    <div id="welcome-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-maroon text-white p-6 transition-all duration-700">
+        <div class="text-center space-y-6 max-w-md">
+            <div class="text-6xl animate-bounce">🏛️</div>
+            <h1 class="text-3xl font-extrabold tracking-wide uppercase">Horizon University</h1>
+            <p class="text-red-200 text-lg">Punya rahasia, kekaguman, atau keluh kesah yang terpendam di kampus? Keluarkan semuanya di sini secara anonim. 🤫</p>
+            <button onclick="masukKeUtama()" class="mt-4 px-8 py-4 bg-white text-maroon font-bold text-xl rounded-full shadow-2xl hover:bg-red-100 hover:scale-105 active:scale-95 transition-all cursor-pointer">
+                Confess Yu ✨
+            </button>
+        </div>
+    </div>
 
-function spawnParticles(x,y,c,count){
- for(let i=0;i<count;i++) particles.push({x,y,vx:(Math.random()-0.5)*6,vy:-Math.random()*5-1,life:20+Math.random()*15,c,sz:2+Math.random()*3});
-}
-function spawnFX(x,y,text){
- let d=document.createElement('div'); d.className='fx'; d.style.left=x+'px'; d.style.top=y+'px'; d.innerText=text; box.appendChild(d); setTimeout(()=>d.remove(),800);
-}
+    <!-- 2. HALAMAN UTAMA (MAIN APP) -->
+    <div id="main-screen" class="hidden min-h-screen flex flex-col">
+        
+        <!-- NAVBAR -->
+        <nav class="bg-maroon text-white shadow-md sticky top-0 z-40">
+            <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">🏛️</span>
+                    <span class="font-bold text-lg tracking-wider">HORIZON CONFESS</span>
+                </div>
+                <div class="flex items-center space-x-1 text-sm bg-red-900/40 px-3 py-1 rounded-full">
+                    <span>🕵️ Anonymity Guaranteed</span>
+                </div>
+            </div>
+        </nav>
 
-function draw(){
- let isNight=time>0.72||time<0.2;
- // sky
- let grad=ctx.createLinearGradient(0,0,0,380);
- if(!isNight){ grad.addColorStop(0,'#6ec6ff'); grad.addColorStop(0.3,'#87CEEB'); } else { grad.addColorStop(0,'#05051a'); grad.addColorStop(0.3,'#0a0a2a'); }
- grad.addColorStop(1,'#0a1a0a'); ctx.fillStyle=grad; ctx.fillRect(0,0,320,380);
- // clouds / stars
- if(!isNight){ ctx.fillStyle='#ffffffcc'; ctx.fillRect(20+Math.sin(Date.now()*0.0003)*5,18,34,10); ctx.fillRect(180,12,44,12); ctx.fillRect(260,30,28,8); } else { ctx.fillStyle='#fff'; for(let i=0;i<18;i++){ let sx=(i*67+time*20)%310, sy=8+(i*23)%50, tw=Math.sin(Date.now()*0.005+i)*0.5+0.5; ctx.globalAlpha=0.3+tw*0.7; ctx.fillRect(sx,sy,2,2); } ctx.globalAlpha=1; ctx.fillStyle='#ffffaa'; ctx.beginPath(); ctx.arc(270,22,10,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#ffffaa44'; ctx.beginPath(); ctx.arc(270,22,18,0,Math.PI*2); ctx.fill(); }
- // city
- ctx.fillStyle=isNight?'#1a1a2a':'#6b4a3a'; ctx.fillRect(0,68,55,42); ctx.fillRect(70,60,55,50); ctx.fillRect(200,75,90,35);
- if(isNight){ ctx.fillStyle='#ffff66'; for(let i=0;i<12;i++){ if(Math.random()<0.05) continue; ctx.fillRect(8+i*7%45,80+ (i*9)%20,3,3); } }
- // got edge
- ctx.fillStyle='#3a5a3a'; ctx.fillRect(0,110,320,18); ctx.fillStyle='#2a4a2a'; ctx.fillRect(0,110,320,6);
- // water
- ctx.fillStyle='#0d2818'; ctx.fillRect(0,128,320,252);
- // water waves
- ctx.strokeStyle='#ffffff0a'; ctx.lineWidth=1; for(let i=0;i<4;i++){ let y=145+i*55+Math.sin(Date.now()*0.001+i)*3; ctx.beginPath(); ctx.moveTo(0,y); for(let x=0;x<320;x+=10){ ctx.lineTo(x,y+Math.sin(x*0.05+Date.now()*0.002+i)*2); } ctx.stroke(); }
- // bobber physics
- if(state!='idle'){ bob.vy+=0.2; bob.y+=bob.vy; if(bob.y>175){ bob.y=175; bob.vy*=-0.3; if(Math.abs(bob.vy)<0.5) bob.vy=0; } }
- // ripples
- ripples.forEach(r=>{ ctx.strokeStyle=`rgba(255,255,255,${r.a})`; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(r.x,r.y,r.r,0,Math.PI*2); ctx.stroke(); r.r+=1.2; r.a-=0.015; }); ripples=ripples.filter(r=>r.a>0);
- // trash floating
- ctx.fillStyle='#00000055'; ctx.fillRect(25+Math.sin(Date.now()*0.0008)*4,160,18,6); ctx.fillRect(210+Math.cos(Date.now()*0.0007)*3,200,20,5);
- // player Beben
- let breathe=Math.sin(Date.now()*0.003)*1; ctx.fillStyle='#ffdbac'; ctx.fillRect(144,82+breathe,22,14); ctx.fillStyle='#000'; ctx.fillRect(148,86+breathe,2,2); ctx.fillRect(158,86+breathe,2,2);
- ctx.fillStyle='#8a5cff'; ctx.fillRect(134,96+breathe,44,20); ctx.fillStyle='#1a1a1a'; ctx.fillRect(142,74+breathe,26,10);
- // rod bend when reeling
- let bend = state=='reeling'? reelPower*0.15 : 0;
- ctx.strokeStyle='#8B5E3C'; ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(158,102); ctx.quadraticCurveTo(165-bend,85, 172-bend*0.5,78); ctx.stroke();
- // line
- if(state!='idle'){ ctx.strokeStyle='#ffffffbb'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(172-bend*0.5,78); ctx.lineTo(bob.x,bob.y); ctx.stroke();
-  // bobber
-  let bobColor = state=='bite'? (Math.floor(Date.now()/80)%2?'#ff0000':'#ffff00') : '#ffcc00';
-  ctx.fillStyle=bobColor; ctx.fillRect(bob.x-5,bob.y-7,10,14); ctx.fillStyle='#000'; ctx.fillRect(bob.x-1,bob.y-11,2,4);
-  if(state=='bite'){ ctx.fillStyle='#ff000044'; ctx.beginPath(); ctx.arc(bob.x,bob.y,14,0,Math.PI*2); ctx.fill(); }
- }
- // fish underwater when reeling
- if(state=='reeling'&&currentFish){
-  let fy=bob.y+38+Math.sin(Date.now()*0.015)*6, fx=bob.x+Math.sin(Date.now()*0.01)*8;
-  ctx.font='26px serif'; ctx.fillText(currentFish.emoji,fx-13,fy);
-  // splash
-  if(Math.random()<0.3) spawnParticles(fx,fy-10,'#88ccee',2);
- }
- // particles
- particles.forEach(p=>{ ctx.fillStyle=p.c; ctx.fillRect(p.x,p.y,p.sz,p.sz); p.x+=p.vx; p.y+=p.vy; p.vy+=0.15; p.life--; }); particles=particles.filter(p=>p.life>0);
- // text
- ctx.fillStyle='#fff'; ctx.font='6px "Press Start 2P"'; ctx.fillText((isNight?'🌙 MALEM':'☀️ SIANG')+' | '+state.toUpperCase(),8,122);
-}
+        <!-- KONTEN UTAMA -->
+        <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- KOLOM KIRI: FORM CONFESS -->
+            <section class="md:col-span-1 space-y-4">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 sticky top-20">
+                    <h2 class="text-xl font-bold text-maroon flex items-center gap-2 mb-4">
+                        <span>✍️</span> Tulis Ceritamu
+                    </h2>
+                    
+                    <form id="confess-form" onsubmit="kirimConfess(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">🎭 Untuk Siapa? (Opsional)</label>
+                            <input type="text" id="target" placeholder="Contoh: Kating SI angkatan 22" 
+                                class="w-full p-3 bg-cream rounded-xl border border-transparent focus:border-maroon focus:bg-white focus:outline-none text-sm transition-all">
+                        </div>
 
-let biteTimeout=null;
-function cast(){
- if(state!='idle') return; initAudio(); state='waiting'; reelPower=18; bob.x=120+Math.random()*80; bob.y=80; bob.vy=8; sfxCast(); spawnParticles(bob.x,80,'#fff',6); log('⏳ Lempar! *byur* Nunggu ikan got...');
- let wait=1200+Math.random()*2500; biteTimeout=setTimeout(()=>{
-  if(state!='waiting') return;
-  let r=Math.random(), acc=0, chosen=fishTypes[0]; for(let f of fishTypes){ acc+=f.rare; if(r<acc){ chosen=f; break; } }
-  currentFish=chosen; state='bite'; document.getElementById('bars').style.display='block'; document.getElementById('fishName').innerText=chosen.emoji+' '+chosen.name; document.getElementById('powerTxt').innerText='TAP!';
-  sfxBite(); spawnParticles(bob.x,bob.y,'#ff0',10); ripples.push({x:bob.x,y:bob.y,r:4,a:0.8}); log(`🐟 GIGIT! ${chosen.emoji} ${chosen.name} NARIK! SPAM TAP!`); 
-  setTimeout(()=>{ if(state=='bite'){ state='idle'; document.getElementById('bars').style.display='none'; sfxFail(); spawnFX(160,120,'💨 LEPAS!'); log('💨 Telat Beben! Ikan kabur!'); } },2200);
- },wait);
-}
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">🏷️ Kategori Curhat</label>
+                            <select id="kategori" class="w-full p-3 bg-cream rounded-xl border border-transparent focus:border-maroon focus:bg-white focus:outline-none text-sm transition-all cursor-pointer">
+                                <option value="💖 Cinta">💖 Cinta / Kagum</option>
+                                <option value="📚 Akademik">📚 Akademik / Kampus</option>
+                                <option value="🌀 Random">🌀 Random / Curhat</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">📜 Pesan Rahasia</label>
+                            <textarea id="pesan" rows="4" required placeholder="Tuliskan confess-mu di sini... Identitasmu dijamin aman!" 
+                                class="w-full p-3 bg-cream rounded-xl border border-transparent focus:border-maroon focus:bg-white focus:outline-none text-sm transition-all resize-none"></textarea>
+                        </div>
 
-let holding=false, reelInt=null;
-function startHold(){
- if(state!='bite'&&state!='reeling') return;
- if(state=='bite'){ state='reeling'; reelInt=setInterval(()=>{
-  if(holding){ reelPower+=1.8+combo*0.3; if(Math.random()<0.4) sfxReel(); } else { reelPower-=1.2; }
-  reelPower=Math.max(0,Math.min(100,reelPower));
-  document.getElementById('fill').style.width=reelPower+'%'; document.getElementById('powerTxt').innerText=Math.floor(reelPower)+'%';
-  if(reelPower>=100){ clearInterval(reelInt); win(); } if(reelPower<=0){ clearInterval(reelInt); fail(); }
-  if(holding && reelPower>38 && reelPower<62){ combo=Math.min(5,combo+0.02); } 
- },40);
- }
- holding=true;
-}
-function endHold(){ holding=false; }
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">📸 Lampirkan Foto (Opsional)</label>
+                            <input type="file" id="foto" accept="image/*" class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-red-50 file:text-maroon hover:file:bg-red-100 file:cursor-pointer">
+                        </div>
 
-function win(){
- let f=currentFish; inv.push(f); spawnParticles(bob.x,bob.y,f.color,18); ripples.push({x:bob.x,y:bob.y,r:5,a:1}); spawnFX(bob.x, bob.y-30, f.legend? '🎉 LEGENDARY!' : '✅+Rp'+f.price); sfxWin(f.legend);
- if(f.legend){ combo+=1; box.classList.add('shake'); setTimeout(()=>box.classList.remove('shake'),600); spawnFX(160,60,'🔥 COMBO x'+Math.floor(combo)); }
- log(f.legend?`🎉 GILA! ${f.emoji} ${f.name} LEGENDARY! Rp${f.price}!`:`✅ Dapet ${f.emoji} ${f.name}! +Rp${f.price} (Combo x${Math.floor(combo)})`);
- state='idle'; document.getElementById('bars').style.display='none'; currentFish=null; updateUI();
-}
-function fail(){ sfxFail(); spawnFX(bob.x,bob.y,'💨'); log('💨 Lepas! Pancing lepas!'); state='idle'; document.getElementById('bars').style.display='none'; currentFish=null; combo=1; }
+                        <button type="submit" class="w-full py-3 bg-maroon text-white font-bold rounded-xl shadow-md hover:bg-red-900 transition-all cursor-pointer flex items-center justify-center gap-2">
+                            <span>🚀</span> Kirim Sekarang
+                        </button>
+                    </form>
+                </div>
+            </section>
 
-function log(t){ document.getElementById('log').innerText=t; }
-function updateUI(){
- document.getElementById('inv').innerHTML=inv.length? inv.map(f=>`<span style="background:${f.color};padding:3px 5px;border:2px solid #000">${f.emoji}</span>`).join('') : 'Tas kosong... lempar lagi Beben!';
- let total=inv.reduce((s,f)=>s+f.price* (f.legend?combo:1),0); document.getElementById('sellVal').innerText=total; document.getElementById('money').innerText=money+total; document.getElementById('combo').innerText='🔥x'+Math.floor(combo);
-}
-document.getElementById('castBtn').addEventListener('touchstart',e=>{e.preventDefault(); if(state=='idle') cast(); else startHold();});
-document.getElementById('castBtn').addEventListener('touchend',e=>{e.preventDefault(); endHold();});
-document.getElementById('castBtn').addEventListener('mousedown',()=>{ if(state=='idle') cast(); else startHold();});
-document.getElementById('castBtn').addEventListener('mouseup',endHold);
-canvas.addEventListener('touchstart',e=>{e.preventDefault(); if(state=='idle') cast(); else startHold();},{passive:false});
-canvas.addEventListener('touchend',e=>{e.preventDefault(); endHold();},{passive:false});
-canvas.addEventListener('mousedown',startHold); canvas.addEventListener('mouseup',endHold);
-document.addEventListener('keydown',e=>{ if(e.code=='Space'){ e.preventDefault(); if(state=='idle') cast(); else startHold(); }});
-document.addEventListener('keyup',e=>{ if(e.code=='Space') endHold(); });
-document.getElementById('sellBtn').onclick=()=>{ let total=inv.reduce((s,f)=>s+f.price* (f.legend?combo:1),0); if(!total) return; money+=total; inv=[]; combo=1; updateUI(); spawnFX(160,100,'💰+Rp'+total); sfxWin(false); log(`💰 Jual semua! +Rp${total}! Total: Rp${money}`); };
+            <!-- KOLOM KANAN: DAFTAR CONFESS -->
+            <section class="md:col-span-2 space-y-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-maroon flex items-center gap-2">
+                        <span>💬</span> Lini Masa Horizon
+                    </h2>
+                    <span id="counter" class="text-xs bg-maroon/10 text-maroon px-3 py-1 rounded-full font-semibold">💌 2 Confessions</span>
+                </div>
 
-setInterval(()=>{ time+=0.0004; if(time>1) time=0; },50);
-(function loop(){ draw(); requestAnimationFrame(loop); })(); updateUI();
-</script>
-</body>
-</html>
+                <!-- Wadah List Confess -->
+                <div id="confess-list" class="space-y-4">
+                    
+                    <!-- Dummy Post 1 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-maroon space-y-3 transform transition-all">
+                        <div class="flex justify-between items-start text-xs text-gray-400">
+                            <span class="font-medium text-maroon bg-red-50 px-2 py-1 rounded">🎯 Untuk: Anak Kosan Biru deket kampus</span>
+                            <div class="flex gap-2">
+                                <span class="bg-gray-100 px-2 py-1 rounded text-gray-600 font-semibold">🌀 Random</span>
+                                <span>🕒 15m yang lalu</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed text-sm">Tolong dong kalau nyanyi malam-malam suaranya dikondisikan, suara kamu bagus sih tapi jam 2 pagi tuh waktunya tidur bukan konser tunggal 😭🙏🏻</p>
+                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-2 border-t border-gray-50">
+                            <button onclick="likePost(this)" class="flex items-center gap-1 hover:text-red-600 transition-colors cursor-pointer">
+                                <span>❤️</span> <span class="like-count">45</span> Menyukai
+                            </button>
+                            <span class="flex items-center gap-1">🔒 Anonim #4091</span>
+                        </div>
+                        <!-- Bagian Komentar -->
+                        <div class="mt-4 pt-3 border-t border-gray-100 space-y-2">
+                            <div class="space-y-2 max-h-32 overflow-y-auto text-xs comments-container">
+                                <div class="bg-cream p-2 rounded-xl"><span class="font-bold text-maroon">🕵️ Anonim:</span> Wkwk kosan gang sebelah ya ini? Memang meresahkan banh.</div>
+                            </div>
+                            <div class="flex gap-2 mt-2">
+                                <input type="text" placeholder="Balas anonim..." class="flex-grow p-2 text-xs bg-cream rounded-xl outline-none focus:bg-white border focus:border-maroon input-komentar">
+                                <button onclick="tambahKomentar(this)" class="px-3 py-2 bg-maroon text-white text-xs font-bold rounded-xl hover:bg-red-900 cursor-pointer">💬 Balas</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dummy Post 2 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-maroon space-y-3 transform transition-all">
+                        <div class="flex justify-between items-start text-xs text-gray-400">
+                            <span class="font-medium text-maroon bg-red-50 px-2 py-1 rounded">🎯 Untuk: Kakak tingkat perpus lantai 2</span>
+                            <div class="flex gap-2">
+                                <span class="bg-red-50 text-red-600 px-2 py-1 rounded font-semibold">💖 Cinta</span>
+                                <span>🕒 1 jam yang lalu</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed text-sm">Aku sering sengaja pinjam buku ke perpus cuma buat ngeliat kamu fokus belajar. Kacamata kamu bikin kamu keliatan keren banget!</p>
+                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-2 border-t border-gray-50">
