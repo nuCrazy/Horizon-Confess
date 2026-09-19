@@ -2,70 +2,128 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon Confess</title>
+<title>Horizon Roulette</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:sans-serif;background:#fcf9ff}
-.top{position:sticky;top:0;background:#fff;padding:12px 16px;display:flex;justify-content:space-between;border-bottom:1px solid #eee}
-.wrap{max-width:600px;margin:0 auto;padding:14px}
-.card{background:#fff;border-radius:20px;padding:16px;border:1px solid #eee;margin-top:12px}
-textarea{width:100%;border:2px solid #eee;background:#fbf7ff;border-radius:12px;padding:12px;min-height:90px}
-.tag{display:inline-block;padding:7px 12px;border-radius:99px;background:#f3e8ff;margin:3px;font-size:13px;cursor:pointer}.tag.on{background:#111;color:#fff}
-.btn{width:100%;padding:14px;background:#111;color:#fff;border:none;border-radius:12px;font-weight:800;margin-top:10px}
-.item{background:#fff;border:1px solid #eee;border-radius:16px;padding:12px;margin-bottom:8px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#0f0f13;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px}
+.top{width:100%;max-width:600px;display:flex;justify-content:space-between;align-items:center;padding:12px 0}
+.logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(180deg,#ff8fa3,#b06cff);display:grid;place-items:center;font-weight:800}
+.brand{font-weight:800;font-size:18px}.brand span{background:linear-gradient(90deg,#ff5a8a,#8a5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.coins{background:#1c1c22;border:1px solid #2a2a33;padding:8px 14px;border-radius:99px;font-weight:700;font-size:13px}
+.wrap{max-width:600px;width:100%;margin-top:10px}
+.roulette-wrap{position:relative;width:320px;height:320px;margin:20px auto}
+.wheel{width:100%;height:100%;border-radius:50%;border:8px solid #1c1c22;position:relative;overflow:hidden;transition:transform 4s cubic-bezier(0.17,0.67,0.12,0.99);box-shadow:0 0 0 4px #2a2a33, 0 20px 60px #00000080}
+.seg{position:absolute;width:50%;height:50%;left:50%;top:0;transform-origin:0% 100%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+.pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:24px solid #ff5a8a;z-index:10;filter:drop-shadow(0 4px 8px #000)}
+.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;background:#111;border:4px solid #2a2a33;border-radius:50%;display:grid;place-items:center;font-weight:800;z-index:5;box-shadow:0 4px 20px #000}
+.card{background:#1c1c22;border:1px solid #2a2a33;border-radius:20px;padding:16px;margin-top:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.bet{padding:14px;border-radius:14px;background:#252530;border:1.5px solid #2f2f40;text-align:center;font-weight:700;cursor:pointer;transition:.15s}
+.bet.on{background:#fff;color:#111;border-color:#fff;transform:scale(1.02)}
+.bet small{display:block;font-size:11px;opacity:.7;margin-top:2px}
+.btn{width:100%;margin-top:14px;padding:16px;background:linear-gradient(90deg,#ff5a8a,#8a5cff);border:none;border-radius:14px;font-weight:800;font-size:16px;color:#fff;cursor:pointer}
+.btn:disabled{opacity:.5}
+.history{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.h{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800}
 </style>
 </head>
 <body>
-<div class="top"><b>HORIZON CONFESS</b><span id="cnt" style="background:#111;color:#fff;padding:5px 10px;border-radius:99px;font-size:11px">0 LIVE</span></div>
-<div class="wrap">
-<div class="card">
-<textarea id="txt" placeholder="Tulis curhatan lu..."></textarea>
-<div style="margin-top:8px"><div class="tag on" data-t="crush">👀 Crush</div><div class="tag" data-t="galau">💔 Galau</div><div class="tag" data-t="bucin">😍 Bucin</div><div class="tag" data-t="roasting">🔥 Roasting</div><div class="tag" data-t="random">🤣 Random</div></div>
-<input id="to" style="width:100%;margin-top:8px;padding:10px;border:2px solid #eee;border-radius:10px" placeholder="Untuk siapa?">
-<button class="btn" onclick="kirim()">🚀 KIRIM - MUNCUL DI SEMUA HP</button>
-<p id="st" style="text-align:center;font-size:11px;color:#888;margin-top:8px">Menghubungkan...</p>
+<div class="top">
+<div style="display:flex;gap:10px;align-items:center"><div class="logo">H</div><div class="brand">HORIZON <span>ROULETTE</span></div></div>
+<div class="coins">💰 <span id="coins">1000</span></div>
 </div>
-<div id="feed" style="margin-top:12px"></div>
-</div>
-<script>
-let cur='crush';let all=[];
-let BIN="b1a2c3d4-e5f6-7890-abcd-ef1234567890"; // GANTI ID LU DISINI KALO PUNYA
-let API=`https://api.jsonstorage.net/v1/json/${BIN}`;
-document.querySelectorAll('.tag').forEach(e=>e.onclick=()=>{document.querySelectorAll('.tag').forEach(x=>x.classList.remove('on'));e.classList.add('on');cur=e.dataset.t;});
 
-async function load(){
- try{
-  let r=await fetch(API);
-  if(!r.ok) throw '404';
-  let j=await r.json(); all=j.confess||[];
-  document.getElementById('cnt').innerText=all.length+' LIVE';
-  document.getElementById('st').innerText='🟢 LIVE - temen kirim, 3 detik muncul di HP lu!';
-  render();
- }catch(e){
-  // kalo bin belum ada, bikin otomatis
-  try{
-   let r=await fetch('https://api.jsonstorage.net/v1/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({confess:[{t:'Halo Horizon! Ini confess pertama realtime!',tag:'random',to:'Semua',time:'baru saja'}]})});
-   let j=await r.json(); BIN=j.id||j.uri?.split('/').pop(); API=`https://api.jsonstorage.net/v1/json/${BIN}`;
-   localStorage.setItem('h_bin',BIN); load();
-  }catch(err){document.getElementById('st').innerText='Gagal konek: '+err}
- }
+<div class="wrap">
+<div class="roulette-wrap">
+<div class="pointer"></div>
+<div class="wheel" id="wheel"></div>
+<div class="center" id="result">H</div>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<b>Pilih Taruhan</b><span style="font-size:11px;background:#2a2a33;padding:6px 10px;border-radius:99px" id="status">Pilih & Spin!</span>
+</div>
+<div class="grid">
+<div class="bet on" data-bet="red" onclick="pick(this)"><span style="color:#ff4d6a">🔴 MERAH</span><small>x2</small></div>
+<div class="bet" data-bet="black" onclick="pick(this)"><span style="color:#aaa">⚫ HITAM</span><small>x2</small></div>
+<div class="bet" data-bet="green" onclick="pick(this)"><span style="color:#00e676">🟢 HIJAU</span><small>x14</small></div>
+<div class="bet" data-bet="gold" onclick="pick(this)"><span style="color:#ffd54f">🟡 GOLD</span><small>x7</small></div>
+</div>
+<div style="display:flex;gap:8px;margin-top:12px">
+<button style="flex:1;padding:12px;background:#252530;border:1px solid #2f2f40;border-radius:12px;color:#fff;font-weight:700" onclick="chip(-10)">-10</button>
+<div style="flex:2;background:#111;border:1px solid #2a2a33;border-radius:12px;display:grid;place-items:center;font-weight:800" id="betAmount">100</div>
+<button style="flex:1;padding:12px;background:#252530;border:1px solid #2f2f40;border-radius:12px;color:#fff;font-weight:700" onclick="chip(10)">+10</button>
+<button style="flex:1;padding:12px;background:#252530;border:1px solid #2f2f40;border-radius:12px;color:#fff;font-weight:700" onclick="chip(100)">+100</button>
+</div>
+<button class="btn" id="spinBtn" onclick="spin()">🎰 SPIN ROULETTE!</button>
+<div style="margin-top:12px;font-size:11px;color:#777;text-align:center">Riwayat:</div>
+<div class="history" id="hist"></div>
+</div>
+</div>
+
+<script>
+const colors={red:'#ff4d6a',black:'#2a2a33',green:'#00e676',gold:'#ffd54f'};
+const segments=[
+ {c:'red',l:'Merah'},{c:'black',l:'Hitam'},{c:'red',l:'Merah'},{c:'black',l:'Hitam'},
+ {c:'red',l:'Merah'},{c:'black',l:'Hitam'},{c:'gold',l:'GOLD'},{c:'black',l:'Hitam'},
+ {c:'red',l:'Merah'},{c:'black',l:'Hitam'},{c:'red',l:'Merah'},{c:'black',l:'Hitam'},
+ {c:'green',l:'HIJAU'},{c:'black',l:'Hitam'}
+];
+let coins=parseInt(localStorage.getItem('h_coins')||'1000');
+let bet=100, picked='red', spinning=false, deg=0;
+let hist=JSON.parse(localStorage.getItem('h_hist')||'[]');
+
+function build(){
+ let w=document.getElementById('wheel');w.innerHTML='';
+ segments.forEach((s,i)=>{
+  let el=document.createElement('div');el.className='seg';
+  el.style.transform=`rotate(${i* (360/segments.length)}deg)`;
+  el.style.background=colors[s.c];
+  el.innerHTML=`<span style="transform:rotate(${90}deg) translate(30px)">${s.c==='green'?'💚':s.c==='gold'?'⭐':''}</span>`;
+  w.appendChild(el);
+ });
+ document.getElementById('coins').innerText=coins;
+ renderHist();
 }
-function render(){
- let f=document.getElementById('feed');f.innerHTML='';
- [...all].reverse().forEach(d=>{f.innerHTML+=`<div class="item"><b>#${d.tag}</b> <span style="float:right;font-size:11px;color:#aaa">${d.time}</span><div style="font-size:12px;color:#777">Untuk: ${d.to}</div><div style="margin-top:6px">${d.t}</div></div>`});
+function pick(el){
+ document.querySelectorAll('.bet').forEach(x=>x.classList.remove('on'));el.classList.add('on');picked=el.dataset.bet;
 }
-async function kirim(){
- let t=document.getElementById('txt').value.trim();let to=document.getElementById('to').value.trim()||'Semua';
- if(t.length<4)return alert('Tulis dulu!');
- document.getElementById('st').innerText='Mengirim...';
- try{
-  let r=await fetch(API);let j=await r.json();let arr=j.confess||[];
-  arr.push({t:t,tag:cur,to:to,time:'baru saja'});
-  await fetch(API,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({confess:arr})});
-  document.getElementById('txt').value=''; load();
- }catch(e){alert('Gagal: '+e)}
+function chip(v){
+ bet=Math.max(10,Math.min(coins,bet+v));document.getElementById('betAmount').innerText=bet;
 }
-let saved=localStorage.getItem('h_bin');if(saved){BIN=saved;API=`https://api.jsonstorage.net/v1/json/${BIN}`;}
-load();setInterval(load,3000);
+function renderHist(){
+ let h=document.getElementById('hist');h.innerHTML='';
+ hist.slice(-12).reverse().forEach(c=>{
+  h.innerHTML+=`<div class="h" style="background:${colors[c]}">${c==='red'?'R':c==='black'?'B':c==='green'?'G':'$'}</div>`;
+ });
+}
+function spin(){
+ if(spinning)return;if(bet>coins)return alert('Koin gak cukup Beben!');
+ spinning=true;document.getElementById('spinBtn').disabled=true;document.getElementById('status').innerText='Muter...';
+ let winIdx=Math.floor(Math.random()*segments.length);
+ let extra=360*5 + (360 - winIdx*(360/segments.length) - (360/segments.length)/2);
+ deg+=extra;
+ document.getElementById('wheel').style.transform=`rotate(${deg}deg)`;
+ setTimeout(()=>{
+  let win=segments[winIdx];
+  let res=document.getElementById('result');res.innerText=win.c[0].toUpperCase();res.style.background=colors[win.c];res.style.color=win.c==='black'?'#fff':'#111';
+  hist.push(win.c);if(hist.length>20)hist.shift();
+  localStorage.setItem('h_hist',JSON.stringify(hist));
+  let winAmt=0;
+  if(win.c===picked){
+   if(win.c==='green')winAmt=bet*14;else if(win.c==='gold')winAmt=bet*7;else winAmt=bet*2;
+   coins+=winAmt; document.getElementById('status').innerText=`🎉 MENANG ${winAmt}! ${win.l}`;
+  }else{
+   coins-=bet; document.getElementById('status').innerText=`😭 Kalah - ${win.l} keluar`;
+  }
+  localStorage.setItem('h_coins',coins);document.getElementById('coins').innerText=coins;renderHist();
+  spinning=false;document.getElementById('spinBtn').disabled=false;
+  if(coins<=0){coins=200;localStorage.setItem('h_coins',coins);alert('Bangkrut! Ita kasih 200 koin gratis 😘')}
+ },4100);
+}
+build();
 </script>
 </body>
 </html>
