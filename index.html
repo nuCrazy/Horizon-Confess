@@ -2,88 +2,70 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon Confess - Realtime</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<title>Horizon Confess</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Plus Jakarta Sans',sans-serif;background:#fcf9ff;padding-bottom:80px}
-.top{position:sticky;top:0;background:#fcf9ffe6;backdrop-filter:blur(12px);border-bottom:1px solid #eee;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:99}
-.logo{width:40px;height:40px;border-radius:50%;background:linear-gradient(#ff8fa3,#b06cff);display:grid;place-items:center;color:#fff;font-weight:800}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:sans-serif;background:#fcf9ff}
+.top{position:sticky;top:0;background:#fff;padding:12px 16px;display:flex;justify-content:space-between;border-bottom:1px solid #eee}
 .wrap{max-width:600px;margin:0 auto;padding:14px}
-.hero{text-align:center;padding:18px 10px}.hero h1{font-size:28px;line-height:1.1}.hero h1 span{background:linear-gradient(90deg,#ff5a8a,#8a5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.card{background:#fff;border:1px solid #f0e6ff;border-radius:20px;padding:16px;margin-top:12px}
-textarea{width:100%;border:2px solid #efe6ff;background:#fbf7ff;border-radius:14px;padding:12px;min-height:100px;outline:none;font-family:inherit}
-.tag{display:inline-block;padding:8px 14px;border-radius:99px;background:#f3e8ff;margin:4px;font-size:13px;font-weight:700;cursor:pointer}.tag.on{background:#111;color:#fff}
-.inp{width:100%;margin-top:10px;border:2px solid #efe6ff;background:#fbf7ff;border-radius:10px;padding:10px 12px}
-.btn{width:100%;margin-top:12px;padding:14px;background:#111;color:#fff;border:none;border-radius:12px;font-weight:800;cursor:pointer}
-.item{background:#fff;border:1px solid #f0e8ff;border-radius:18px;padding:14px;margin-bottom:10px}
-.chip{font-size:11px;font-weight:800;padding:5px 10px;border-radius:99px}.chip.crush{background:#f2efff;color:#7a5cff}.chip.galau{background:#fff0f3;color:#ff3b6a}.chip.bucin{background:#fff0f7;color:#ff5aa8}.chip.roasting{background:#fff7e6;color:#ff9f1a}.chip.random{background:#e8fbff;color:#00aacc}
+.card{background:#fff;border-radius:20px;padding:16px;border:1px solid #eee;margin-top:12px}
+textarea{width:100%;border:2px solid #eee;background:#fbf7ff;border-radius:12px;padding:12px;min-height:90px}
+.tag{display:inline-block;padding:7px 12px;border-radius:99px;background:#f3e8ff;margin:3px;font-size:13px;cursor:pointer}.tag.on{background:#111;color:#fff}
+.btn{width:100%;padding:14px;background:#111;color:#fff;border:none;border-radius:12px;font-weight:800;margin-top:10px}
+.item{background:#fff;border:1px solid #eee;border-radius:16px;padding:12px;margin-bottom:8px}
 </style>
 </head>
 <body>
-<div class="top"><div style="display:flex;gap:8px;align-items:center"><div class="logo">H</div><b>HORIZON CONFESS</b></div><div style="background:#111;color:#fff;padding:6px 10px;border-radius:99px;font-size:11px" id="live">0 LIVE</div></div>
+<div class="top"><b>HORIZON CONFESS</b><span id="cnt" style="background:#111;color:#fff;padding:5px 10px;border-radius:99px;font-size:11px">0 LIVE</span></div>
 <div class="wrap">
-<div class="hero"><h1>Curhat Anonim<br><span>Realtime Sekampus</span></h1><p style="color:#888;font-size:13px;margin-top:6px" id="status">🔄 Menghubungkan...</p></div>
 <div class="card">
 <textarea id="txt" placeholder="Tulis curhatan lu..."></textarea>
-<div style="margin-top:10px"><div class="tag on" data-t="crush">👀 Crush</div><div class="tag" data-t="galau">💔 Galau</div><div class="tag" data-t="bucin">😍 Bucin</div><div class="tag" data-t="roasting">🔥 Roasting</div><div class="tag" data-t="random">🤣 Random</div></div>
-<input id="to" class="inp" placeholder="Untuk siapa?">
-<button class="btn" id="btn" onclick="kirim()">🚀 KIRIM KE SEMUA HP</button>
+<div style="margin-top:8px"><div class="tag on" data-t="crush">👀 Crush</div><div class="tag" data-t="galau">💔 Galau</div><div class="tag" data-t="bucin">😍 Bucin</div><div class="tag" data-t="roasting">🔥 Roasting</div><div class="tag" data-t="random">🤣 Random</div></div>
+<input id="to" style="width:100%;margin-top:8px;padding:10px;border:2px solid #eee;border-radius:10px" placeholder="Untuk siapa?">
+<button class="btn" onclick="kirim()">🚀 KIRIM - MUNCUL DI SEMUA HP</button>
+<p id="st" style="text-align:center;font-size:11px;color:#888;margin-top:8px">Menghubungkan...</p>
 </div>
-<div id="feed" style="margin-top:14px"></div>
+<div id="feed" style="margin-top:12px"></div>
 </div>
 <script>
-let curTag='crush';
-let data=[];
-const PANTRY_ID="f1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d";
-const BASKET="horizon_confess_v3";
-const API=`https://getpantry.cloud/apiv1/pantry/${PANTRY_ID}/basket/${BASKET}`;
-
-document.querySelectorAll('.tag').forEach(el=>{
- el.onclick=()=>{document.querySelectorAll('.tag').forEach(x=>x.classList.remove('on'));el.classList.add('on');curTag=el.dataset.t;}
-});
+let cur='crush';let all=[];
+let BIN="b1a2c3d4-e5f6-7890-abcd-ef1234567890"; // GANTI ID LU DISINI KALO PUNYA
+let API=`https://api.jsonstorage.net/v1/json/${BIN}`;
+document.querySelectorAll('.tag').forEach(e=>e.onclick=()=>{document.querySelectorAll('.tag').forEach(x=>x.classList.remove('on'));e.classList.add('on');cur=e.dataset.t;});
 
 async function load(){
  try{
   let r=await fetch(API);
-  if(r.status===404){
-   // bikin baru pertama kali
-   let awal=[{t:'Buat cewe hoodie item di kantin teknik, lu cantik bgt 😭',tag:'crush',to:'Kantin Teknik',time:'2 jam lalu'},{t:'Kapan tugas algoritma dikumpul btw?',tag:'random',to:'Anak TI',time:'5 jam lalu'}];
-   await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({confess:awal})});
-   data=awal;
-  } else {
-   let j=await r.json();data=j.confess||[];
-  }
-  document.getElementById('status').innerText='🟢 Realtime aktif • '+data.length+' confess • muncul 3 detik di semua HP';
-  document.getElementById('live').innerText=data.length+' LIVE';
+  if(!r.ok) throw '404';
+  let j=await r.json(); all=j.confess||[];
+  document.getElementById('cnt').innerText=all.length+' LIVE';
+  document.getElementById('st').innerText='🟢 LIVE - temen kirim, 3 detik muncul di HP lu!';
   render();
  }catch(e){
-  document.getElementById('status').innerText='⚠️ Server lagi tidur, coba refresh';
+  // kalo bin belum ada, bikin otomatis
+  try{
+   let r=await fetch('https://api.jsonstorage.net/v1/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({confess:[{t:'Halo Horizon! Ini confess pertama realtime!',tag:'random',to:'Semua',time:'baru saja'}]})});
+   let j=await r.json(); BIN=j.id||j.uri?.split('/').pop(); API=`https://api.jsonstorage.net/v1/json/${BIN}`;
+   localStorage.setItem('h_bin',BIN); load();
+  }catch(err){document.getElementById('st').innerText='Gagal konek: '+err}
  }
 }
-
 function render(){
  let f=document.getElementById('feed');f.innerHTML='';
- [...data].reverse().forEach(d=>{
-  f.innerHTML+=`<div class="item"><div style="display:flex;justify-content:space-between"><span class="chip ${d.tag}">#${d.tag}</span><span style="font-size:11px;color:#aaa">${d.time}</span></div><div style="font-size:12px;color:#777;margin-top:6px">Untuk: <b>${d.to}</b></div><div style="margin-top:8px;font-size:15px;white-space:pre-wrap">${d.t}</div></div>`;
- });
+ [...all].reverse().forEach(d=>{f.innerHTML+=`<div class="item"><b>#${d.tag}</b> <span style="float:right;font-size:11px;color:#aaa">${d.time}</span><div style="font-size:12px;color:#777">Untuk: ${d.to}</div><div style="margin-top:6px">${d.t}</div></div>`});
 }
-
 async function kirim(){
- let t=document.getElementById('txt').value.trim();let to=document.getElementById('to').value.trim()||'Semua Orang';
- if(t.length<5)return alert('Tulis dulu!');
- document.getElementById('btn').innerText='MENGIRIM...';document.getElementById('btn').disabled=true;
+ let t=document.getElementById('txt').value.trim();let to=document.getElementById('to').value.trim()||'Semua';
+ if(t.length<4)return alert('Tulis dulu!');
+ document.getElementById('st').innerText='Mengirim...';
  try{
   let r=await fetch(API);let j=await r.json();let arr=j.confess||[];
-  arr.push({t:t,tag:curTag,to:to,time:'baru saja'});
-  await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({confess:arr})});
-  document.getElementById('txt').value='';document.getElementById('to').value='';
-  data=arr;render();document.getElementById('live').innerText=data.length+' LIVE';
- }catch(e){alert('Gagal kirim, coba lagi! Error: '+e)}
- document.getElementById('btn').innerText='🚀 KIRIM KE SEMUA HP';document.getElementById('btn').disabled=false;
+  arr.push({t:t,tag:cur,to:to,time:'baru saja'});
+  await fetch(API,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({confess:arr})});
+  document.getElementById('txt').value=''; load();
+ }catch(e){alert('Gagal: '+e)}
 }
-
-load();
-setInterval(load,3000);
+let saved=localStorage.getItem('h_bin');if(saved){BIN=saved;API=`https://api.jsonstorage.net/v1/json/${BIN}`;}
+load();setInterval(load,3000);
 </script>
 </body>
 </html>
