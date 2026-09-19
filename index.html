@@ -2,139 +2,93 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HORIZON SLOT - FULL</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=Noto+Serif:wght@800;900&display=swap" rel="stylesheet">
+<title>BEBEN77 - SLOT SADAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:radial-gradient(600px at 50% -20%,#8B1A2B33,#0f0f12 60%);color:#fff;min-height:100vh;display:grid;place-items:center;padding:14px}
-.box{width:100%;max-width:410px;background:linear-gradient(180deg,#1f1f27,#15151b);border:1.5px solid #ffffff18;border-radius:20px;padding:14px;box-shadow:0 24px 70px #000000aa, inset 0 1px 0 #ffffff12}
+body{font-family:'Inter',sans-serif;background:#0f0f12;color:#fff;min-height:100vh;display:grid;place-items:center;padding:14px}
+.box{width:100%;max-width:420px;background:linear-gradient(180deg,#1f1f27,#15151b);border:1.5px solid #ffffff18;border-radius:20px;padding:16px;box-shadow:0 24px 70px #000}
 .top{display:flex;justify-content:space-between;align-items:center}
-.brand b{font-size:14px;letter-spacing:-.4px}.brand b span{background:linear-gradient(90deg,#ffcc00,#ff8a00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.stats{display:flex;gap:8px}
+.brand b{font-size:15px}.brand b span{color:#ff4d4d}
 .pill{background:#ffffff0e;border:1px solid #ffffff14;padding:6px 10px;border-radius:99px;font-size:11px;font-weight:800}
-.pill.gold{color:#ffcc00;border-color:#ffcc0033;background:#ffcc0012}
-.reels{margin-top:12px;background:#0a0a0f;border:1.5px solid #ffffff14;border-radius:16px;padding:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;position:relative;overflow:hidden}
-.reel{aspect-ratio:.95;background:linear-gradient(180deg,#ffffff10,#ffffff04);border:1px solid #ffffff12;border-radius:12px;display:grid;place-items:center;position:relative;transition:transform.2s}
-.reel.spinning{animation:shake.07s linear infinite;filter:blur(0.6px)}
-@keyframes shake{0%{transform:translateY(-3px)}100%{transform:translateY(3px)}}
-.sym{font-size:26px;font-family:'Noto Serif',serif;font-weight:900;line-height:1;transition:.2s}
-.sym.red{color:#ff5a7a}.sym.black{color:#fff}.sym.gold{color:#ffcc00;text-shadow:0 0 14px #ffcc00aa}.sym.wild{color:#00ffaa;text-shadow:0 0 14px #00ffaaaa;font-size:28px}.sym.scatter{color:#8a5cff;text-shadow:0 0 14px #8a5cffaa;font-size:22px}
-.reel.win{border-color:#ffcc00;background:radial-gradient(circle at center,#ffcc0026,#ffcc0008);box-shadow:0 0 20px #ffcc0066, inset 0 0 12px #ffcc0033;transform:scale(1.08);z-index:2}
-.reel.win.sym{transform:scale(1.2)}
-.paybox{margin-top:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.pay{height:4px;background:#ffffff10;border-radius:99px}.pay.active{background:linear-gradient(90deg,#ffcc00,#ff8a00);box-shadow:0 0 8px #ffcc0088}
-.btn{width:100%;margin-top:12px;padding:15px;border:none;border-radius:14px;background:linear-gradient(100deg,#ffcc00,#ff9a00);color:#111;font-weight:900;font-size:15px;letter-spacing:-.2px;cursor:pointer;box-shadow:0 10px 24px #ffcc0033, inset 0 1px 0 #ffffff66}
-.btn:active{transform:scale(.98)}
-.btn:disabled{opacity:.6}
-.big{position:fixed;inset:0;z-index:50;background:#000000d8;backdrop-filter:blur(16px);display:none;place-items:center;padding:20px}
-.big.on{display:grid}
-.bigCard{background:linear-gradient(180deg,#22222c,#15151b);border:1.5px solid #ffffff18;border-radius:20px;padding:22px;text-align:center;box-shadow:0 30px 80px #000000aa;animation:pop.45s cubic-bezier(.34,1.56,.64,1)}
-@keyframes pop{0%{transform:scale(.6) rotate(-2deg)}100%{transform:scale(1)}}
-.bigCard h1{font-size:42px;letter-spacing:-1px;line-height:.9}
-.bigCard h1.gold{color:#ffcc00;text-shadow:0 0 20px #ffcc0088}
-.bigCard p{margin-top:8px;color:#ffffff99;font-weight:600;font-size:13px}
-.info{margin-top:8px;text-align:center;font-size:10px;color:#ffffff33;line-height:1.4}
+.reels{margin-top:14px;background:#0a0a0f;border:1.5px solid #ffffff14;border-radius:16px;padding:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.reel{aspect-ratio:1;background:#ffffff0e;border:1px solid #ffffff12;border-radius:12px;display:grid;place-items:center;font-size:22px;font-weight:900}
+.reel.win{border-color:#ff4d4d;background:#ff4d4d1a;transform:scale(1.06)}
+.msg{margin-top:12px;background:#ff4d4d12;border:1px solid #ff4d4d33;border-radius:12px;padding:12px;text-align:center}
+.msg h3{font-size:16px;color:#ff8a8a}.msg p{font-size:12px;color:#ffffff88;margin-top:4px;line-height:1.4}
+.btn{width:100%;margin-top:12px;padding:14px;border:none;border-radius:14px;background:linear-gradient(100deg,#ff4d4d,#ff8a00);color:#fff;font-weight:900;font-size:14px;cursor:pointer}
+.btn.sec{background:#ffffff10;color:#ffffff88}
+.stats{margin-top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.stat{background:#ffffff06;border:1px solid #ffffff0e;border-radius:10px;padding:8px;text-align:center}
+.stat b{display:block;font-size:14px;color:#ffcc00}.stat span{font-size:9px;color:#ffffff55}
 </style>
 </head>
 <body>
-<div class="big" id="bigOverlay"><div class="bigCard"><h1 id="bigTitle" class="gold">BIG WIN!</h1><p id="bigSub">+0 COINS</p><button class="btn" style="margin-top:14px" onclick="document.getElementById('bigOverlay').classList.remove('on')">LANJUTKAN →</button></div></div>
-
 <div class="box">
-<div class="top"><div class="brand"><b>HORIZON <span>SLOT</span></b></div><div class="stats"><div class="pill gold">💰 <span id="coin">2000</span></div><div class="pill">FS <span id="fs">0</span></div><div class="pill">x<span id="mult">1</span></div></div></div>
+<div class="top"><div class="brand"><b>BEBEN<span>77</span> - SLOT SADAR</b></div><div class="pill">💸 UDAH RUGI: <span id="rugi">0</span></div></div>
 
 <div class="reels" id="reels"></div>
-<div class="paybox" id="paybox"></div>
 
-<button class="btn" id="spinBtn" onclick="spin()">SPIN - 40 COIN 🎰</button>
-<div class="info">FUN ONLY • RTP 80% VIRTUAL • WILD 🃏 = ganti semua • ⭐ 3x = 10 FREE SPIN x2<br>Bukan judi uang asli - cuma buat seru-seruan</div>
+<div class="msg" id="msg"><h3 id="msgTitle">TAP SPIN BUAT DISINDIR</h3><p id="msgSub">Lihat kalo ini uang beneran, lu udah rugi berapa</p></div>
+
+<div class="stats">
+<div class="stat"><b id="sSpin">0</b><span>SPIN</span></div>
+<div class="stat"><b id="sJam">0 jam</b><span>WAKTU HILANG</span></div>
+<div class="stat"><b id="sUtang">0</b><span>FAKTA JUDOL</span></div>
+</div>
+
+<button class="btn" id="btn" onclick="spin()">SPIN - KENA ROAST 🔥</button>
+<button class="btn sec" onclick="share()">SHARE KE TEMEN YANG KECANDUAN</button>
+<p style="text-align:center;margin-top:10px;font-size:9px;color:#ffffff33">Ini parodi edukasi. Bukan judi. Dibikin biar kapok, bukan ketagihan.<br>Butuh bantuan? Hub 119 ext 8</p>
 </div>
 
 <script>
-let audioCtx; function aCtx(){ if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
-function beep(f,d,v=0.18,t='sine'){ let ac=aCtx(); let o=ac.createOscillator(), g=ac.createGain(); o.frequency.value=f; o.type=t; g.gain.value=v; o.connect(g); g.connect(ac.destination); o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime+d); o.stop(ac.currentTime+d); }
-function sTick(){ beep(700+Math.random()*600,0.07,0.12,'square'); }
-function sStop(i){ beep(250+i*60,0.22,0.22,'sine'); }
-function sWin(amt){ let base=amt>200? [400,500,600,800,1000] : [523,659,783,1046]; base.forEach((f,i)=>setTimeout(()=>beep(f,0.35,0.22,'sine'), i*110)); }
-function sScatter(){ [600,800,1000,1200].forEach((f,i)=>setTimeout(()=>beep(f,0.3,0.2,'triangle'), i*90)); }
-
-const SYMS=[
- {t:'A',c:'gold',v:20},{t:'K',c:'gold',v:16},{t:'Q',c:'red',v:12},{t:'J',c:'black',v:10},
- {t:'10',c:'black',v:8},{t:'♠',c:'black',v:6},{t:'♥',c:'red',v:6},{t:'♦',c:'red',v:5},{t:'♣',c:'black',v:5},
- {t:'🃏',c:'wild',v:0,wild:true},{t:'⭐',c:'scatter',v:0,scatter:true}
+const ROASTS=[
+ {t:"🃏 Scatter PHP", s:"3 scatter = harapan palsu. Kayak dijanjiin jackpot tapi yang dateng debt collector", rugi: 500000},
+ {t:"💸 Auto Spin 50x", s:"Lu baru buang 1 jam nungguin animasi muter. Padahal bisa buat skripsi / tidur", rugi: 1000000},
+ {t:"🤡 BIG WIN 10k", s:"Menang 10k setelah kalah 2 juta itu bukan menang, itu diskon rugi 99.5%", rugi: 2000000},
+ {t:"🏦 Bonus Pinjol", s:"Selamat! Bonus free spin = bonus ditawarin pinjol bunga 30%", rugi: 1500000},
+ {t:"📱 Getar HP", s:"HP lu getar bukan karena jackpot, tapi notif WA nagih utang", rugi: 800000},
+ {t:"😵‍💫 Mahjong Way", s:"Way of... way to miskin. Mahjong asli buat fun, yang ini buat nguras tabungan", rugi: 2500000},
+ {t:"🎰 Pragmatic Play?", s:"Pragmatic = penyedia game. Lu yang gak pragmatic kalo jual motor buat spin", rugi: 3000000},
 ];
-let coins=2000, freeSpins=0, mult=1;
-let grid=[[],[],[]];
-function randSym(){
- // RTP 80% logic: wild jarang, scatter 7%, sisanya random tapi weight simbol kecil lebih sering
- let r=Math.random();
- if(r<0.04) return SYMS.find(s=>s.wild);
- if(r<0.11) return SYMS.find(s=>s.scatter);
- // weight rendah biar sering kalah kecil
- let pool=[5,5,5,5,6,6,6,7,7,7,7,8,8,0,1]; // lebih banyak simbol kecil
- return SYMS[pool[Math.floor(Math.random()*pool.length)]];
-}
-function render(high=[], spinning=[]){
- let h=''; for(let r=0;r<3;r++) for(let c=0;c<5;c++){ let s=grid[r][c]; let win=high.some(o=>o.r===r&&o.c===c); let sp=spinning.includes(c); h+=`<div class="reel ${win?'win':''} ${sp?'spinning':''}"><div class="sym ${s.c}">${s.t}</div></div>`; }
+let totalRugi=0, spins=0;
+const EMOJIS=["💸","🤡","📉","🏦","😭","🕳️","💳"];
+
+function render(){
+ let h=''; for(let i=0;i<15;i++) h+=`<div class="reel" id="r${i}">${EMOJIS[Math.floor(Math.random()*EMOJIS.length)]}</div>`;
  document.getElementById('reels').innerHTML=h;
- let pb=''; for(let i=0;i<5;i++) pb+=`<div class="pay" id="pay${i}"></div>`; document.getElementById('paybox').innerHTML=pb;
 }
-function init(){ for(let r=0;r<3;r++) for(let c=0;c<5;c++) grid[r][c]=randSym(); render(); } init();
+render();
 
-const LINES=[[[1,0],[1,1],[1,2],[1,3],[1,4]],[[0,0],[0,1],[0,2],[0,3],[0,4]],[[2,0],[2,1],[2,2],[2,3],[2,4]],[[0,0],[1,1],[2,2],[1,3],[0,4]],[[2,0],[1,1],[0,2],[1,3],[2,4]]];
+function spin(){
+ spins++; totalRugi+= Math.floor(Math.random()*500000)+200000;
+ let pick = ROASTS[Math.floor(Math.random()*ROASTS.length)];
+ document.getElementById('rugi').innerText = (totalRugi/1000000).toFixed(1)+'jt';
+ document.getElementById('sSpin').innerText=spins;
+ document.getElementById('sJam').innerText=(spins*1.2).toFixed(1)+' jam';
+ document.getElementById('sUtang').innerText=spins+' fakta';
+ 
+ // animasi
+ let reels=document.querySelectorAll('.reel');
+ reels.forEach((r,i)=>{ setTimeout(()=>{ r.innerText=EMOJIS[Math.floor(Math.random()*EMOJIS.length)]; r.classList.add('win'); setTimeout(()=>r.classList.remove('win'),400); }, i*60); });
+ 
+ // suara roast
+ try{ let ac=new (window.AudioContext||window.webkitAudioContext)(); let o=ac.createOscillator(), g=ac.createGain(); o.frequency.value=200; o.type='sawtooth'; g.gain.value=0.15; o.connect(g); g.connect(ac.destination); o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime+0.5); o.stop(ac.currentTime+0.5);}catch(e){}
+ if(navigator.vibrate) navigator.vibrate([40,20,40]);
 
-function check(){
- let wins=[], scatters=[];
- for(let r=0;r<3;r++) for(let c=0;c<5;c++) if(grid[r][c].scatter) scatters.push({r,c});
- LINES.forEach((line,idx)=>{
-  let first=null; for(let p of line){ let s=grid[p[0]][p[1]]; if(!s.scatter){ first=s; break; } }
-  if(!first) return;
-  let cnt=0, coords=[];
-  for(let p of line){ let s=grid[p[0]][p[1]]; if(s.t===first.t || s.wild || first.wild) {cnt++; coords.push({r:p[0],c:p[1]});} else break; }
-  if(cnt>=3) wins.push({line:idx,cnt,coords,val:first.v,sym:first.t});
- });
- return {wins, scatters};
+ document.getElementById('msgTitle').innerText=pick.t;
+ document.getElementById('msgSub').innerText=pick.s + ` (kalo asli rugi ~Rp ${pick.rugi.toLocaleString('id-ID')})`;
+
+ if(spins>=5){
+  document.getElementById('msgTitle').innerText="UDAH 5x SPIN MASIH BELUM KAPOK?";
+  document.getElementById('msgSub').innerText=`Total kalo uang beneran: lu udah rugi Rp ${totalRugi.toLocaleString('id-ID')} dan buang ${(spins*1.2).toFixed(1)} jam. Mending traktir temen seblak.`;
+ }
 }
 
-async function spin(){
- if(coins<40 && freeSpins===0){ alert('Koin habis! Refresh aja buat main lagi'); return; }
- let isFree=freeSpins>0;
- if(!isFree) coins-=40; else { freeSpins--; mult=2; } if(!isFree) mult=1;
- document.getElementById('coin').innerText=coins; document.getElementById('fs').innerText=freeSpins; document.getElementById('mult').innerText=mult;
- let btn=document.getElementById('spinBtn'); btn.disabled=true; btn.innerText=isFree?`FREE SPIN (${freeSpins+1})...`:'SPINNING...';
-
- let spinning=[0,1,2,3,4]; render([], spinning);
- for(let col=0; col<5; col++){
-  for(let k=0;k<7;k++){ for(let r=0;r<3;r++) grid[r][col]=randSym(); render([], spinning); sTick(); await new Promise(r=>setTimeout(r,65+col*12)); }
-  spinning=spinning.filter(c=>c!==col); sStop(col); await new Promise(r=>setTimeout(r,180));
-  try{ if(navigator.vibrate) navigator.vibrate(10);}catch(e){}
- }
-
- let {wins, scatters}=check();
- let allCoords=[]; let total=0;
- wins.forEach(w=>{ total+= w.cnt * w.val * 2 * mult; allCoords.push(...w.coords); let el=document.getElementById('pay'+w.line); if(el) el.classList.add('active'); });
- render(allCoords, []);
-
- if(scatters.length>=3){
-  freeSpins+=10; sScatter();
-  document.getElementById('bigTitle').innerText='FREE SPIN!';
-  document.getElementById('bigSub').innerText=`Dapat ${scatters.length}x ⭐ = +10 Free Spin x2 Multiplier`;
-  document.getElementById('bigOverlay').classList.add('on');
-  document.getElementById('fs').innerText=freeSpins;
- }
-
- if(total>0){
-  coins+=total; sWin(total);
-  if(total>=150){
-   document.getElementById('bigTitle').innerText= total>=400? 'SUPERB!' : total>=250? 'MEGA WIN!' : 'BIG WIN!';
-   document.getElementById('bigSub').innerText=`+${total} COINS ${mult>1?'x'+mult:''}`;
-   document.getElementById('bigOverlay').classList.add('on');
-  }
-  try{ if(navigator.vibrate) navigator.vibrate(total>200?[60,30,60,30,120]:[40,20,40]); }catch(e){}
- }
-
- document.getElementById('coin').innerText=coins;
- btn.disabled=false;
- btn.innerText = freeSpins>0? `FREE SPIN x${mult} (${freeSpins}) - TAP!` : 'SPIN - 40 COIN 🎰';
+function share(){
+ let txt=`Gua main BEBEN77 SLOT SADAR - abis ${spins}x spin, kalo ini judol beneran gua udah rugi Rp ${totalRugi.toLocaleString('id-ID')} 🤡\n\nCobain biar kapok judol: ${location.href}`;
+ window.open('https://wa.me/?text='+encodeURIComponent(txt));
 }
 </script>
 </body>
