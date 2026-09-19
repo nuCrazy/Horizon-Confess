@@ -2,94 +2,63 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BEBEN77 - SLOT SADAR</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+<title>NGEKOS SIM - BEBEN</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#0f0f12;color:#fff;min-height:100vh;display:grid;place-items:center;padding:14px}
-.box{width:100%;max-width:420px;background:linear-gradient(180deg,#1f1f27,#15151b);border:1.5px solid #ffffff18;border-radius:20px;padding:16px;box-shadow:0 24px 70px #000}
-.top{display:flex;justify-content:space-between;align-items:center}
-.brand b{font-size:15px}.brand b span{color:#ff4d4d}
-.pill{background:#ffffff0e;border:1px solid #ffffff14;padding:6px 10px;border-radius:99px;font-size:11px;font-weight:800}
-.reels{margin-top:14px;background:#0a0a0f;border:1.5px solid #ffffff14;border-radius:16px;padding:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.reel{aspect-ratio:1;background:#ffffff0e;border:1px solid #ffffff12;border-radius:12px;display:grid;place-items:center;font-size:22px;font-weight:900}
-.reel.win{border-color:#ff4d4d;background:#ff4d4d1a;transform:scale(1.06)}
-.msg{margin-top:12px;background:#ff4d4d12;border:1px solid #ff4d4d33;border-radius:12px;padding:12px;text-align:center}
-.msg h3{font-size:16px;color:#ff8a8a}.msg p{font-size:12px;color:#ffffff88;margin-top:4px;line-height:1.4}
-.btn{width:100%;margin-top:12px;padding:14px;border:none;border-radius:14px;background:linear-gradient(100deg,#ff4d4d,#ff8a00);color:#fff;font-weight:900;font-size:14px;cursor:pointer}
-.btn.sec{background:#ffffff10;color:#ffffff88}
-.stats{margin-top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.stat{background:#ffffff06;border:1px solid #ffffff0e;border-radius:10px;padding:8px;text-align:center}
-.stat b{display:block;font-size:14px;color:#ffcc00}.stat span{font-size:9px;color:#ffffff55}
+body{font-family:'Inter',sans-serif;background:#0f0f12;color:#fff;min-height:100vh;display:grid;place-items:center;padding:10px}
+.box{width:100%;max-width:440px;background:#15151d;border:1px solid #ffffff14;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px #000}
+.top{padding:10px 12px;display:flex;justify-content:space-between;align-items:center;background:#1a1a27;border-bottom:1px solid #ffffff0e}
+.top b{font-size:12px;line-height:1.1}.top b span{color:#ffcc00;font-size:10px;display:block;font-weight:600;color:#ffffff55}
+.right{text-align:right}.right b{font-size:14px;color:#ffcc00}.right span{font-size:9px;color:#ffffff55;display:block}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:10px;background:#0a0a0f;border-bottom:1px solid #ffffff0e}
+.bar span{font-size:7px;color:#ffffff55;font-weight:800;letter-spacing:.5px}
+.bar i{display:block;height:6px;background:#ffffff10;border-radius:99px;margin-top:3px;overflow:hidden}
+.bar i b{display:block;height:100%;transition:.4s}
+.scene{padding:12px;min-height:110px}
+.scene h3{font-size:13px} .scene p{font-size:11px;color:#ffffff77;margin-top:4px;line-height:1.5}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+.btn{padding:10px;border:1px solid #ffffff14;background:#ffffff08;border-radius:10px;color:#fff;font-size:10px;font-weight:700;cursor:pointer;text-align:left;line-height:1.2}
+.btn b{display:block;font-size:12px;margin-bottom:1px}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.35;pointer-events:none}
+.btn.gold{background:linear-gradient(100deg,#ffcc00,#ff8a00);color:#111;border-color:#ffcc00}
+.btn.green{background:linear-gradient(100deg,#00ffaa,#00c3ff);color:#111;border-color:#00ffaa}
+.btn.full{grid-column:span 2}
+.stats{display:flex;gap:6px;padding:8px 10px;background:#08080c;border-top:1px solid #ffffff0e;flex-wrap:wrap}
+.chip{background:#ffffff0e;border:1px solid #ffffff12;padding:3px 8px;border-radius:99px;font-size:9px}
+.log{max-height:75px;overflow:auto;padding:8px 12px;background:#08080c;border-top:1px solid #ffffff0e;font-size:9px;color:#ffffff66;line-height:1.4}
 </style>
 </head>
 <body>
 <div class="box">
-<div class="top"><div class="brand"><b>BEBEN<span>77</span> - SLOT SADAR</b></div><div class="pill">💸 UDAH RUGI: <span id="rugi">0</span></div></div>
+<div class="top"><div><b>HORIZON NGEKOS SIM<br><span>Day <span id="day">1</span>/30 - Bekasi</span></b></div>
+<div class="right"><b id="money">Rp 1.500.000</b><span id="status">Anak Kos Sehat</span></div></div>
 
-<div class="reels" id="reels"></div>
-
-<div class="msg" id="msg"><h3 id="msgTitle">TAP SPIN BUAT DISINDIR</h3><p id="msgSub">Lihat kalo ini uang beneran, lu udah rugi berapa</p></div>
-
-<div class="stats">
-<div class="stat"><b id="sSpin">0</b><span>SPIN</span></div>
-<div class="stat"><b id="sJam">0 jam</b><span>WAKTU HILANG</span></div>
-<div class="stat"><b id="sUtang">0</b><span>FAKTA JUDOL</span></div>
+<div class="bars">
+<div class="bar"><span>KENYANG</span><i><b id="bK" style="width:80%;background:linear-gradient(90deg,#ff8a00,#ffcc00)"></b></i></div>
+<div class="bar"><span>WARAS</span><i><b id="bW" style="width:80%;background:linear-gradient(90deg,#8a5cff,#ff5a8a)"></b></i></div>
+<div class="bar"><span>TUGAS</span><i><b id="bT" style="width:10%;background:linear-gradient(90deg,#00ffaa,#00c3ff)"></b></i></div>
+<div class="bar"><span>BERSIH</span><i><b id="bB" style="width:70%;background:linear-gradient(90deg,#00c3ff,#8a5cff)"></b></i></div>
 </div>
 
-<button class="btn" id="btn" onclick="spin()">SPIN - KENA ROAST 🔥</button>
-<button class="btn sec" onclick="share()">SHARE KE TEMEN YANG KECANDUAN</button>
-<p style="text-align:center;margin-top:10px;font-size:9px;color:#ffffff33">Ini parodi edukasi. Bukan judi. Dibikin biar kapok, bukan ketagihan.<br>Butuh bantuan? Hub 119 ext 8</p>
+<div class="scene">
+<h3 id="sTitle">Kos Pagi - Jam 7:00</h3>
+<p id="sDesc">Bangun. Kipas angin masih muter. Di luar ada ibu kos nyapu.</p>
+<div class="actions" id="acts"></div>
+</div>
+
+<div class="stats" id="inv"></div>
+<div class="log" id="log">> Hari 1: Lu baru gajian ortu 1,5jt. Bertahan 30 hari ya Beben!<br>> Tips: Jangan lupa makan & kuliah. Kerja sampingan dapet duit tapi waras turun.<br></div>
 </div>
 
 <script>
-const ROASTS=[
- {t:"🃏 Scatter PHP", s:"3 scatter = harapan palsu. Kayak dijanjiin jackpot tapi yang dateng debt collector", rugi: 500000},
- {t:"💸 Auto Spin 50x", s:"Lu baru buang 1 jam nungguin animasi muter. Padahal bisa buat skripsi / tidur", rugi: 1000000},
- {t:"🤡 BIG WIN 10k", s:"Menang 10k setelah kalah 2 juta itu bukan menang, itu diskon rugi 99.5%", rugi: 2000000},
- {t:"🏦 Bonus Pinjol", s:"Selamat! Bonus free spin = bonus ditawarin pinjol bunga 30%", rugi: 1500000},
- {t:"📱 Getar HP", s:"HP lu getar bukan karena jackpot, tapi notif WA nagih utang", rugi: 800000},
- {t:"😵‍💫 Mahjong Way", s:"Way of... way to miskin. Mahjong asli buat fun, yang ini buat nguras tabungan", rugi: 2500000},
- {t:"🎰 Pragmatic Play?", s:"Pragmatic = penyedia game. Lu yang gak pragmatic kalo jual motor buat spin", rugi: 3000000},
-];
-let totalRugi=0, spins=0;
-const EMOJIS=["💸","🤡","📉","🏦","😭","🕳️","💳"];
+let day=1, money=1500000, kenyang=80, waras=80, tugas=10, bersih=70, kuliahDone=false;
+let inv={mie:3, kopi:2, kuota:100};
+let dailyCost=0;
 
-function render(){
- let h=''; for(let i=0;i<15;i++) h+=`<div class="reel" id="r${i}">${EMOJIS[Math.floor(Math.random()*EMOJIS.length)]}</div>`;
- document.getElementById('reels').innerHTML=h;
-}
-render();
-
-function spin(){
- spins++; totalRugi+= Math.floor(Math.random()*500000)+200000;
- let pick = ROASTS[Math.floor(Math.random()*ROASTS.length)];
- document.getElementById('rugi').innerText = (totalRugi/1000000).toFixed(1)+'jt';
- document.getElementById('sSpin').innerText=spins;
- document.getElementById('sJam').innerText=(spins*1.2).toFixed(1)+' jam';
- document.getElementById('sUtang').innerText=spins+' fakta';
- 
- // animasi
- let reels=document.querySelectorAll('.reel');
- reels.forEach((r,i)=>{ setTimeout(()=>{ r.innerText=EMOJIS[Math.floor(Math.random()*EMOJIS.length)]; r.classList.add('win'); setTimeout(()=>r.classList.remove('win'),400); }, i*60); });
- 
- // suara roast
- try{ let ac=new (window.AudioContext||window.webkitAudioContext)(); let o=ac.createOscillator(), g=ac.createGain(); o.frequency.value=200; o.type='sawtooth'; g.gain.value=0.15; o.connect(g); g.connect(ac.destination); o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime+0.5); o.stop(ac.currentTime+0.5);}catch(e){}
- if(navigator.vibrate) navigator.vibrate([40,20,40]);
-
- document.getElementById('msgTitle').innerText=pick.t;
- document.getElementById('msgSub').innerText=pick.s + ` (kalo asli rugi ~Rp ${pick.rugi.toLocaleString('id-ID')})`;
-
- if(spins>=5){
-  document.getElementById('msgTitle').innerText="UDAH 5x SPIN MASIH BELUM KAPOK?";
-  document.getElementById('msgSub').innerText=`Total kalo uang beneran: lu udah rugi Rp ${totalRugi.toLocaleString('id-ID')} dan buang ${(spins*1.2).toFixed(1)} jam. Mending traktir temen seblak.`;
- }
-}
-
-function share(){
- let txt=`Gua main BEBEN77 SLOT SADAR - abis ${spins}x spin, kalo ini judol beneran gua udah rugi Rp ${totalRugi.toLocaleString('id-ID')} 🤡\n\nCobain biar kapok judol: ${location.href}`;
- window.open('https://wa.me/?text='+encodeURIComponent(txt));
-}
-</script>
-</body>
-</html>
+const events=[
+ {t:"🔧 Motor Mogok", d:"Motor lu mogok di jalan. Bengkel 120rb. Kalo gak benerin, besok gak bisa kuliah/kerja.", c:120000, waras:-10},
+ {t:"🍜 Ditraktir Temen", d:"Temen nraktir seblak! Kenyang +30 Waras +15 Gratis!", c:0, kenyang:30, waras:15},
+ {t:"📚 Tugas Dadakan", d:"Dosen WA jam 11 malem: besok kumpulin! Kalo gak, tugas -20%", c:0, tugas:-20},
+ {t:"🌧️ Kos Banjir", d:"Bekasi banjir 10cm. Kasur basah. Bersih -30 Waras -20. Butuh 50rb buat beresin.", c:50000, bersih:-
