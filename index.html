@@ -2,128 +2,152 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon Roulette</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<title>Horizon Love Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Fraunces:opsz,wght@9..144,800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:#0f0f13;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px}
-.top{width:100%;max-width:600px;display:flex;justify-content:space-between;align-items:center;padding:12px 0}
-.logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(180deg,#ff8fa3,#b06cff);display:grid;place-items:center;font-weight:800}
-.brand{font-weight:800;font-size:18px}.brand span{background:linear-gradient(90deg,#ff5a8a,#8a5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.coins{background:#1c1c22;border:1px solid #2a2a33;padding:8px 14px;border-radius:99px;font-weight:700;font-size:13px}
-.wrap{max-width:600px;width:100%;margin-top:10px}
-.roulette-wrap{position:relative;width:320px;height:320px;margin:20px auto}
-.wheel{width:100%;height:100%;border-radius:50%;border:8px solid #1c1c22;position:relative;overflow:hidden;transition:transform 4s cubic-bezier(0.17,0.67,0.12,0.99);box-shadow:0 0 0 4px #2a2a33, 0 20px 60px #00000080}
-.seg{position:absolute;width:50%;height:50%;left:50%;top:0;transform-origin:0% 100%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
-.pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:24px solid #ff5a8a;z-index:10;filter:drop-shadow(0 4px 8px #000)}
-.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;background:#111;border:4px solid #2a2a33;border-radius:50%;display:grid;place-items:center;font-weight:800;z-index:5;box-shadow:0 4px 20px #000}
-.card{background:#1c1c22;border:1px solid #2a2a33;border-radius:20px;padding:16px;margin-top:16px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.bet{padding:14px;border-radius:14px;background:#252530;border:1.5px solid #2f2f40;text-align:center;font-weight:700;cursor:pointer;transition:.15s}
-.bet.on{background:#fff;color:#111;border-color:#fff;transform:scale(1.02)}
-.bet small{display:block;font-size:11px;opacity:.7;margin-top:2px}
-.btn{width:100%;margin-top:14px;padding:16px;background:linear-gradient(90deg,#ff5a8a,#8a5cff);border:none;border-radius:14px;font-weight:800;font-size:16px;color:#fff;cursor:pointer}
-.btn:disabled{opacity:.5}
-.history{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
-.h{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff0f5;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px}
+.top{width:100%;max-width:500px;display:flex;justify-content:space-between;align-items:center;padding:12px 0}
+.logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(180deg,#ff8fa3,#b06cff);display:grid;place-items:center;color:#fff;font-weight:800}
+.brand{font-weight:800}.brand span{background:linear-gradient(90deg,#ff5a8a,#8a5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.wrap{max-width:500px;width:100%}
+.hero{text-align:center;padding:18px 10px}
+.hero h1{font-family:'Fraunces',serif;font-size:36px;line-height:.9;letter-spacing:-1px}.hero h1 span{background:linear-gradient(90deg,#ff5a8a,#8a5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.card{background:#fff;border:2px solid #111;border-radius:24px;padding:20px;margin-top:14px;box-shadow:8px 8px 0 #111}
+label{font-weight:800;font-size:13px;display:block;margin-top:14px;margin-bottom:6px}
+.inp{width:100%;padding:14px 16px;border:2px solid #111;border-radius:14px;font-size:15px;font-weight:600;outline:none;background:#fff}
+.inp:focus{border-color:#b06cff;box-shadow:0 0 0 3px #b06cff30}
+.select{width:100%;padding:14px 16px;border:2px solid #111;border-radius:14px;font-size:15px;font-weight:600;background:#fff}
+.btn{width:100%;margin-top:18px;padding:16px;background:#111;color:#fff;border:none;border-radius:14px;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 6px 0 #ff8fa3;transition:.1s}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #ff8fa3}
+.result{margin-top:20px;text-align:center;display:none}
+.circle{width:180px;height:180px;border-radius:50%;border:6px solid #111;margin:0 auto;display:grid;place-items:center;background:#fff;box-shadow:8px 8px 0 #111;position:relative}
+.pct{font-family:'Fraunces',serif;font-size:56px;font-weight:800;line-height:1}
+.bar{width:100%;height:14px;background:#f0f0f0;border:2px solid #111;border-radius:99px;overflow:hidden;margin-top:16px}
+.fill{height:100%;background:linear-gradient(90deg,#ff5a8a,#8a5cff);width:0%;transition:width 1.5s cubic-bezier(.17,.67,.12,.99)}
+.msg{margin-top:16px;padding:14px;background:#fffbe6;border:2px dashed #111;border-radius:14px;font-weight:700;font-size:14px;line-height:1.5}
+.tag{display:inline-block;padding:6px 12px;border-radius:99px;background:#111;color:#fff;font-size:11px;font-weight:700;margin-top:8px}
+.heart{font-size:24px;animation:beat 0.8s infinite}@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
 </style>
 </head>
 <body>
 <div class="top">
-<div style="display:flex;gap:10px;align-items:center"><div class="logo">H</div><div class="brand">HORIZON <span>ROULETTE</span></div></div>
-<div class="coins">💰 <span id="coins">1000</span></div>
+<div style="display:flex;gap:10px;align-items:center"><div class="logo">H</div><div class="brand">HORIZON <span>LOVE</span></div></div>
+<div style="background:#111;color:#fff;padding:6px 12px;border-radius:99px;font-size:11px;font-weight:700">💘 KALKULATOR CINTA</div>
 </div>
 
 <div class="wrap">
-<div class="roulette-wrap">
-<div class="pointer"></div>
-<div class="wheel" id="wheel"></div>
-<div class="center" id="result">H</div>
+<div class="hero">
+<h1>Cek Jodoh<br><span>Sekampus?</span></h1>
+<p style="color:#777;font-size:13px;margin-top:8px">Masukin nama + fakultas, liat kecocokan!</p>
 </div>
 
 <div class="card">
-<div style="display:flex;justify-content:space-between;align-items:center">
-<b>Pilih Taruhan</b><span style="font-size:11px;background:#2a2a33;padding:6px 10px;border-radius:99px" id="status">Pilih & Spin!</span>
+<label>💁 Nama Kamu</label>
+<input id="n1" class="inp" placeholder="Ex: Beben">
+<select id="f1" class="select">
+<option value="FTI">FTI - Teknik Informatika</option>
+<option value="FEB">FEB - Ekonomi Bisnis</option>
+<option value="FIKOM">FIKOM - Ilmu Komunikasi</option>
+<option value="FT">FT - Teknik</option>
+<option value="FH">FH - Hukum</option>
+<option value="FKIP">FKIP - Keguruan</option>
+<option value="FISIP">FISIP</option>
+<option value="FK">FK - Kedokteran</option>
+</select>
+
+<label>😍 Nama Crush / Gebetan</label>
+<input id="n2" class="inp" placeholder="Ex: Cantika">
+<select id="f2" class="select">
+<option value="FTI">FTI - Teknik Informatika</option>
+<option value="FEB">FEB - Ekonomi Bisnis</option>
+<option value="FIKOM" selected>FIKOM - Ilmu Komunikasi</option>
+<option value="FT">FT - Teknik</option>
+<option value="FH">FH - Hukum</option>
+<option value="FKIP">FKIP - Keguruan</option>
+<option value="FISIP">FISIP</option>
+<option value="FK">FK - Kedokteran</option>
+</select>
+
+<button class="btn" onclick="hitung()">💘 HITUNG KECocOKAN!</button>
+
+<div class="result" id="res">
+<div class="circle"><div><div class="pct" id="pct">0%</div><div class="heart">💖</div></div></div>
+<div class="bar"><div class="fill" id="fill"></div></div>
+<div class="msg" id="msg"></div>
+<div style="margin-top:12px">
+<button onclick="share()" style="padding:10px 16px;border-radius:99px;border:2px solid #111;background:#fff;font-weight:700;cursor:pointer">📤 Share ke WA</button>
+<button onclick="reset()" style="padding:10px 16px;border-radius:99px;border:2px solid #111;background:#ff8fa3;color:#fff;font-weight:700;cursor:pointer;margin-left:6px">🔄 Coba Lagi</button>
 </div>
-<div class="grid">
-<div class="bet on" data-bet="red" onclick="pick(this)"><span style="color:#ff4d6a">🔴 MERAH</span><small>x2</small></div>
-<div class="bet" data-bet="black" onclick="pick(this)"><span style="color:#aaa">⚫ HITAM</span><small>x2</small></div>
-<div class="bet" data-bet="green" onclick="pick(this)"><span style="color:#00e676">🟢 HIJAU</span><small>x14</small></div>
-<div class="bet" data-bet="gold" onclick="pick(this)"><span style="color:#ffd54f">🟡 GOLD</span><small>x7</small></div>
 </div>
-<div style="display:flex;gap:8px;margin-top:12px">
-<button style="flex:1;padding:12px;background:#252530;border:1px solid #2f2f40;border-radius:12px;color:#fff;font-weight:700" onclick="chip(-10)">-10</button>
-<div style="flex:2;background:#111;border:1px solid #2a2a33;border-radius:12px;display:grid;place-items:center;font-weight:800" id="betAmount">100</div>
-<button style="flex:1;padding:12px;background:#252530;border:1px solid #2f2f40;border-radius:12px;color:#fff;font-weight:700" onclick="chip(10)">+10</button>
-<button style="flex:1;padding:12px;background:#252530;border:1px solid #2f2f40;border-radius:12px;color:#fff;font-weight:700" onclick="chip(100)">+100</button>
 </div>
-<button class="btn" id="spinBtn" onclick="spin()">🎰 SPIN ROULETTE!</button>
-<div style="margin-top:12px;font-size:11px;color:#777;text-align:center">Riwayat:</div>
-<div class="history" id="hist"></div>
-</div>
+
+<p style="text-align:center;color:#aaa;font-size:11px;margin-top:16px">Made for Horizon Kuningan • 100% fun, jangan baper ya!</p>
 </div>
 
 <script>
-const colors={red:'#ff4d6a',black:'#2a2a33',green:'#00e676',gold:'#ffd54f'};
-const segments=[
- {c:'red',l:'Merah'},{c:'black',l:'Hitam'},{c:'red',l:'Merah'},{c:'black',l:'Hitam'},
- {c:'red',l:'Merah'},{c:'black',l:'Hitam'},{c:'gold',l:'GOLD'},{c:'black',l:'Hitam'},
- {c:'red',l:'Merah'},{c:'black',l:'Hitam'},{c:'red',l:'Merah'},{c:'black',l:'Hitam'},
- {c:'green',l:'HIJAU'},{c:'black',l:'Hitam'}
-];
-let coins=parseInt(localStorage.getItem('h_coins')||'1000');
-let bet=100, picked='red', spinning=false, deg=0;
-let hist=JSON.parse(localStorage.getItem('h_hist')||'[]');
+const compat={
+ 'FTI-FTI':10,'FTI-FEB':75,'FTI-FIKOM':92,'FTI-FT':80,'FTI-FH':60,'FTI-FKIP':70,'FTI-FISIP':78,'FTI-FK':65,
+ 'FEB-FEB':85,'FEB-FIKOM':88,'FEB-FT':70,'FEB-FH':82,'FEB-FKIP':75,'FEB-FISIP':80,'FEB-FK':68,
+ 'FIKOM-FIKOM':90,'FIKOM-FT':72,'FIKOM-FH':78,'FIKOM-FKIP':85,'FIKOM-FISIP':95,'FIKOM-FK':70,
+};
 
-function build(){
- let w=document.getElementById('wheel');w.innerHTML='';
- segments.forEach((s,i)=>{
-  let el=document.createElement('div');el.className='seg';
-  el.style.transform=`rotate(${i* (360/segments.length)}deg)`;
-  el.style.background=colors[s.c];
-  el.innerHTML=`<span style="transform:rotate(${90}deg) translate(30px)">${s.c==='green'?'💚':s.c==='gold'?'⭐':''}</span>`;
-  w.appendChild(el);
- });
- document.getElementById('coins').innerText=coins;
- renderHist();
+function getCompat(f1,f2){
+ let k1=f1+'-'+f2, k2=f2+'-'+f1;
+ if(compat[k1]!=null) return compat[k1];
+ if(compat[k2]!=null) return compat[k2];
+ return 70;
 }
-function pick(el){
- document.querySelectorAll('.bet').forEach(x=>x.classList.remove('on'));el.classList.add('on');picked=el.dataset.bet;
-}
-function chip(v){
- bet=Math.max(10,Math.min(coins,bet+v));document.getElementById('betAmount').innerText=bet;
-}
-function renderHist(){
- let h=document.getElementById('hist');h.innerHTML='';
- hist.slice(-12).reverse().forEach(c=>{
-  h.innerHTML+=`<div class="h" style="background:${colors[c]}">${c==='red'?'R':c==='black'?'B':c==='green'?'G':'$'}</div>`;
- });
-}
-function spin(){
- if(spinning)return;if(bet>coins)return alert('Koin gak cukup Beben!');
- spinning=true;document.getElementById('spinBtn').disabled=true;document.getElementById('status').innerText='Muter...';
- let winIdx=Math.floor(Math.random()*segments.length);
- let extra=360*5 + (360 - winIdx*(360/segments.length) - (360/segments.length)/2);
- deg+=extra;
- document.getElementById('wheel').style.transform=`rotate(${deg}deg)`;
+
+function hitung(){
+ let n1=document.getElementById('n1').value.trim();
+ let n2=document.getElementById('n2').value.trim();
+ let f1=document.getElementById('f1').value;
+ let f2=document.getElementById('f2').value;
+ if(n1.length<2||n2.length<2) return alert('Isi nama dulu Beben! Minimal 2 huruf');
+
+ // hitung love - deterministic biar kalo nama sama hasilnya sama (biar bisa share)
+ let base = (n1.toLowerCase()+n2.toLowerCase()).split('').reduce((a,c)=>a+c.charCodeAt(0),0);
+ let facultyBonus = getCompat(f1,f2);
+ let randomFactor = (base % 30) - 10; // -10 sampai +20
+ let score = Math.min(99, Math.max(12, facultyBonus + randomFactor + (base % 15)));
+
+ // easter egg
+ if(n1.toLowerCase()===n2.toLowerCase()) score=99;
+ if((n1.toLowerCase().includes('beben')||n2.toLowerCase().includes('beben'))) score=Math.min(99,score+8);
+
+ let res=document.getElementById('res');res.style.display='block';
+ let pctEl=document.getElementById('pct');let fill=document.getElementById('fill');
+ pctEl.innerText='0%';fill.style.width='0%';
+
  setTimeout(()=>{
-  let win=segments[winIdx];
-  let res=document.getElementById('result');res.innerText=win.c[0].toUpperCase();res.style.background=colors[win.c];res.style.color=win.c==='black'?'#fff':'#111';
-  hist.push(win.c);if(hist.length>20)hist.shift();
-  localStorage.setItem('h_hist',JSON.stringify(hist));
-  let winAmt=0;
-  if(win.c===picked){
-   if(win.c==='green')winAmt=bet*14;else if(win.c==='gold')winAmt=bet*7;else winAmt=bet*2;
-   coins+=winAmt; document.getElementById('status').innerText=`🎉 MENANG ${winAmt}! ${win.l}`;
-  }else{
-   coins-=bet; document.getElementById('status').innerText=`😭 Kalah - ${win.l} keluar`;
-  }
-  localStorage.setItem('h_coins',coins);document.getElementById('coins').innerText=coins;renderHist();
-  spinning=false;document.getElementById('spinBtn').disabled=false;
-  if(coins<=0){coins=200;localStorage.setItem('h_coins',coins);alert('Bangkrut! Ita kasih 200 koin gratis 😘')}
- },4100);
+  let cur=0;let itv=setInterval(()=>{
+   cur+=2;if(cur>=score){cur=score;clearInterval(itv);}
+   pctEl.innerText=cur+'%';fill.style.width=cur+'%';
+  },20);
+ },100);
+
+ let msg='';
+ if(score>=95) msg=`🔥 GILA! ${n1} & ${n2} JODOH SEJATI! Fakultas ${f1} x ${f2} itu combo langka! Buruan tembak sebelum diambil orang!`;
+ else if(score>=85) msg=`💖 ${n1}, peluang lu sama ${n2} GEDE BANGET! ${f1} & ${f2} itu klop! Anak ${f2} emang suka disayang anak ${f1}!`;
+ else if(score>=70) msg=`😍 Lumayan! ${n1} & ${n2} cocok! Cuma butuh effort dikit. Traktir kantin teknik 2x seminggu, auto jadian!`;
+ else if(score>=50) msg=`🤔 Hmm ${n1}, sama ${n2} masih 50:50. Beda fakultas ${f1} vs ${f2} bikin beda jadwal. Tapi cinta bisa ngalahin SKS!`;
+ else msg=`😅 Waduh ${n1}, sama ${n2} agak berat. ${f1} x ${f2} itu kayak Windows x MacOS, beda sistem! Tapi siapa tau lu suka tantangan?`;
+
+ document.getElementById('msg').innerHTML=`${msg}<br><div class="tag">${f1} × ${f2} = ${facultyBonus}% chemistry</div>`;
+ window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
 }
-build();
+
+function share(){
+ let n1=document.getElementById('n1').value;let n2=document.getElementById('n2').value;let pct=document.getElementById('pct').innerText;
+ let txt=`💘 Horizon Love Calculator: ${n1} & ${n2} = ${pct} jodoh! Cek jodoh lu di https://horizon-confess.vercel.app/`;
+ window.open('https://wa.me/?text='+encodeURIComponent(txt));
+}
+function reset(){
+ document.getElementById('res').style.display='none';
+ document.getElementById('n1').value='';document.getElementById('n2').value='';
+ document.getElementById('n1').focus();
+}
 </script>
 </body>
 </html>
