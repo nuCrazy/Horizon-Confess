@@ -3,87 +3,117 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>HORIZON CONFESS - Rahasia Sekampus</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Fraunces:opsz,wght@9..144,800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Fraunces:opsz,wght@9..144,800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:#08080c;color:#fff;min-height:100vh}
-.bg{position:fixed;inset:0;z-index:-3;background:radial-gradient(700px at 10% 0%,#8B1A2B25,transparent),radial-gradient(700px at 90% 100%,#8a5cff18,transparent),#08080c}
-.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(24px) saturate(1.5);background:#08080ce6;border-bottom:1px solid #ffffff0f;padding:10px 16px}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:#f6f1e7;
+  color:#2a1e14;
+  min-height:100vh;
+  /* BACKGROUND KERTAS */
+  background-image:
+    radial-gradient(#00000008 1px, transparent 1px),
+    linear-gradient(90deg, #8B1A2B0d 2px, transparent 2px),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 24px 24px, 100% 100%, 200px 200px;
+  background-position: 0 0, 20px 0, 0 0;
+}
+.bg-paper{position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(180deg,#ffffff60,transparent 20%,transparent 80%,#00000005)}
+
+/* TOP - tetep maroon biar resmi */
+.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(20px) saturate(1.2);background:#ffffffd6;border-bottom:1px solid #8B1A2B14;padding:10px 16px;box-shadow:0 2px 20px #00000008}
 .topInner{max-width:520px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
 .brand{display:flex;gap:10px;align-items:center}
-.logoBox{width:42px;height:42px;background:#fff;border-radius:50%;display:grid;place-items:center;box-shadow:0 8px 24px #8B1A2B44, 0 0 0 1px #ffffff15}
+.logoBox{width:42px;height:42px;background:#fff;border-radius:50%;display:grid;place-items:center;box-shadow:0 4px 14px #8B1A2B22, 0 0 0 1px #8B1A2B12}
 .logoBox img{width:78%;height:78%;object-fit:contain}
-.brand b{font-weight:900;letter-spacing:-.5px;font-size:15px;line-height:1}
-.brand b span{background:linear-gradient(90deg,#8B1A2B,#ff5a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.brand small{display:block;font-size:9px;letter-spacing:1.5px;color:#ffffff44;font-weight:800;margin-top:1px}
-.actions{display:flex;gap:8px}
-.iconBtn{width:38px;height:38px;border-radius:50%;background:#ffffff0e;border:1px solid #ffffff12;display:grid;place-items:center;cursor:pointer;font-size:16px}
-.postBtn{background:linear-gradient(100deg,#8B1A2B,#ff5a8a);border:none;color:#fff;font-weight:800;padding:0 16px;height:38px;border-radius:99px;cursor:pointer;box-shadow:0 8px 20px #8B1A2B44}
+.brand b{font-weight:900;letter-spacing:-.5px;font-size:15px;line-height:1;color:#1a0f0a}
+.brand b span{color:#8B1A2B}
+.brand small{display:block;font-size:9px;letter-spacing:1.5px;color:#8B1A2B66;font-weight:800;margin-top:1px}
+.postBtn{background:linear-gradient(100deg,#8B1A2B,#ff5a8a);border:none;color:#fff;font-weight:800;padding:0 16px;height:38px;border-radius:99px;cursor:pointer;box-shadow:0 8px 20px #8B1A2B33}
 
 .wrap{max-width:520px;margin:0 auto;padding:14px 16px 90px}
-.hero{background:linear-gradient(180deg,#ffffff0f,#ffffff05);border:1px solid #ffffff12;border-radius:24px;padding:18px;backdrop-filter:blur(20px);display:flex;gap:14px;align-items:center}
-.heroLogo{width:54px;height:54px;background:#fff;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
+
+/* HERO KERTAS */
+.hero{
+  background:#fff;
+  border:1px solid #8B1A2B12;
+  border-radius:20px;
+  padding:16px;
+  display:flex;gap:14px;align-items:center;
+  box-shadow:0 4px 0 #8B1A2B0e, 0 10px 30px #00000006;
+  transform:rotate(-0.6deg);
+  position:relative;
+}
+.hero::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:2px;background:#ff8fa333}
+.heroLogo{width:50px;height:50px;background:#fff;border-radius:50%;display:grid;place-items:center;flex-shrink:0;border:1px solid #8B1A2B12}
 .heroLogo img{width:76%;height:76%;object-fit:contain}
-.hero h2{font-family:'Fraunces',serif;font-size:20px;line-height:.9;letter-spacing:-.5px}
-.hero h2 span{color:#ff8fa3}
-.hero p{font-size:12px;color:#ffffff66;margin-top:4px;line-height:1.4;font-weight:600}
+.hero h2{font-family:'Fraunces',serif;font-size:19px;line-height:.9;letter-spacing:-.5px;color:#1a0f0a}
+.hero h2 span{color:#8B1A2B}
+.hero p{font-size:12px;color:#8B1A2B88;margin-top:4px;line-height:1.4;font-weight:600}
 
 .filters{margin-top:14px;display:flex;gap:8px;overflow:auto;padding-bottom:4px;scrollbar-width:none}
 .filters::-webkit-scrollbar{display:none}
-.chip{white-space:nowrap;padding:10px 14px;border-radius:99px;background:#ffffff08;border:1px solid #ffffff12;font-size:12px;font-weight:700;cursor:pointer;transition:.15s}
-.chip.active{background:#fff;color:#111;border-color:#fff;box-shadow:0 8px 20px #ffffff22}
-.chip.new{background:linear-gradient(100deg,#8B1A2B,#ff5a8a);color:#fff;border-color:transparent}
+.chip{white-space:nowrap;padding:9px 14px;border-radius:99px;background:#fff;border:1px solid #8B1A2B12;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 0 #8B1A2B08}
+.chip.active{background:#1a0f0a;color:#fff;border-color:#1a0f0a;box-shadow:0 4px 12px #00000022}
 
 .search{margin-top:12px;display:flex;gap:8px}
-.sInp{flex:1;padding:12px 14px;border-radius:14px;background:#ffffff08;border:1px solid #ffffff12;color:#fff;outline:none;font-weight:600;font-size:13px}
-.sInp::placeholder{color:#ffffff33}
+.sInp{flex:1;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid #8B1A2B14;color:#1a0f0a;outline:none;font-weight:600;font-size:13px;box-shadow:0 2px 0 #8B1A2B06}
+.sInp::placeholder{color:#8B1A2B44}
 
-.feed{margin-top:14px;display:grid;gap:10px}
-.card{background:linear-gradient(180deg,#ffffff0c,#ffffff05);backdrop-filter:blur(20px);border:1px solid #ffffff12;border-radius:20px;padding:14px 14px 10px;transition:.2s}
-.card:active{transform:scale(.985)}
-.cHead{display:flex;justify-content:space-between;align-items:center}
+/* CARD KERTAS SOBEK */
+.feed{margin-top:14px;display:grid;gap:12px}
+.card{
+  background:#fff;
+  border:1px solid #8B1A2B10;
+  border-radius:4px 16px 14px 4px;
+  padding:14px 14px 10px;
+  box-shadow:2px 4px 0 #8B1A2B0a, 0 8px 20px #00000006;
+  transform:rotate(var(--r));
+  position:relative;
+  transition:.2s;
+}
+.card:nth-child(odd){--r:-0.7deg}.card:nth-child(even){--r:0.6deg}
+.card::before{content:'';position:absolute;left:0;top:10%;bottom:10%;width:3px;background:repeating-linear-gradient(to bottom,#8B1A2B18 0 6px,transparent 6px 12px);border-radius:99px}
+.card:active{transform:scale(.985) rotate(0deg)}
+.cHead{display:flex;justify-content:space-between;align-items:center;padding-left:10px}
 .cLeft{display:flex;gap:8px;align-items:center}
-.av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:14px;background:linear-gradient(135deg,#8B1A2B,#8a5cff);font-weight:900}
-.cMeta{line-height:1}
-.cMeta b{font-size:12px;font-weight:800;display:block}
-.cMeta span{font-size:10px;color:#ffffff44;font-weight:700}
-.tag{padding:5px 9px;border-radius:99px;font-size:10px;font-weight:800;background:#ffffff0e;border:1px solid #ffffff12;color:#ffffff99}
-.tag.love{background:#ff5a8a22;color:#ff8fa3;border-color:#ff5a8a33}
-.tag.spill{background:#8a5cff22;color:#b8a0ff;border-color:#8a5cff33}
-.cText{margin-top:10px;font-size:14px;line-height:1.6;color:#ffffffdd;font-weight:500;white-space:pre-wrap;word-break:break-word}
-.cFoot{margin-top:10px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #ffffff0a;padding-top:10px}
+.av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:13px;background:#f6f1e7;border:1px solid #8B1A2B12;font-weight:900}
+.cMeta b{font-size:11px;font-weight:800;display:block;color:#1a0f0a}
+.cMeta span{font-size:10px;color:#8B1A2B66;font-weight:700}
+.tag{padding:5px 9px;border-radius:99px;font-size:9px;font-weight:800;background:#f6f1e7;border:1px dashed #8B1A2B22;color:#8B1A2B99;transform:rotate(2deg)}
+.cText{margin-top:10px;padding-left:10px;font-family:'Caveat',cursive;font-size:18px;line-height:1.4;color:#2a1e14;white-space:pre-wrap;word-break:break-word}
+.cFoot{margin-top:10px;display:flex;justify-content:space-between;align-items:center;border-top:1px dashed #8B1A2B12;padding-top:10px;padding-left:10px}
 .cActs{display:flex;gap:6px}
-.act{padding:7px 10px;border-radius:99px;background:#ffffff07;border:1px solid #ffffff0e;font-size:12px;font-weight:700;cursor:pointer;display:flex;gap:5px;align-items:center}
-.act.liked{background:#ff5a8a18;border-color:#ff5a8a33;color:#ff8fa3}
+.act{padding:6px 10px;border-radius:99px;background:#f6f1e7;border:1px solid #8B1A2B0e;font-size:11px;font-weight:700;cursor:pointer}
+.act.liked{background:#ff5a8a14;border-color:#ff5a8a33;color:#8B1A2B}
 
-.modal{position:fixed;inset:0;z-index:50;background:#08080cd6;backdrop-filter:blur(20px);display:none;place-items:center;padding:16px}
+.modal{position:fixed;inset:0;z-index:50;background:#f6f1e7d6;backdrop-filter:blur(16px);display:none;place-items:center;padding:16px}
 .modal.on{display:grid}
-.mBox{width:100%;max-width:480px;background:linear-gradient(180deg,#1a1a20,#101014);border:1px solid #ffffff15;border-radius:26px;padding:18px;box-shadow:0 30px 80px #000000aa}
+.mBox{width:100%;max-width:460px;background:#fff;border:1px solid #8B1A2B14;border-radius:20px;padding:18px;box-shadow:0 20px 60px #00000015, 4px 6px 0 #8B1A2B0a;transform:rotate(-0.5deg)}
 .mHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.mHead h3{font-family:'Fraunces',serif;font-size:22px}
-.x{width:34px;height:34px;border-radius:50%;background:#ffffff0e;border:1px solid #ffffff12;display:grid;place-items:center;cursor:pointer}
-.txtArea{width:100%;min-height:110px;padding:14px;border-radius:16px;background:#ffffff07;border:1.5px solid #ffffff12;color:#fff;outline:none;font-weight:600;font-size:14px;resize:none}
-.txtArea:focus{border-color:#8B1A2B88}
-.row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.sel{padding:10px 12px;border-radius:12px;background:#ffffff08;border:1px solid #ffffff12;color:#fff;font-size:12px;font-weight:700;outline:none}
-.sel option{background:#111}
-.postMain{width:100%;margin-top:12px;padding:15px;border-radius:16px;border:none;background:linear-gradient(100deg,#8B1A2B,#ff5a8a);color:#fff;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 12px 28px #8B1A2B44}
-.hint{margin-top:10px;font-size:11px;color:#ffffff44;text-align:center;line-height:1.4}
-.nav{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:#15151bcc;backdrop-filter:blur(24px) saturate(1.5);border:1px solid #ffffff15;border-radius:99px;padding:6px;display:flex;gap:4px;box-shadow:0 20px 50px #00000088;z-index:20}
+.mHead h3{font-family:'Fraunces',serif;font-size:20px;color:#1a0f0a}
+.x{width:32px;height:32px;border-radius:50%;background:#f6f1e7;border:1px solid #8B1A2B12;display:grid;place-items:center;cursor:pointer}
+.txtArea{width:100%;min-height:110px;padding:14px;border-radius:14px;background:#fcf8f0;border:1.5px dashed #8B1A2B22;color:#2a1e14;outline:none;font-weight:600;font-size:14px;resize:none;font-family:'Caveat',cursive;font-size:18px}
+.txtArea:focus{border-style:solid;border-color:#8B1A2B55;background:#fff}
+.sel{padding:10px 12px;border-radius:12px;background:#fff;border:1px solid #8B1A2B14;color:#1a0f0a;font-size:12px;font-weight:700;outline:none}
+.postMain{width:100%;margin-top:12px;padding:14px;border-radius:14px;border:none;background:linear-gradient(100deg,#8B1A2B,#ff5a8a);color:#fff;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 10px 20px #8B1A2B33}
+.hint{margin-top:10px;font-size:11px;color:#8B1A2B55;text-align:center}
+.nav{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:#1a0f0af0;backdrop-filter:blur(24px);border:1px solid #ffffff12;border-radius:99px;padding:6px;display:flex;gap:4px;box-shadow:0 20px 50px #00000022;z-index:20}
 .nav button{padding:10px 16px;border-radius:99px;border:none;background:transparent;color:#ffffff66;font-weight:800;font-size:12px;cursor:pointer}
-.nav button.active{background:#fff;color:#111;box-shadow:0 6px 16px #ffffff33}
+.nav button.active{background:#fff;color:#1a0f0a}
 </style>
 </head>
 <body>
-<div class="bg"></div>
+<div class="bg-paper"></div>
 
 <div class="top">
 <div class="topInner">
 <div class="brand">
-<div class="logoBox"><img src="logo.png" onerror="this.src='https://i.ibb.co/3mJ7Q0nZ/logo-horizon.png'" alt="Horizon"></div>
+<div class="logoBox"><img src="logo.png" onerror="this.src='https://i.ibb.co/3mJ7Q0nZ/logo-horizon.png'"></div>
 <div><b>HORIZON <span>CONFESS</span></b><small>HORIZON UNIVERSITY INDONESIA</small></div>
 </div>
-<div class="actions"><div class="iconBtn" onclick="document.querySelector('.sInp').focus()">🔍</div><button class="postBtn" onclick="openModal()">+ Curhat</button></div>
+<button class="postBtn" onclick="openModal()">+ Curhat</button>
 </div>
 </div>
 
@@ -91,13 +121,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#08080c;color:#fff;mi
 <div class="hero">
 <div class="heroLogo"><img src="logo.png" onerror="this.src='https://i.ibb.co/3mJ7Q0nZ/logo-horizon.png'"></div>
 <div>
-<h2>Rahasia <span>Sekampus</span> Ada Disini 💌</h2>
-<p>100% anonim • Gak ada yang tau siapa lu • Khusus anak Horizon Kuningan. Tulis, spill, lega!</p>
+<h2>Rahasia di atas <span>kertas</span> 📝</h2>
+<p>Tulis kayak di buku diary, 100% anonim, cuma anak Horizon yang baca!</p>
 </div>
 </div>
 
-<div class="filters" id="filters">
-<div class="chip active" onclick="filterBy('all')">🔥 Semua</div>
+<div class="filters">
+<div class="chip active" onclick="filterBy('all')">📄 Semua</div>
 <div class="chip" onclick="filterBy('love')">💘 Love</div>
 <div class="chip" onclick="filterBy('crush')">👀 Naksir</div>
 <div class="chip" onclick="filterBy('curhat')">😭 Curhat</div>
@@ -107,114 +137,71 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#08080c;color:#fff;mi
 </div>
 
 <div class="search">
-<input class="sInp" id="search" placeholder="🔍 Cari confess, prodi, atau inisial..." oninput="render()">
-<select class="sel" id="prodiFilter" onchange="render()" style="min-width:110px"><option value="all">Semua Prodi</option><option>TI</option><option>SI</option><option>DKV</option><option>Ilmu Komunikasi</option><option>Manajemen</option></select>
+<input class="sInp" id="search" placeholder="🔍 Cari curhatan..." oninput="render()">
+<select class="sel" id="prodiFilter" onchange="render()"><option value="all">Semua Prodi</option><option>TI</option><option>SI</option><option>DKV</option><option>Ilkom</option><option>Manajemen</option></select>
 </div>
 
 <div class="feed" id="feed"></div>
 </div>
 
 <div class="nav">
-<button class="active" onclick="filterBy('all');window.scrollTo({top:0,behavior:'smooth'})">🏠 Home</button>
-<button onclick="filterBy('love')">💘 Love</button>
-<button onclick="filterBy('curhat')">😭 Curhat</button>
-<button onclick="openModal()">✍️ Tulis</button>
+<button class="active" onclick="filterBy('all')">🏠</button>
+<button onclick="filterBy('love')">💘</button>
+<button onclick="filterBy('curhat')">😭</button>
+<button onclick="openModal()">✍️</button>
 </div>
 
 <div class="modal" id="modal">
 <div class="mBox">
-<div class="mHead"><h3>Tulis Confess Anonim ✍️</h3><div class="x" onclick="closeModal()">✕</div></div>
-<textarea class="txtArea" id="txt" placeholder="Tulis rahasia lu disini... Contoh: Gua suka sama anak DKV semester 3, tiap papasan di kantin jantung gua deg-degan..."></textarea>
-<div class="row">
-<select class="sel" id="cat"><option value="love">💘 Love / Crush</option><option value="crush">👀 Naksir Diam-Diam</option><option value="curhat">😭 Curhat Kampus</option><option value="spill">🫣 Spill Rahasia</option><option value="roast">🔥 Roasting</option><option value="ask">❓ Nanya / Ask</option></select>
-<select class="sel" id="prodi"><option>TI</option><option>SI</option><option>DKV</option><option>Ilmu Komunikasi</option><option>Manajemen</option><option>Umum</option></select>
-<select class="sel" id="mood"><option>🫣 Anonim</option><option>😭 Sedih</option><option>😍 Bucin</option><option>😡 Kesel</option><option>🤣 Ngakak</option></select>
+<div class="mHead"><h3>Tulis di kertas 📝</h3><div class="x" onclick="closeModal()">✕</div></div>
+<textarea class="txtArea" id="txt" placeholder="Tulis rahasia lu disini... kayak nulis diary..."></textarea>
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+<select class="sel" id="cat"><option value="love">💘 Love</option><option value="crush">👀 Naksir</option><option value="curhat">😭 Curhat</option><option value="spill">🫣 Spill</option><option value="roast">🔥 Roast</option><option value="ask">❓ Nanya</option></select>
+<select class="sel" id="prodi"><option>TI</option><option>SI</option><option>DKV</option><option>Ilkom</option><option>Manajemen</option><option>Umum</option></select>
+<select class="sel" id="mood"><option>🫣 Anonim</option><option>😭 Sedih</option><option>😍 Bucin</option><option>😡 Kesel</option></select>
 </div>
-<button class="postMain" onclick="post()">🚀 POST CONFESS SEKARANG</button>
-<div class="hint">✅ 100% anonim, gak ada yang tau siapa lu.<br>Jangan pake nama asli, cukup inisial. No hate speech, no porn.</div>
+<button class="postMain" onclick="post()">📝 TEMPEL KE PAPAN</button>
+<div class="hint">✨ Bakal ditempel kayak kertas di papan confess. 100% anonim!</div>
 </div>
 </div>
 
 <script>
-let confesses = JSON.parse(localStorage.getItem('horizon_confesses')||'null') || [
-{id:1,cat:'love',prodi:'DKV',mood:'😍 Bucin',text:'Gua suka sama anak DKV semester 3 yang duduknya di pojok kantin, rambutnya di cat blonde. Tiap dia lewat jantung gua mau copot. Kalo lu baca ini, please notice me 🥺',likes:42,time:'2j lalu',liked:false},
-{id:2,cat:'spill',prodi:'TI',mood:'🫣 Anonim',text:'Spill: ada dosen TI yang nilai nya tergantung mood. Kalo dia abis ngopi, auto A semua. Kalo belum ngopi... ya gitu deh wkwk',likes:128,time:'5j lalu',liked:false},
-{id:3,cat:'curhat',prodi:'Ilmu Komunikasi',mood:'😭 Sedih',text:'Capek jadi badut 2 tahun. Udah effort jemput, traktir, dengerin curhat, eh dia jadian sama kakel. Horizon keras bro 💔',likes:89,time:'1h lalu',liked:true},
-{id:4,cat:'crush',prodi:'SI',mood:'👀 Naksir',text:'Naksir kakel SI yang sering pake hoodie hitam di perpus lantai 2. Cool banget, tapi gak berani nyapa. Ada yang kenal?',likes:23,time:'3j lalu',liked:false},
-{id:5,cat:'ask',prodi:'Manajemen',mood:'🤣 Ngakak',text:'Nanya dong, kalo bolos 5x masih bisa UAS gak? Serius nanya, soalnya udah 4x 😭',likes:67,time:'30m lalu',liked:false}
+let confesses = JSON.parse(localStorage.getItem('horizon_confesses_paper')||'null') || [
+{id:1,cat:'love',prodi:'DKV',mood:'😍 Bucin',text:'Gua suka sama anak DKV yang duduk di pojok kantin rambut blonde. Tiap dia lewat jantung gua mau copot 🥺',likes:42,time:'2j lalu',liked:false},
+{id:2,cat:'spill',prodi:'TI',mood:'🫣 Anonim',text:'Spill: ada dosen TI yang nilainya tergantung udah ngopi apa belum. Kalo abis ngopi auto A 😂',likes:128,time:'5j lalu',liked:false},
+{id:3,cat:'curhat',prodi:'Ilkom',mood:'😭 Sedih',text:'Capek jadi badut 2 tahun. Udah effort jemput traktir, eh dia jadian sama kakel. Horizon keras bro 💔',likes:89,time:'1h lalu',liked:true}
 ];
 let curFilter='all';
-
-function save(){localStorage.setItem('horizon_confesses',JSON.stringify(confesses))}
-
+function save(){localStorage.setItem('horizon_confesses_paper',JSON.stringify(confesses))}
+function esc(s){return s.replace(/</g,'&lt;')}
 function render(){
  let q=document.getElementById('search').value.toLowerCase();
  let pf=document.getElementById('prodiFilter').value;
- let feed=document.getElementById('feed');
  let list=confesses.filter(c=>{
   if(curFilter!=='all' && c.cat!==curFilter) return false;
   if(pf!=='all' && c.prodi!==pf) return false;
-  if(q && !c.text.toLowerCase().includes(q) && !c.prodi.toLowerCase().includes(q)) return false;
+  if(q && !c.text.toLowerCase().includes(q)) return false;
   return true;
  }).sort((a,b)=>b.id-a.id);
-
- feed.innerHTML=list.map(c=>`
+ document.getElementById('feed').innerHTML=list.map(c=>`
  <div class="card">
-  <div class="cHead"><div class="cLeft"><div class="av">${c.mood.split(' ')[0]}</div><div class="cMeta"><b>ANONIM • ${c.prodi}</b><span>${c.time} • ${c.mood}</span></div></div><div class="tag ${c.cat}">${c.cat.toUpperCase()}</div></div>
+  <div class="cHead"><div class="cLeft"><div class="av">${c.mood.split(' ')[0]}</div><div class="cMeta"><b>ANONIM • ${c.prodi}</b><span>${c.time} • ${c.mood}</span></div></div><div class="tag">${c.cat.toUpperCase()}</div></div>
   <div class="cText">${esc(c.text)}</div>
-  <div class="cFoot">
-   <div class="cActs">
-    <div class="act ${c.liked?'liked':''}" onclick="like(${c.id})">❤️ ${c.likes}</div>
-    <div class="act" onclick="shareWA(${c.id})">📤 Share</div>
-   </div>
-   <div class="act" onclick="report(${c.id})">🚩</div>
-  </div>
- </div>
- `).join('') || `<div style="text-align:center;padding:40px 20px;color:#ffffff33"><div style="font-size:40px">🫥</div><div style="margin-top:10px;font-weight:700">Belum ada confess di kategori ini.<br>Jadi yang pertama curhat dong!</div><button class="postBtn" style="margin-top:12px" onclick="openModal()">+ Tulis Confess</button></div>`;
+  <div class="cFoot"><div class="cActs"><div class="act ${c.liked?'liked':''}" onclick="like(${c.id})">❤️ ${c.likes}</div><div class="act" onclick="shareWA(${c.id})">📤 Share</div></div><div class="act" onclick="report()">🚩</div></div>
+ </div>`).join('')||`<div style="text-align:center;padding:40px;color:#8B1A2B44"><div style="font-size:40px">📄</div><div style="margin-top:8px;font-weight:700">Belum ada kertas di papan.<br>Jadi yang pertama nempel!</div></div>`;
 }
-
-function esc(s){return s.replace(/</g,'&lt;')}
-
-function filterBy(cat){
- curFilter=cat;
- document.querySelectorAll('.chip').forEach(ch=>{
-  let isActive = ch.textContent.toLowerCase().includes(cat) || (cat==='all' && ch.textContent.includes('Semua'));
-  ch.classList.toggle('active', isActive);
- });
- render();
-}
-
-function like(id){
- let c=confesses.find(x=>x.id===id);
- if(!c)return;
- c.liked=!c.liked; c.likes+=c.liked?1:-1; save(); render();
- try{if(navigator.vibrate)navigator.vibrate(30);}catch(e){}
-}
-
-function shareWA(id){
- let c=confesses.find(x=>x.id===id);
- let txt=`💌 HORIZON CONFESS - ${c.prodi}\n\n"${c.text}"\n\nLihat & balas di: ${location.href}`;
- window.open('https://wa.me/?text='+encodeURIComponent(txt));
-}
-
-function report(id){alert('✅ Laporan terkirim! Tim Horizon bakal cek. Makasih Beben! 🙏')}
-
+function filterBy(cat){curFilter=cat;document.querySelectorAll('.chip').forEach(ch=>{ch.classList.toggle('active',ch.textContent.toLowerCase().includes(cat)||(cat==='all'&&ch.textContent.includes('Semua')))});render()}
+function like(id){let c=confesses.find(x=>x.id===id);if(!c)return;c.liked=!c.liked;c.likes+=c.liked?1:-1;save();render()}
+function shareWA(id){let c=confesses.find(x=>x.id===id);let txt=`📝 HORIZON CONFESS - ${c.prodi}\n\n"${c.text}"\n\nLihat di: ${location.href}`;window.open('https://wa.me/?text='+encodeURIComponent(txt))}
+function report(){alert('✅ Laporan terkirim!')}
 function openModal(){document.getElementById('modal').classList.add('on');setTimeout(()=>document.getElementById('txt').focus(),100)}
 function closeModal(){document.getElementById('modal').classList.remove('on')}
-
 function post(){
  let text=document.getElementById('txt').value.trim();
- if(text.length<10)return alert('Curhatnya kependekan Beben! Minimal 10 huruf ya 💌');
- let cat=document.getElementById('cat').value;
- let prodi=document.getElementById('prodi').value;
- let mood=document.getElementById('mood').value;
- confesses.push({id:Date.now(),cat,prodi,mood,text,likes:0,time:'Baru saja',liked:false});
- save(); render(); closeModal(); document.getElementById('txt').value='';
- alert('✅ Confess lu berhasil dipost! 100% anonim! 💌');
- try{if(navigator.vibrate)navigator.vibrate([60,30,60]);}catch(e){}
- window.scrollTo({top:0,behavior:'smooth'});
+ if(text.length<10)return alert('Tulis minimal 10 huruf ya Beben! 📝');
+ confesses.push({id:Date.now(),cat:document.getElementById('cat').value,prodi:document.getElementById('prodi').value,mood:document.getElementById('mood').value,text,likes:0,time:'Baru saja',liked:false});
+ save();render();closeModal();document.getElementById('txt').value='';alert('✅ Kertas lu udah ditempel di papan! 📝');window.scrollTo({top:0,behavior:'smooth'});
 }
-
 render();
 document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
 </script>
