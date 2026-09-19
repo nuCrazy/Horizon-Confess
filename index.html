@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon Confess</title>
+<title>Horizon Confess - Realtime</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Plus Jakarta Sans',sans-serif;background:#fcf9ff;padding-bottom:80px}
@@ -14,75 +14,76 @@
 textarea{width:100%;border:2px solid #efe6ff;background:#fbf7ff;border-radius:14px;padding:12px;min-height:100px;outline:none;font-family:inherit}
 .tag{display:inline-block;padding:8px 14px;border-radius:99px;background:#f3e8ff;margin:4px;font-size:13px;font-weight:700;cursor:pointer}.tag.on{background:#111;color:#fff}
 .inp{width:100%;margin-top:10px;border:2px solid #efe6ff;background:#fbf7ff;border-radius:10px;padding:10px 12px}
-.btn{width:100%;margin-top:12px;padding:14px;background:#111;color:#fff;border:none;border-radius:12px;font-weight:800;cursor:pointer}.btn:active{transform:scale(.98)}
-.item{background:#fff;border:1px solid #f0e8ff;border-radius:18px;padding:14px;margin-bottom:10px;animation:pop .2s}@keyframes pop{from{transform:translateY(5px);opacity:0}to{transform:translateY(0);opacity:1}}
+.btn{width:100%;margin-top:12px;padding:14px;background:#111;color:#fff;border:none;border-radius:12px;font-weight:800;cursor:pointer}
+.item{background:#fff;border:1px solid #f0e8ff;border-radius:18px;padding:14px;margin-bottom:10px}
 .chip{font-size:11px;font-weight:800;padding:5px 10px;border-radius:99px}.chip.crush{background:#f2efff;color:#7a5cff}.chip.galau{background:#fff0f3;color:#ff3b6a}.chip.bucin{background:#fff0f7;color:#ff5aa8}.chip.roasting{background:#fff7e6;color:#ff9f1a}.chip.random{background:#e8fbff;color:#00aacc}
 </style>
 </head>
 <body>
 <div class="top"><div style="display:flex;gap:8px;align-items:center"><div class="logo">H</div><b>HORIZON CONFESS</b></div><div style="background:#111;color:#fff;padding:6px 10px;border-radius:99px;font-size:11px" id="live">0 LIVE</div></div>
 <div class="wrap">
-<div class="hero"><h1>Curhat Anonim<br><span>Tanpa Ketahuan</span></h1><p style="color:#888;font-size:13px;margin-top:6px">Tulis, kirim, langsung muncul di bawah!</p></div>
+<div class="hero"><h1>Curhat Anonim<br><span>Realtime Sekampus</span></h1><p style="color:#888;font-size:13px;margin-top:6px" id="status">🔄 Menghubungkan...</p></div>
 <div class="card">
-<textarea id="txt" placeholder="Contoh: Buat cewe hoodie item di perpus tadi... lu cantik bgt 😳"></textarea>
+<textarea id="txt" placeholder="Tulis curhatan lu..."></textarea>
 <div style="margin-top:10px"><div class="tag on" data-t="crush">👀 Crush</div><div class="tag" data-t="galau">💔 Galau</div><div class="tag" data-t="bucin">😍 Bucin</div><div class="tag" data-t="roasting">🔥 Roasting</div><div class="tag" data-t="random">🤣 Random</div></div>
-<input id="to" class="inp" placeholder="Untuk siapa? (boleh kosong)">
-<button class="btn" onclick="kirim()">🚀 KIRIM CONFESS</button>
-<p id="st" style="text-align:center;font-size:11px;color:#888;margin-top:8px">✅ Siap kirim! Mode realtime kampus</p>
+<input id="to" class="inp" placeholder="Untuk siapa?">
+<button class="btn" id="btn" onclick="kirim()">🚀 KIRIM KE SEMUA HP</button>
 </div>
 <div id="feed" style="margin-top:14px"></div>
 </div>
 <script>
 let curTag='crush';
-let data = JSON.parse(localStorage.getItem('horizon_final')||'null') || [
- {t:'Buat cewe di kantin teknik hoodie item oversize, lu cantik banget sumpah 😭 IG apa?',tag:'crush',to:'Kantin Teknik',time:'2 jam lalu'},
- {t:'Dosen kalo ngasih tugas jangan H-1 dong pak, kita juga butuh tidur 🙏',tag:'roasting',to:'Dosen Algoritma',time:'5 jam lalu'},
- {t:'Masih suka sama dia padahal dia udah jadian sama temen sendiri',tag:'galau',to:'Anak SI 22',time:'7 jam lalu'}
-];
+let data=[];
+const PANTRY_ID="f1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d";
+const BASKET="horizon_confess_v3";
+const API=`https://getpantry.cloud/apiv1/pantry/${PANTRY_ID}/basket/${BASKET}`;
 
 document.querySelectorAll('.tag').forEach(el=>{
- el.onclick=()=>{
-  document.querySelectorAll('.tag').forEach(x=>x.classList.remove('on'));
-  el.classList.add('on');curTag=el.dataset.t;
- }
+ el.onclick=()=>{document.querySelectorAll('.tag').forEach(x=>x.classList.remove('on'));el.classList.add('on');curTag=el.dataset.t;}
 });
+
+async function load(){
+ try{
+  let r=await fetch(API);
+  if(r.status===404){
+   // bikin baru pertama kali
+   let awal=[{t:'Buat cewe hoodie item di kantin teknik, lu cantik bgt 😭',tag:'crush',to:'Kantin Teknik',time:'2 jam lalu'},{t:'Kapan tugas algoritma dikumpul btw?',tag:'random',to:'Anak TI',time:'5 jam lalu'}];
+   await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({confess:awal})});
+   data=awal;
+  } else {
+   let j=await r.json();data=j.confess||[];
+  }
+  document.getElementById('status').innerText='🟢 Realtime aktif • '+data.length+' confess • muncul 3 detik di semua HP';
+  document.getElementById('live').innerText=data.length+' LIVE';
+  render();
+ }catch(e){
+  document.getElementById('status').innerText='⚠️ Server lagi tidur, coba refresh';
+ }
+}
 
 function render(){
  let f=document.getElementById('feed');f.innerHTML='';
- document.getElementById('live').innerText=data.length+' LIVE';
  [...data].reverse().forEach(d=>{
-  f.innerHTML+=`<div class="item"><div style="display:flex;justify-content:space-between"><span class="chip ${d.tag}">#${d.tag.toUpperCase()}</span><span style="font-size:11px;color:#aaa">${d.time}</span></div><div style="font-size:12px;color:#777;margin-top:6px">Untuk: <b>${d.to}</b></div><div style="margin-top:8px;font-size:15px;line-height:1.5;white-space:pre-wrap">${d.t.replace(/</g,'&lt;')}</div></div>`;
+  f.innerHTML+=`<div class="item"><div style="display:flex;justify-content:space-between"><span class="chip ${d.tag}">#${d.tag}</span><span style="font-size:11px;color:#aaa">${d.time}</span></div><div style="font-size:12px;color:#777;margin-top:6px">Untuk: <b>${d.to}</b></div><div style="margin-top:8px;font-size:15px;white-space:pre-wrap">${d.t}</div></div>`;
  });
 }
 
-function kirim(){
- let t=document.getElementById('txt').value.trim();
- let to=document.getElementById('to').value.trim()||'Semua Orang';
- if(t.length<5){alert('Tulis agak panjang dikit Beben!');return;}
- data.push({t:t,tag:curTag,to:to,time:'baru saja'});
- localStorage.setItem('horizon_final',JSON.stringify(data));
- document.getElementById('txt').value='';document.getElementById('to').value='';
- render();
- document.getElementById('st').innerText='✅ Terkirim! Muncul di bawah!';
- window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+async function kirim(){
+ let t=document.getElementById('txt').value.trim();let to=document.getElementById('to').value.trim()||'Semua Orang';
+ if(t.length<5)return alert('Tulis dulu!');
+ document.getElementById('btn').innerText='MENGIRIM...';document.getElementById('btn').disabled=true;
+ try{
+  let r=await fetch(API);let j=await r.json();let arr=j.confess||[];
+  arr.push({t:t,tag:curTag,to:to,time:'baru saja'});
+  await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({confess:arr})});
+  document.getElementById('txt').value='';document.getElementById('to').value='';
+  data=arr;render();document.getElementById('live').innerText=data.length+' LIVE';
+ }catch(e){alert('Gagal kirim, coba lagi! Error: '+e)}
+ document.getElementById('btn').innerText='🚀 KIRIM KE SEMUA HP';document.getElementById('btn').disabled=false;
 }
 
-render();
-
-// --- BAGIAN REALTIME (jalan di belakang, gak ganggu tombol) ---
-const API="https://api.npoint.io/42d5e8f9b1c0a7d6e9f2";
-async function trySync(){
- try{
-  let r=await fetch(API);
-  if(r.ok){let j=await r.json();let remote=j.data||j.confess||[];if(remote.length>data.length){data=remote;localStorage.setItem('horizon_final',JSON.stringify(data));render();}}
- }catch(e){}
-}
-async function pushSync(){
- try{
-  await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({data:data})});
- }catch(e){}
-}
-setInterval(trySync,3000);
+load();
+setInterval(load,3000);
 </script>
 </body>
 </html>
