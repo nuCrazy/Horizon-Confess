@@ -2,211 +2,157 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>BEBEN PIXEL KOS</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+<title>BEBENRIA PROTOTYPE</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#0f0f12;display:grid;place-items:center;min-height:100vh;padding:8px;font-family:'Inter',sans-serif;overflow:hidden}
-.box{width:100%;max-width:420px;background:#1a1a27;border:2px solid #ffffff18;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px #000}
-.top{padding:8px 10px;display:flex;justify-content:space-between;align-items:center;background:#222232;border-bottom:2px solid #ffffff10}
-.top b{font-family:'Press Start 2P',monospace;font-size:8px;line-height:1.3}.top b span{color:#ffcc00}
-.stats{display:flex;gap:4px}
-.pill{background:#00000066;border:1px solid #ffffff1a;padding:3px 6px;border-radius:4px;font-family:'Press Start 2P',monospace;font-size:6px}
-canvas{width:100%;aspect-ratio:4/3;background:#0a0a14;display:block;image-rendering:pixelated;image-rendering:crisp-edges}
-.controls{display:grid;grid-template-columns:70px 1fr 70px;gap:8px;padding:10px;background:#15151f;border-top:2px solid #ffffff0e}
-.dpad{display:grid;grid-template-columns:repeat(3,22px);grid-template-rows:repeat(3,22px);gap:2px}
-.dbtn{width:22px;height:22px;background:#2a2a3a;border:1px solid #ffffff18;border-radius:3px;display:grid;place-items:center;font-size:10px;color:#fff;cursor:pointer;user-select:none}
-.dbtn:active{background:#8a5cff}
-.actionBtns{display:flex;gap:6px;justify-content:flex-end;align-items:center}
-.abtn{padding:8px 12px;background:linear-gradient(180deg,#ffcc00,#ff8a00);border:2px solid #000;border-radius:6px;font-family:'Press Start 2P',monospace;font-size:7px;color:#111;cursor:pointer;box-shadow:0 3px 0 #000}
-.abtn:active{transform:translateY(2px);box-shadow:0 1px 0 #000}
-.abtn.blue{background:linear-gradient(180deg,#00c3ff,#0088ff);color:#fff}
-.barRow{display:flex;gap:4px;padding:6px 10px;background:#0a0a0f;border-top:1px solid #ffffff0e}
-.bar{flex:1}.bar span{font-family:'Press Start 2P',monospace;font-size:5px;color:#ffffff55}
-.bar i{display:block;height:6px;background:#000;border:1px solid #ffffff18;border-radius:2px;margin-top:2px;overflow:hidden}
-.bar i b{display:block;height:100%;transition:.3s}
+*{margin:0;padding:0;box-sizing:border-box} body{background:#000;display:grid;place-items:center;min-height:100vh;padding:5px;font-family:'Press Start 2P',monospace}
+.box{width:100%;max-width:500px;background:#1a1a27;border:3px solid #000;border-radius:0;box-shadow:0 0 0 3px #ffffff22,0 20px 60px #000;overflow:hidden}
+.hud{display:flex;justify-content:space-between;padding:6px 8px;background:#2a2a3a;border-bottom:3px solid #000;font-size:7px;color:#fff}
+canvas{width:100%;aspect-ratio:16/10;background:#87CEEB;display:block;image-rendering:pixelated;cursor:crosshair}
+.hotbar{display:flex;gap:3px;padding:6px;background:#3a3a4a;border-top:3px solid #000}
+.slot{width:36px;height:36px;background:#1a1a1a;border:2px solid #000;display:grid;place-items:center;font-size:12px;position:relative;cursor:pointer}
+.slot.active{border-color:#ffcc00;box-shadow:0 0 0 2px #ffcc00, inset 0 0 10px #ffcc0055}
+.slot span{position:absolute;bottom:1px;right:2px;font-size:6px;color:#fff;background:#000a;padding:1px}
+.controls{display:flex;gap:4px;padding:6px;background:#222232;border-top:2px solid #000;flex-wrap:wrap}
+.cbtn{padding:6px 8px;background:#44445a;border:2px solid #000;color:#fff;font-family:'Press Start 2P',monospace;font-size:6px;cursor:pointer}
+.cbtn:active{transform:translateY(1px);background:#55556a}
+.info{font-size:5px;color:#ffffff88;padding:4px 8px;background:#0a0a14;text-align:center;line-height:1.6}
 </style>
 </head>
 <body>
 <div class="box">
-<div class="top"><b>BEBEN <span>PIXEL KOS</span><br><span style="font-size:6px;color:#ffffff44">DAY <span id="day">1</span>/30</span></b>
-<div class="stats"><div class="pill">💰<span id="money">1500k</span></div><div class="pill">🔑<span id="keys">0/3</span></div></div></div>
-
-<canvas id="c" width="160" height="120"></canvas>
-
-<div class="barRow">
-<div class="bar"><span>KENYANG</span><i><b id="bK" style="width:80%;background:#ff8a00"></b></i></div>
-<div class="bar"><span>WARAS</span><i><b id="bW" style="width:80%;background:#8a5cff"></b></i></div>
-<div class="bar"><span>TUGAS</span><i><b id="bT" style="width:10%;background:#00ffaa"></b></i></div>
-</div>
-
+<div class="hud"><div id="timeLabel">☀️ SIANG 06:00</div><div>💰<span id="money">0</span> ❤️<span id="hp">100</span></div></div>
+<canvas id="c" width="320" height="200"></canvas>
+<div class="hotbar" id="hotbar"></div>
 <div class="controls">
-<div class="dpad">
-<div></div><div class="dbtn" id="up">▲</div><div></div>
-<div class="dbtn" id="left">◀</div><div class="dbtn" style="background:#00000044">●</div><div class="dbtn" id="right">▶</div>
-<div></div><div class="dbtn" id="down">▼</div><div></div>
+<button class="cbtn" id="leftBtn">◀ JALAN</button>
+<button class="cbtn" id="jumpBtn">▲ LOMPAT</button>
+<button class="cbtn" id="rightBtn">JALAN ▶</button>
+<button class="cbtn" id="dayBtn" style="margin-left:auto;background:#ffcc00;color:#000">GANTI SIANG/MALEM</button>
 </div>
-<div style="display:grid;place-items:center;font-family:'Press Start 2P',monospace;font-size:5px;color:#ffffff33;text-align:center">GERAK PAKAI<br>ARAH / WASD</div>
-<div class="actionBtns"><button class="abtn blue" id="actBtn">AMBIL</button><button class="abtn" id="sleepBtn">TIDUR</button></div>
+<div class="info">KIRI KLIK = GALI | KANAN KLIK / TAP TAHAN = PASANG BLOCK | SIANG COLORFUL - MALEM HOROR + MUSUH MUNCUL<br>WASD / TOMBOL BUAT GERAK - KUMPULIN 20 BLOCK BATAKO BUAT BIKIN KOS</div>
 </div>
-</div>
-
 <script>
-let canvas=document.getElementById('c'), ctx=canvas.getContext('2d');
-ctx.imageSmoothingEnabled=false;
-let day=1, money=1500000, keys=0, kenyang=80, waras=80, tugas=10;
-let player={x:20,y:60, vx:0, vy:0, dir:1, frame:0, state:'idle', speed:1.2};
-let keysDown={}, items=[], particles=[];
-let map=[
- [1,1,1,1,1,1],
- [1,0,0,0,0,0,0,0,0,1],
- [1,0,0,0,0,1],
- [1,0,0,1,1,0,0,1,0,1],
- [1,0,0,1,0,0,0,1,0,1],
- [1,0,0,0,0,0,0,0,0,1],
- [1,0,0,0,0,0,0,0,0,1],
- [1,1,1,1,1,1],
-];
-function resetItems(){
- items=[
-  {x:40,y:30,t:'mie',c:'#ffcc00',got:false},{x:120,y:30,t:'kopi',c:'#8a5cff',got:false},
-  {x:40,y:90,t:'kunci',c:'#00ffaa',got:false},{x:100,y:70,t:'buku',c:'#ff5a8a',got:false},
-  {x:130,y:90,t:'kunci',c:'#00ffaa',got:false},{x:20,y:90,t:'kunci',c:'#00ffaa',got:false},
- ];
+let canvas=document.getElementById('c'), ctx=canvas.getContext('2d'); ctx.imageSmoothingEnabled=false;
+let TILE=16, W=60, H=30, world=[], time=0.25, isDay=true, cam={x:0,y:0};
+let player={x:100,y:50,vx:0,vy:0,w:10,h:20,onGround:false,dir:1,frame:0,hp:100};
+let inventory=[{id:1,count:30},{id:2,count:20},{id:3,count:10},0,0,0,0,0], sel=0;
+let enemies=[], particles=[];
+let tiles={0:{name:'Udara',solid:false,color:'transparent'},1:{name:'Tanah Bekasi',solid:true,color:'#8B5E3C',drop:1},2:{name:'Batako Retak',solid:true,color:'#a0a0a0',drop:2},3:{name:'Triplek',solid:true,color:'#d2a679',drop:3},4:{name:'Rumput',solid:true,color:'#4CAF50',drop:1}};
+
+function genWorld(){
+ for(let y=0;y<H;y++){ world[y]=[]; for(let x=0;x<W;x++){
+  if(y<8) world[y][x]=0;
+  else if(y==8) world[y][x]=Math.random()<0.8?4:0;
+  else if(y<14) world[y][x]=1;
+  else if(y<20) world[y][x]=Math.random()<0.7?1:2;
+  else world[y][x]=2;
+ }}
+ for(let i=0;i<80;i++){ let x=Math.floor(Math.random()*W), y=Math.floor(Math.random()*6+9); world[y][x]=0; }
 }
-resetItems();
+genWorld();
 
-function drawPixel(x,y,w,h,c){ ctx.fillStyle=c; ctx.fillRect(Math.floor(x),Math.floor(y),w,h); }
+function draw(){
+ let dayFactor = Math.sin(time*Math.PI*2)*0.5+0.5;
+ isDay = time<0.75 && time>0.15;
+ let sky = isDay? `rgb(${135+dayFactor*30},${206+dayFactor*20},${235})` : '#0a1a';
+ ctx.fillStyle=sky; ctx.fillRect(0,0,320,200);
+ if(!isDay){ ctx.fillStyle='#ffffff88'; for(let i=0;i<20;i++){ let sx=(i*47+time*100)%320, sy=(i*29)%80; ctx.fillRect(sx,sy,1,1); } }
 
-function drawPlayer(){
- let px=Math.floor(player.x), py=Math.floor(player.y);
- let f=Math.floor(player.frame)%4;
- // shadow
- drawPixel(px-2,py+8,12,2,'#00000088');
- // body bob
- let bob = player.state==='walk'? Math.sin(player.frame*0.6)*1 : 0;
- // legs anim
- let legOff = player.state==='walk'? (f<2?1:-1) : 0;
- // colors
- let skin='#ffdbac', shirt='#8a5cff', pants='#2a2a4a', hair='#1a1a1a';
- // head 8x8
- drawPixel(px,py+bob-8,8,8,skin);
- drawPixel(px+1,py+bob-8,6,2,hair); // hair
- drawPixel(px+2,py+bob-5,1,1,'#000'); drawPixel(px+5,py+bob-5,1,1,'#000'); // eyes
- // shirt
- drawPixel(px,py+bob,8,6,shirt);
- // arms
- drawPixel(px-2+legOff,py+bob+1,2,4,skin);
- drawPixel(px+8-legOff,py+bob+1,2,4,skin);
- // pants
- drawPixel(px+1,py+bob+6,3,4,pants);
- drawPixel(px+4,py+bob+6,3,4,pants);
- // shoes
- drawPixel(px+legOff,py+bob+10,3,1,'#000'); drawPixel(px+5-legOff,py+bob+10,3,1,'#000');
- // direction flip effect
- if(player.dir<0){ /* tiny */ }
-}
-
-function drawMap(){
- ctx.fillStyle='#1e1e32'; ctx.fillRect(0,0,160,120);
- // floor grid pixel
- for(let y=0;y<8;y++) for(let x=0;x<10;x++){
-  if(map[y][x]===1){ drawPixel(x*16,y*15,16,15,'#2a2a4a'); drawPixel(x*16,y*15,16,2,'#3a3a5a'); }
-  else { drawPixel(x*16,y*15,16,15, x%2? '#1a1a2a':'#151525'); }
+ let startX=Math.floor(cam.x/TILE)-1, endX=startX+22, startY=Math.floor(cam.y/TILE)-1, endY=startY+15;
+ for(let y=Math.max(0,startY); y<Math.min(H,endY); y++) for(let x=Math.max(0,startX); x<Math.min(W,endX); x++){
+  let id=world[y][x]; if(id==0) continue;
+  let px=x*TILE-cam.x, py=y*TILE-cam.y;
+  let t=tiles[id];
+  let darkness = isDay? 0 : Math.max(0,1 - (1 / (1+Math.hypot(x*TILE-player.x, y*TILE-player.y)/80)));
+  ctx.fillStyle=t.color; ctx.fillRect(px,py,TILE,TILE);
+  if(id==2){ ctx.fillStyle='#00000033'; ctx.fillRect(px,py,TILE,2); ctx.fillRect(px,py,2,TILE); }
+  if(id==4){ ctx.fillStyle='#2d7a2d'; ctx.fillRect(px,py,TILE,4); }
+  if(!isDay && darkness>0.3){ ctx.fillStyle=`rgba(0,0,20,${darkness*0.8})`; ctx.fillRect(px,py,TILE,TILE); }
+  ctx.strokeStyle='#00000044'; ctx.strokeRect(px,py,TILE,TILE);
  }
- // items with bob + glow
- items.forEach(it=>{
-  if(it.got) return;
-  let bob=Math.sin(Date.now()*0.005 + it.x)*2;
-  // glow
-  drawPixel(it.x-2,it.y-2+bob,12,12,it.c+'33');
-  if(it.t==='mie') { drawPixel(it.x,it.y+bob,8,6,'#ffcc00'); drawPixel(it.x+2,it.y+bob-2,4,2,'#fff'); }
-  if(it.t==='kopi') { drawPixel(it.x,it.y+bob,6,8,'#6a3a1a'); drawPixel(it.x+1,it.y+bob-2,4,2,'#ffffffaa'); }
-  if(it.t==='kunci') { drawPixel(it.x,it.y+bob,2,6,'#ffcc00'); drawPixel(it.x-2,it.y+bob,4,4,'#ffcc00'); drawPixel(it.x-1,it.y+bob+1,2,2,'#000'); }
-  if(it.t==='buku') { drawPixel(it.x,it.y+bob,8,6,'#00ffaa'); drawPixel(it.x+1,it.y+bob+1,6,1,'#000'); }
+
+ // player
+ let px=player.x-cam.x, py=player.y-cam.y;
+ let bob = Math.abs(player.vx)>0.1? Math.sin(player.frame*0.5)*1:0;
+ ctx.fillStyle='#00000066'; ctx.fillRect(px-2,py+player.h-2,player.w+4,3);
+ ctx.fillStyle='#ffdbac'; ctx.fillRect(px,py-8+bob,player.w,8);
+ ctx.fillStyle='#1a1a1a'; ctx.fillRect(px+1,py-8+bob,player.w-2,2);
+ ctx.fillStyle='#000'; ctx.fillRect(px+2,py-5+bob,1,1); ctx.fillRect(px+6,py-5+bob,1,1);
+ ctx.fillStyle='#8a5cff'; ctx.fillRect(px,py+bob,player.w,10);
+ ctx.fillStyle='#2a2a4a'; ctx.fillRect(px+1,py+10+bob,3,8); ctx.fillRect(px+6,py+10+bob,3,8);
+ ctx.fillStyle='#000'; ctx.fillRect(px,py+18+bob,3,2); ctx.fillRect(px+6,py+18+bob,3,2);
+
+ // enemies
+ enemies.forEach(e=>{
+  let ex=e.x-cam.x, ey=e.y-cam.y;
+  ctx.fillStyle = isDay? '#ff6b6b' : '#1a1a1a';
+  ctx.fillRect(ex,ey,e.w,e.h);
+  ctx.fillStyle = isDay? '#fff' : '#ff0000';
+  ctx.fillRect(ex+2,ey+2,2,2); ctx.fillRect(ex+6,ey+2,2,2);
+  if(!isDay){ ctx.fillStyle=`rgba(255,0,0,${0.3+Math.sin(Date.now()*0.01)*0.2})`; ctx.fillRect(ex-2,ey-2,e.w+4,e.h+4); }
  });
- // particles
- particles.forEach(p=>{ drawPixel(p.x,p.y,2,2,p.c); p.y-=p.vy; p.life--; });
+
+ particles.forEach(p=>{ ctx.fillStyle=p.c; ctx.fillRect(p.x-cam.x,p.y-cam.y,3,3); p.vy+=0.3; p.x+=p.vx; p.y+=p.vy; p.life--; });
  particles=particles.filter(p=>p.life>0);
 }
 
 function update(){
- let moving=false;
- if(keysDown['ArrowUp']||keysDown['w']||keysDown['W']){ player.vy=-player.speed; moving=true; }
- else if(keysDown['ArrowDown']||keysDown['s']||keysDown['S']){ player.vy=player.speed; moving=true; }
- else player.vy=0;
- if(keysDown['ArrowLeft']||keysDown['a']||keysDown['A']){ player.vx=-player.speed; player.dir=-1; moving=true; }
- else if(keysDown['ArrowRight']||keysDown['d']||keysDown['D']){ player.vx=player.speed; player.dir=1; moving=true; }
- else player.vx=0;
+ time+=0.0006; if(time>1) time=0;
+ player.vy+=0.35; player.x+=player.vx; checkCollide(true); player.y+=player.vy; checkCollide(false);
+ player.vx*=0.85; if(Math.abs(player.vx)<0.05) player.vx=0;
+ if(Math.abs(player.vx)>0.1) player.frame+=0.3; else player.frame+=0.05;
+ cam.x += (player.x-160-cam.x)*0.1; cam.y += (player.y-100-cam.y)*0.1;
+ cam.x=Math.max(0,Math.min(W*TILE-320,cam.x)); cam.y=Math.max(0,Math.min(H*TILE-200,cam.y));
+ if(!isDay && Math.random()<0.02 && enemies.length<4){ enemies.push({x:player.x+(Math.random()<0.5?-150:150),y:player.y-20,w:10,h:10,vx:(Math.random()-0.5)*1.2,hp:20}); }
+ enemies.forEach(e=>{ e.vx += (player.x-e.x)*0.0008; e.x+=e.vx; e.vy=(e.vy||0)+0.3; e.y+=e.vy; let ty=Math.floor((e.y+e.h)/TILE), tx=Math.floor((e.x+e.w/2)/TILE); if(world[ty]&&world[ty][tx]!=0){ e.y=ty*TILE-e.h; e.vy=0; } if(Math.hypot(player.x-e.x,player.y-e.y)<14){ player.hp-=0.2; if(player.hp<=0){ alert('💀 Mati dimakan slime kos malem!'); player.hp=100; player.x=100; player.y=50; enemies=[]; } } });
+ document.getElementById('hp').innerText=Math.floor(player.hp); document.getElementById('money').innerText=inventory.reduce((s,it)=>s+(it?it.count:0),0);
+ document.getElementById('timeLabel').innerText=(isDay? '☀️ SIANG ':'🌙 MALEM HORROR ')+String(Math.floor(time*24)).padStart(2,'0')+':00';
+ requestAnimationFrame(()=>{ update(); draw(); });
+}
 
- // collision simple
- let nx=player.x+player.vx, ny=player.y+player.vy;
- let tx=Math.floor(nx/16), ty=Math.floor((ny+4)/15);
- if(map[ty] && map[ty][tx]===0){ player.x=nx; player.y=ny; }
- else { // try slide
-  let tx2=Math.floor(player.x/16), ty2=Math.floor((ny+4)/15);
-  if(map[ty2] && map[ty2][tx2]===0) player.y=ny;
-  let tx3=Math.floor(nx/16), ty3=Math.floor((player.y+4)/15);
-  if(map[ty3] && map[ty3][tx3]===0) player.x=nx;
+function checkCollide(horiz){
+ let left=Math.floor(player.x/TILE), right=Math.floor((player.x+player.w)/TILE), top=Math.floor(player.y/TILE), bottom=Math.floor((player.y+player.h)/TILE);
+ for(let y=top;y<=bottom;y++) for(let x=left;x<=right;x++){ if(world[y]&&world[y][x]!=0&&tiles[world[y][x]].solid){
+  if(horiz){ if(player.vx>0) player.x=x*TILE-player.w-0.1; else if(player.vx<0) player.x=(x+1)*TILE+0.1; player.vx=0; }
+  else { if(player.vy>0){ player.y=y*TILE-player.h-0.1; player.vy=0; player.onGround=true; } else if(player.vy<0){ player.y=(y+1)*TILE+0.1; player.vy=0; } }
+ }}
+ if(!horiz && player.vy!=0) player.onGround=false;
+}
+
+function getTileAt(mx,my){ let wx=Math.floor((mx+cam.x)/TILE), wy=Math.floor((my+cam.y)/TILE); return {x:wx,y:wy}; }
+
+canvas.addEventListener('mousedown',e=>{
+ let rect=canvas.getBoundingClientRect(); let mx=(e.clientX-rect.left)*(320/rect.width), my=(e.clientY-rect.top)*(200/rect.height);
+ let t=getTileAt(mx,my);
+ if(e.button==0||e.buttons==1){
+  if(world[t.y]&&world[t.y][t.x]!=0){ let id=world[t.y][t.x]; world[t.y][t.x]=0; for(let i=0;i<5;i++) particles.push({x:t.x*TILE+8,y:t.y*TILE+8,vx:(Math.random()-0.5)*3,vy:-Math.random()*2,c:tiles[id].color,life:20}); let f=inventory.find(it=>it&&it.id==tiles[id].drop); if(f) f.count++; else { let empty=inventory.findIndex(it=>!it); if(empty!=-1) inventory[empty]={id:tiles[id].drop,count:1}; } updateHotbar(); }
+ } else if(e.button==2){
+  if(world[t.y]&&world[t.y][t.x]==0 && inventory[sel]){ world[t.y][t.x]=inventory[sel].id; inventory[sel].count--; if(inventory[sel].count<=0) inventory[sel]=0; updateHotbar(); }
  }
-
- player.state = moving? 'walk':'idle';
- player.frame += moving? 0.25 : 0.05;
-
- // pickup
- items.forEach(it=>{
-  if(!it.got && Math.hypot(it.x-player.x, it.y-player.y)<12){
-   // auto hint
-  }
- });
-
- // bars drain
- if(moving){ kenyang=Math.max(0,kenyang-0.03); waras=Math.max(0,waras-0.01); }
- drawMap(); drawPlayer();
- document.getElementById('bK').style.width=kenyang+'%';
- document.getElementById('bW').style.width=waras+'%';
- document.getElementById('bT').style.width=tugas+'%';
- requestAnimationFrame(update);
-}
-update();
-
-function tryPickup(){
- items.forEach(it=>{
-  if(!it.got && Math.hypot(it.x-player.x, it.y-player.y)<14){
-   it.got=true;
-   for(let i=0;i<8;i++) particles.push({x:it.x+4,y:it.y,vy:Math.random()*1.5+0.5,c:it.c,life:20});
-   if(it.t==='mie'){ kenyang=Math.min(100,kenyang+25); }
-   if(it.t==='kopi'){ waras=Math.min(100,waras+20); }
-   if(it.t==='kunci'){ keys++; document.getElementById('keys').innerText=keys+'/3'; tugas+=10; }
-   if(it.t==='buku'){ tugas=Math.min(100,tugas+20); }
-   if(navigator.vibrate) navigator.vibrate(20);
-  }
- });
- if(keys>=3 && tugas>=50){ alert('🎉 MENANG! Beben dapet 3 kunci + tugas 50% - Bisa pulang! Day '+day); day++; resetItems(); keys=0; money+=200000; document.getElementById('day').innerText=day; document.getElementById('keys').innerText='0/3'; }
-}
-function sleep(){
- day++; kenyang=Math.max(0,kenyang-20); waras=Math.min(100,waras+15); money-=25000;
- document.getElementById('day').innerText=day;
- document.getElementById('money').innerText=(money/1000).toFixed(0)+'k';
- resetItems();
- for(let i=0;i<12;i++) particles.push({x:player.x,y:player.y-10,vy:Math.random()*1+0.5,c:'#8a5cff',life:25});
-}
-
-document.addEventListener('keydown',e=>keysDown[e.key]=true);
-document.addEventListener('keyup',e=>keysDown[e.key]=false);
-document.getElementById('actBtn').addEventListener('touchstart',e=>{e.preventDefault(); tryPickup();});
-document.getElementById('actBtn').addEventListener('click',tryPickup);
-document.getElementById('sleepBtn').addEventListener('click',sleep);
-['up','down','left','right'].forEach(dir=>{
- let el=document.getElementById(dir);
- let key={up:'ArrowUp',down:'ArrowDown',left:'ArrowLeft',right:'ArrowRight'}[dir];
- el.addEventListener('touchstart',e=>{e.preventDefault(); keysDown[key]=true;});
- el.addEventListener('touchend',e=>{e.preventDefault(); keysDown[key]=false;});
- el.addEventListener('mousedown',()=>keysDown[key]=true);
- el.addEventListener('mouseup',()=>keysDown[key]=false);
 });
+canvas.addEventListener('contextmenu',e=>e.preventDefault());
 
-// mobile joystick also WASD work
+let keys={};
+document.addEventListener('keydown',e=>{ keys[e.key.toLowerCase()]=true; if(['w',' '].includes(e.key.toLowerCase())&&player.onGround){ player.vy=-6; player.onGround=false; }});
+document.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+setInterval(()=>{ if(keys['a']) {player.vx=-2; player.dir=-1;} if(keys['d']) {player.vx=2; player.dir=1;} },16);
+
+function updateHotbar(){
+ let h=document.getElementById('hotbar'); h.innerHTML=''; inventory.forEach((it,i)=>{
+  let d=document.createElement('div'); d.className='slot'+(i==sel?' active':''); d.innerHTML=it? (it.id==1?'🟫':it.id==2?'⬜':it.id==3?'🟨':'?')+`<span>${it.count}</span>` : '';
+  d.onclick=()=>{sel=i; updateHotbar();}; h.appendChild(d);
+ });
+}
+updateHotbar();
+
+document.getElementById('leftBtn').addEventListener('touchstart',e=>{e.preventDefault(); player.vx=-2;});
+document.getElementById('rightBtn').addEventListener('touchstart',e=>{e.preventDefault(); player.vx=2;});
+document.getElementById('jumpBtn').addEventListener('touchstart',e=>{e.preventDefault(); if(player.onGround){player.vy=-6;}});
+document.getElementById('dayBtn').onclick=()=>{ time = isDay? 0.85 : 0.25; };
+['leftBtn','rightBtn'].forEach(id=>{ document.getElementById(id).addEventListener('touchend',()=>player.vx=0); });
+
+genWorld(); update(); draw();
 </script>
 </body>
 </html>
