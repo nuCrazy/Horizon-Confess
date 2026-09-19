@@ -1,181 +1,186 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon Love - Premium</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Fraunces:opsz,wght@9..144,800;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>HORIZON MATCH - Swipe Jodoh Sekampus</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Fraunces:opsz,wght@9..144,900&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:#0a0a0f;min-height:100vh;overflow-x:hidden;position:relative}
-.bg{position:fixed;inset:0;z-index:-3;background:radial-gradient(600px at 20% 10%,#ff5a8a22,transparent),radial-gradient(800px at 80% 90%,#8a5cff22,transparent),radial-gradient(500px at 50% 50%,#ff8fa322,transparent),#0a0a0f}
-.orb{position:fixed;width:400px;height:400px;border-radius:50%;filter:blur(80px);z-index:-2;animation:float 8s ease-in-out infinite}
-.orb1{background:linear-gradient(180deg,#ff5a8a,#b06cff);top:-100px;left:-100px;opacity:.5}
-.orb2{background:linear-gradient(180deg,#8a5cff,#00d4ff);bottom:-100px;right:-100px;opacity:.4;animation-delay:-4s}
-@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.1)}}
-.hearts{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
-.heart-f{position:absolute;animation:fall linear forwards;opacity:.6}
-@keyframes fall{0%{transform:translateY(-10vh) rotate(0deg) scale(.8);opacity:0}10%{opacity:.6}90%{opacity:.6}100%{transform:translateY(110vh) rotate(720deg) scale(1.2);opacity:0}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#0a0a0f;color:#fff;min-height:100vh;overflow:hidden}
+.bg{position:fixed;inset:0;z-index:-3;background:radial-gradient(800px at 20% 0%,#ff5a8a18,transparent),radial-gradient(800px at 80% 100%,#8a5cff18,transparent),#0a0a0f}
+.top{max-width:400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:18px 16px}
+.logo{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#ff5a8a,#8a5cff);display:grid;place-items:center;font-weight:900;box-shadow:0 8px 24px #ff5a8a55}
+.brand{font-weight:900;letter-spacing:-.5px}.brand span{background:linear-gradient(90deg,#ff5a8a,#8a5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stats{background:#ffffff0a;border:1px solid #ffffff12;padding:7px 12px;border-radius:99px;font-size:11px;font-weight:700;color:#ffffff77}
 
-.top{width:100%;max-width:520px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:18px 16px}
-.logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ff5a8a,#8a5cff);display:grid;place-items:center;color:#fff;font-weight:800;box-shadow:0 8px 20px #ff5a8a55}
-.brand{font-weight:800;color:#fff;letter-spacing:-.5px}.brand span{background:linear-gradient(90deg,#ff5a8a,#8a5cff,#ff8fa3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 100%;animation:grad 3s linear infinite}
-@keyframes grad{0%{background-position:0%}100%{background-position:200%}}
+.wrap{max-width:400px;margin:0 auto;padding:0 16px 20px;height:calc(100vh - 70px);display:flex;flex-direction:column}
+.deck{position:relative;flex:1;display:grid;place-items:center}
+.card{position:absolute;width:100%;max-width:360px;height:560px;background:#15151d;border:1px solid #ffffff14;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px #00000099;transition:transform.4s cubic-bezier(.17,.67,.12,1), opacity.4s;cursor:grab;will-change:transform}
+.card.dragging{transition:none;cursor:grabbing}
+.card-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.card-gradient{position:absolute;inset:0;background:linear-gradient(0deg,#000 0%,#00000088 35%,transparent 65%)}
+.card-content{position:absolute;bottom:0;left:0;right:0;padding:20px;z-index:2}
+.card-name{font-family:'Fraunces',serif;font-size:28px;font-weight:900;line-height:.9;display:flex;gap:8px;align-items:center}
+.card-name b{font-size:18px;font-weight:700;background:#ffffff1a;padding:4px 10px;border-radius:99px}
+.card-jurusan{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.tg{padding:6px 10px;border-radius:99px;background:#ffffff18;backdrop-filter:blur(12px);border:1px solid #ffffff22;font-size:11px;font-weight:700}
+.bio{margin-top:10px;font-size:13px;color:#ffffffcc;line-height:1.5;font-weight:500}
+.actions{position:absolute;top:16px;right:16px;left:16px;display:flex;justify-content:space-between;z-index:3}
+.act{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:24px;border:1px solid #ffffff22;backdrop-filter:blur(16px);cursor:pointer;transition:.15s;box-shadow:0 8px 20px #00000066}
+.act.nope{background:#ffffff10}.act.like{background:linear-gradient(135deg,#ff5a8a,#ff7a9a);border-color:#ff5a8a}
+.act:active{transform:scale(.9)}
+.indicator{position:absolute;top:24px;padding:10px 18px;border-radius:14px;font-weight:900;font-size:18px;letter-spacing:1px;transform:rotate(-15deg);border:3px solid;opacity:0;transition:.2s;z-index:4}
+.ind-like{left:16px;background:#00ff88;color:#00ff88;border-color:#00ff88;color:#000;background:#00ff88;transform:rotate(-15deg)}
+.ind-nope{right:16px;border-color:#ff3a5a;color:#ff3a5a;transform:rotate(15deg)}
 
-.wrap{max-width:520px;width:100%;margin:0 auto;padding:0 16px 40px}
-.hero{text-align:center;padding:14px 10px 6px}
-.hero h1{font-family:'Fraunces',serif;font-size:42px;line-height:.85;letter-spacing:-1.5px;color:#fff}
-.hero h1 span{background:linear-gradient(90deg,#ff5a8a,#8a5cff,#ffd1dc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.sub{color:#ffffff66;font-size:13px;margin-top:10px;letter-spacing:.3px}
+.controls{display:flex;justify-content:center;gap:18px;padding:18px 0 10px}
+.cbtn{width:64px;height:64px;border-radius:50%;border:1px solid #ffffff15;background:#ffffff08;display:grid;place-items:center;font-size:28px;cursor:pointer;backdrop-filter:blur(10px);transition:.15s}
+.cbtn.like{width:78px;height:78px;background:linear-gradient(135deg,#ff5a8a,#8a5cff);border-color:#ff5a8a88;box-shadow:0 12px 30px #ff5a8a55;font-size:32px}
+.cbtn:active{transform:scale(.92)}
 
-.card{background:linear-gradient(180deg,#ffffff0f,#ffffff08);backdrop-filter:blur(24px) saturate(1.5);border:1px solid #ffffff18;border-radius:28px;padding:22px;margin-top:18px;box-shadow:0 20px 60px #00000080, inset 0 1px 0 #ffffff22;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#ff5a8a88,transparent)}
-.label{font-size:11px;font-weight:800;letter-spacing:1px;color:#ffffff55;margin-top:16px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.inp{width:100%;padding:15px 16px;border:1.5px solid #ffffff15;background:#ffffff08;border-radius:16px;font-size:15px;font-weight:600;color:#fff;outline:none;transition:.2s}
-.inp::placeholder{color:#ffffff33}
-.inp:focus{border-color:#ff5a8a88;background:#ffffff0f;box-shadow:0 0 0 4px #ff5a8a18}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-
-.btn{width:100%;margin-top:20px;padding:18px;background:linear-gradient(100deg,#ff5a8a,#8a5cff);border:none;border-radius:18px;font-weight:800;font-size:16px;color:#fff;cursor:pointer;box-shadow:0 10px 30px #ff5a8a55, 0 0 0 1px #ffffff22 inset;position:relative;overflow:hidden;transition:.15s}
-.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent,#ffffff30,transparent);transform:translateX(-100%);transition:.6s}
-.btn:hover::after{transform:translateX(100%)}
-.btn:active{transform:scale(.98)}
-.btn:disabled{opacity:.6}
-
-.result{margin-top:22px;display:none}
-.circle-wrap{position:relative;width:200px;height:200px;margin:0 auto}
-.circle{width:100%;height:100%;border-radius:50%;background:conic-gradient(from 0deg,#ff5a8a,#8a5cff,#ff5a8a);padding:4px;animation:spin 4s linear infinite;box-shadow:0 0 40px #ff5a8a44}
-@keyframes spin{to{transform:rotate(360deg)}}
-.inner{width:100%;height:100%;border-radius:50%;background:#0f0f13;display:grid;place-items:center;border:1px solid #ffffff11}
-.pct{font-family:'Fraunces',serif;font-size:62px;font-weight:900;background:linear-gradient(180deg,#fff,#ffffff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
-.confetti{position:absolute;inset:0;pointer-events:none}
-
-.bar{width:100%;height:16px;background:#ffffff10;border:1px solid #ffffff15;border-radius:99px;overflow:hidden;margin-top:20px;position:relative}
-.fill{height:100%;background:linear-gradient(90deg,#ff5a8a,#8a5cff,#ffd1dc);width:0%;transition:width 1.8s cubic-bezier(.17,.67,.12,1);box-shadow:0 0 20px #ff5a8a88;position:relative}
-.fill::after{content:'';position:absolute;top:0;bottom:0;right:0;width:40px;background:linear-gradient(90deg,transparent,#ffffff88);filter:blur(6px);animation:shine 1.5s ease-in-out infinite}
-@keyframes shine{0%,100%{opacity:0}50%{opacity:1}}
-
-.msg{margin-top:16px;padding:16px;background:linear-gradient(180deg,#ffffff0f,#ffffff05);border:1px solid #ffffff12;border-radius:18px;color:#ffffffcc;font-weight:600;font-size:14px;line-height:1.6;backdrop-filter:blur(12px)}
-.tags{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
-.tg{padding:7px 12px;border-radius:99px;background:#ffffff10;border:1px solid #ffffff15;color:#ffffff88;font-size:11px;font-weight:700}
-
-.actions{display:flex;gap:8px;margin-top:14px}
-.act{flex:1;padding:12px;border-radius:99px;border:1px solid #ffffff15;background:#ffffff08;color:#fff;font-weight:700;font-size:13px;cursor:pointer;backdrop-filter:blur(10px)}
-.act.primary{background:#fff;color:#111}
+.empty{text-align:center;padding:40px 20px}
+.empty h2{font-family:'Fraunces',serif;font-size:32px}
+.match-overlay{position:fixed;inset:0;background:radial-gradient(circle at center,#ff5a8aee,#8a5cfffa);z-index:100;display:none;place-items:center;padding:20px;text-align:center}
+.match-card{background:#fff;color:#111;border-radius:28px;padding:28px;max-width:360px;width:100%;box-shadow:0 30px 80px #00000055;animation:pop.6s cubic-bezier(.17,.67,.12,1.2)}
+@keyframes pop{0%{transform:scale(.5) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.add{margin-top:16px;background:#ffffff08;border:1px dashed #ffffff22;border-radius:18px;padding:14px;text-align:center;font-size:12px;color:#ffffff66}
+.add b{color:#fff}
 </style>
 </head>
 <body>
 <div class="bg"></div>
-<div class="orb orb1"></div><div class="orb orb2"></div>
-<div class="hearts" id="hearts"></div>
-
 <div class="top">
-<div style="display:flex;gap:10px;align-items:center"><div class="logo">H</div><div class="brand">HORIZON <span>LOVE</span></div></div>
-<div style="background:#ffffff10;border:1px solid #ffffff15;padding:7px 12px;border-radius:99px;font-size:11px;font-weight:700;color:#ffffff88;backdrop-filter:blur(10px)">✨ PREMIUM EDITION</div>
+<div style="display:flex;gap:10px;align-items:center"><div class="logo">H</div><div class="brand">HORIZON <span>MATCH</span></div></div>
+<div class="stats">🔥 <span id="left">12</span> orang lagi</div>
 </div>
 
 <div class="wrap">
-<div class="hero">
-<h1>Cek Jodoh<br><span>Sekampus?</span></h1>
-<div class="sub">Efek cinta realtime • Ketik bebas • Viral mode</div>
+<div class="deck" id="deck"></div>
+
+<div class="controls">
+<button class="cbtn" onclick="swipe('nope')">👎</button>
+<button class="cbtn" onclick="superLike()">⭐</button>
+<button class="cbtn like" onclick="swipe('like')">💖</button>
 </div>
 
-<div class="card">
-<div class="row">
-<div><div class="label">💁 NAMA KAMU</div><input id="n1" class="inp" placeholder="Beben"></div>
-<div><div class="label">😍 NAMA DIA</div><input id="n2" class="inp" placeholder="Cantika"></div>
-</div>
-<div class="row">
-<div><div class="label">🎓 JURUSAN KAMU</div><input id="j1" class="inp" placeholder="Teknik Informatika"></div>
-<div><div class="label">🎓 JURUSAN DIA</div><input id="j2" class="inp" placeholder="Ilmu Komunikasi"></div>
-</div>
-<div style="margin-top:10px;color:#ffffff44;font-size:11px">💡 Bisa ketik jurusan apapun! Ex: DKV, Manajemen, Psikologi, Farmasi...</div>
-<button class="btn" id="btn" onclick="hitung()">💘 HITUNG KECOCOKAN SEKARANG</button>
-
-<div class="result" id="res">
-<div class="circle-wrap">
-<div class="circle"><div class="inner"><div><div class="pct" id="pct">0%</div><div style="font-size:22px;margin-top:-4px">💖</div></div></div></div>
-<canvas class="confetti" id="conf"></canvas>
-</div>
-<div class="bar"><div class="fill" id="fill"></div></div>
-<div class="msg" id="msg"></div>
-<div class="tags" id="tags"></div>
-<div class="actions">
-<button class="act primary" onclick="share()">📤 Share WA</button>
-<button class="act" onclick="reset()">🔄 Ulangi</button>
-<button class="act" onclick="capture()">📸 Save</button>
-</div>
+<div class="add">
+💡 Mau masuk ke deck? <b onclick="addMe()" style="color:#ff5a8a;cursor:pointer;text-decoration:underline">Tambah profil lu!</b><br>
+Semua anonim, IG kebuka kalo match!
 </div>
 </div>
 
-<div style="text-align:center;color:#ffffff22;font-size:11px;margin-top:18px">Horizon Kuningan • Dibuat dengan 💘 + ✨</div>
+<div class="match-overlay" id="match">
+<div class="match-card">
+<div style="font-size:60px">💘</div>
+<h2 style="font-family:Fraunces,serif;font-size:36px;line-height:.9;margin-top:8px">IT'S A<br>MATCH!</h2>
+<p style="margin-top:10px;color:#666;font-size:14px;line-height:1.5">Kamu & <b id="mName">Cantika</b> saling suka!<br>Buruan chat sebelum diambil orang!</p>
+<div style="background:#f5f5f7;border-radius:16px;padding:12px;margin-top:14px;text-align:left">
+<div style="font-size:11px;color:#999;font-weight:700;letter-spacing:1px">IG / WA DIA:</div>
+<div style="font-weight:800;font-size:18px;margin-top:4px" id="mIG">@cantika.ilkom</div>
+<div style="font-size:12px;color:#666;margin-top:2px" id="mJurusan">Ilmu Komunikasi • 20 • Kuningan</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px">
+<button onclick="closeMatch()" style="padding:14px;border-radius:99px;border:1px solid #ddd;background:#fff;font-weight:700">Lanjut Swipe</button>
+<button onclick="openIG()" style="padding:14px;border-radius:99px;border:none;background:#111;color:#fff;font-weight:800">💬 Chat Sekarang</button>
+</div>
+</div>
 </div>
 
 <script>
-function heartsRain(){
- let c=document.getElementById('hearts');
- setInterval(()=>{
-  let h=document.createElement('div');h.className='heart-f';h.innerText=['💖','💘','💝','✨','💕'][Math.floor(Math.random()*5)];
-  h.style.left=Math.random()*100+'vw';h.style.fontSize=(12+Math.random()*18)+'px';h.style.animationDuration=(4+Math.random()*4)+'s';
-  c.appendChild(h);setTimeout(()=>h.remove(),8000);
- },250);
-}
-heartsRain();
+const profiles=[
+ {n:'Cantika',age:20,j:'Ilmu Komunikasi',bio:'Suka nongki di perpus lantai 2 📚 | coffee addict ☕ | cari temen nugas bareng',img:'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600',ig:'@cantika.ilkom',color:'#ff5a8a'},
+ {n:'Beby',age:19,j:'DKV',bio:'Desainer wannabe 🎨 | suka foto aesthetic | cari muse buat portfolio',img:'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600',ig:'@beby.dkv',color:'#8a5cff'},
+ {n:'Rara',age:21,j:'Manajemen',bio:'Anak FEB garis keras 💼 | suka bisnis kecil-kecilan | butuh partner usaha & hidup 😏',img:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600',ig:'@rara.mnjm',color:'#00d4ff'},
+ {n:'Zahra',age:20,j:'Teknik Informatika',bio:'Ngoding sampe jam 2 pagi 💻 | suka anime & wibu | cari yang bisa debug hati aku',img:'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600',ig:'@zahra.if',color:'#ff8fa3'},
+ {n:'Keisha',age:19,j:'Psikologi',bio:'Pendengar yang baik 🫶 | suka deep talk malem-malem | psikolog gratis buat pacar',img:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600',ig:'@keisha.psiko',color:'#ffd1dc'},
+ {n:'Arka',age:21,j:'Teknik Sipil',bio:'Anak teknik tapi soft spoken 🛠️ | suka futsal & gym | cari yang bisa jadi rumah',img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600',ig:'@arka.sipil',color:'#2a2a33'},
+ {n:'Dimas',age:22,j:'Hukum',bio:'Calon pengacara ⚖️ | suka debat & diskusi | butuh yang bisa aku bela seumur hidup',img:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600',ig:'@dimas.hukum',color:'#1a1a1a'},
+ {n:'Fajar',age:20,j:'Sistem Informasi',bio:'Bisnis + tech enthusiast 🚀 | lagi bangun startup | cari co-founder + co-life',img:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600',ig:'@fajar.si',color:'#8a5cff'},
+ {n:'Sinta',age:20,j:'Akuntansi',bio:'Teliti & rapi 📊 | suka ngitungin duit orang (eh) | cari yang bisa diatur keuangan bareng',img:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600',ig:'@sinta.akt',color:'#ff5a8a'},
+ {n:'Nayla',age:19,j:'Farmasi',bio:'Calon apoteker 💊 | suka skincare & wangi-wangian | butuh yang butuh dirawat',img:'https://images.unsplash.com/photo-1526510747491-58f928ec870f?w=600',ig:'@nayla.farmasi',color:'#00e676'},
+ {n:'Rio',age:21,j:'Bisnis Digital',bio:'Anak bisnis digital jualan mulu 💰 | suka konten & live tiktok | cari partner live',img:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600',ig:'@rio.bisdig',color:'#ff8fa3'},
+ {n:'Maya',age:20,j:'PGSD',bio:'Calon guru SD tapi jiwa masih bocil 🍭 | suka anak kecil & main | cari yang bisa jadi murid setia',img:'https://images.unsplash.com/photo-1520813792240-56fc4a594c23?w=600',ig:'@maya.pgsd',color:'#ffd54f'},
+];
 
-function jurusanScore(j1,j2){
- j1=j1.toLowerCase();j2=j2.toLowerCase();if(!j1||!j2)return 70;
- if(j1===j2)return 93;
- if((j1.includes('informatika')&&j2.includes('komunikasi'))||(j2.includes('informatika')&&j1.includes('komunikasi')))return 96;
- if((j1.includes('dkv')&&j2.includes('informatika'))||(j2.includes('dkv')&&j1.includes('informatika')))return 91;
- if(j1.includes('manajemen')&&j2.includes('manajemen'))return 88;
- return 62 + (j1.length+j2.length)%23;
+let idx=0, startX=0, curX=0, isDrag=false, deck=document.getElementById('deck');
+
+function render(){
+ deck.innerHTML='';
+ let remaining=profiles.slice(idx, idx+3).reverse();
+ remaining.forEach((p,i)=>{
+  let el=document.createElement('div');el.className='card';el.style.zIndex=i;el.style.transform=`scale(${1-i*0.04}) translateY(${i*8}px)`;
+  el.innerHTML=`
+   <img class="card-img" src="${p.img}" draggable="false">
+   <div class="card-gradient"></div>
+   <div class="indicator ind-like" id="like-${idx+i}">LIKE 💖</div>
+   <div class="indicator ind-nope" id="nope-${idx+i}">NOPE 👎</div>
+   <div class="actions"><div class="act nope">👎</div><div class="act like">💖</div></div>
+   <div class="card-content">
+    <div class="card-name">${p.n} <b>${p.age}</b></div>
+    <div class="card-jurusan"><div class="tg">🎓 ${p.j}</div><div class="tg">📍 Kuningan</div><div class="tg">🔥 ${70+Math.floor(Math.random()*25)}% match</div></div>
+    <div class="bio">${p.bio}</div>
+   </div>`;
+  if(i===remaining.length-1){
+   el.addEventListener('touchstart',onStart,{passive:false});
+   el.addEventListener('mousedown',onStart);
+  }
+  deck.appendChild(el);
+ });
+ document.getElementById('left').innerText=Math.max(0,profiles.length-idx);
+ if(idx>=profiles.length){deck.innerHTML=`<div class="empty"><h2>Habis! 😭</h2><p style="color:#ffffff66;margin-top:8px">Tungguin besok, bakal ada orang baru!<br>Atau tambahin profil lu biar orang lain bisa swipe lu!</p><button onclick="reset()" style="margin-top:16px;padding:12px 20px;border-radius:99px;border:none;background:#fff;color:#111;font-weight:800">🔄 Ulang dari awal</button></div>`}
 }
 
-function confettiBoom(){
- let canvas=document.getElementById('conf');let ctx=canvas.getContext('2d');canvas.width=200;canvas.height=200;
- let parts=[];for(let i=0;i<80;i++)parts.push({x:100,y:100,vx:(Math.random()-0.5)*12,vy:(Math.random()-0.5)*12-4,r:Math.random()*6+2,c:`hsl(${320+Math.random()*40},100%,70%)`,a:1});
- let anim=()=>{
-  ctx.clearRect(0,0,200,200);
-  parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.25;p.a-=0.015;ctx.globalAlpha=p.a;ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();});
-  if(parts[0].a>0)requestAnimationFrame(anim);
- };anim();
+function onStart(e){
+ isDrag=true;startX=e.touches?e.touches[0].clientX:e.clientX;
+ let card=document.querySelector('.card:last-child');card.classList.add('dragging');
+ window.addEventListener('touchmove',onMove,{passive:false});
+ window.addEventListener('mousemove',onMove);
+ window.addEventListener('touchend',onEnd);window.addEventListener('mouseup',onEnd);
+}
+function onMove(e){
+ if(!isDrag)return;curX=(e.touches?e.touches[0].clientX:e.clientX)-startX;
+ let card=document.querySelector('.card:last-child');if(!card)return;
+ let rot=curX/15;card.style.transform=`translateX(${curX}px) rotate(${rot}deg)`;
+ let like=card.querySelector('.ind-like'),nope=card.querySelector('.ind-nope');
+ if(curX>0){like.style.opacity=Math.min(1,curX/100);nope.style.opacity=0;}else{nope.style.opacity=Math.min(1,-curX/100);like.style.opacity=0;}
+}
+function onEnd(){
+ isDrag=false;let card=document.querySelector('.card:last-child');if(!card)return;
+ card.classList.remove('dragging');
+ window.removeEventListener('touchmove',onMove);window.removeEventListener('mousemove',onMove);
+ window.removeEventListener('touchend',onEnd);window.removeEventListener('mouseup',onEnd);
+ if(Math.abs(curX)>90){swipe(curX>0?'like':'nope',curX);}else{card.style.transform='';card.querySelectorAll('.indicator').forEach(i=>i.style.opacity=0);}
+ curX=0;
 }
 
-function hitung(){
- let n1=document.getElementById('n1').value.trim(),n2=document.getElementById('n2').value.trim();
- let j1=document.getElementById('j1').value.trim()||'Teknik Informatika',j2=document.getElementById('j2').value.trim()||'Ilmu Komunikasi';
- if(n1.length<2||n2.length<2)return alert('Isi nama dulu Beben! 💘');
- let btn=document.getElementById('btn');btn.disabled=true;btn.innerText='🔮 Menghitung takdir...';
- let base=(n1+n2+j1+j2).toLowerCase().split('').reduce((a,c)=>a+c.charCodeAt(0),0);
- let fac=jurusanScore(j1,j2);
- let score=Math.min(99,Math.max(12, fac + (base%18)-4));
- if(n1.toLowerCase()===n2.toLowerCase())score=99;
- if(n1.toLowerCase().includes('beben')||n2.toLowerCase().includes('beben'))score=Math.min(99,score+7);
-
- document.getElementById('res').style.display='block';
- let pctEl=document.getElementById('pct'),fill=document.getElementById('fill');
- let cur=0;let itv=setInterval(()=>{
-  cur+=1;if(cur>=score){cur=score;clearInterval(itv);btn.disabled=false;btn.innerText='💘 HITUNG KECOCOKAN SEKARANG';if(score>=85)confettiBoom();}
-  pctEl.innerText=cur+'%';fill.style.width=cur+'%';
- },18);
-
- let txt='';
- if(score>=96)txt=`🔥 ANJAY! ${n1} & ${n2} JODOH ALAM SEMESTA! ${j1} × ${j2} combo langka se-Horizon! Nikah kapan?`;
- else if(score>=88)txt=`💖 GILA COCOK! ${n1} (${j1}) & ${n2} (${j2}) chemistry nya meledak! Anak ${j2} emang jodohnya anak ${j1}!`;
- else if(score>=72)txt=`😍 Lumayan! ${n1} & ${n2} tinggal usaha dikit. Traktir 2x di kantin, auto jadian!`;
- else if(score>=50)txt=`🤔 50:50 nih ${n1}. Beda jurusan ${j1} vs ${j2} bikin beda jadwal, tapi cinta bisa ngalahin SKS!`;
- else txt=`😅 Waduh ${n1}, ${j1} × ${j2} beda frekuensi kayak WiFi & Bluetooth, tapi kalo udah cinta mah gas aja!`;
- document.getElementById('msg').innerText=txt;
- document.getElementById('tags').innerHTML=`<div class="tg">${j1}</div><div class="tg">${j2}</div><div class="tg">${fac}% chemistry</div><div class="tg">ID: ${base.toString(36).toUpperCase()}</div>`;
- window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+function swipe(type,forceX){
+ let card=document.querySelector('.card:last-child');if(!card)return;
+ let dir=type==='like'?1:-1;let x=forceX||dir*400;
+ card.style.transform=`translateX(${x}px) rotate(${dir*25}deg)`;card.style.opacity='0';
+ setTimeout(()=>{
+  if(type==='like'){
+   if(Math.random()>0.35){showMatch(profiles[idx]);}
+  }
+  idx++;render();
+ },280);
 }
-function share(){
- let n1=document.getElementById('n1').value||'A',n2=document.getElementById('n2').value||'B',pct=document.getElementById('pct').innerText;
- let j1=document.getElementById('j1').value,j2=document.getElementById('j2').value;
- let t=`💘 Horizon Love: ${n1} (${j1}) & ${n2} (${j2}) = ${pct} JODOH! Cek punya lu di ${location.href}`;
- window.open('https://wa.me/?text='+encodeURIComponent(t));
+
+function superLike(){swipe('like',0);setTimeout(()=>{if(Math.random()>0.2)showMatch(profiles[idx-1])},300)}
+
+let currentMatch=null;
+function showMatch(p){
+ currentMatch=p;document.getElementById('mName').innerText=p.n;document.getElementById('mIG').innerText=p.ig;document.getElementById('mJurusan').innerText=`${p.j} • ${p.age} • Kuningan`;
+ document.getElementById('match').style.display='grid';
+ try{if(navigator.vibrate)navigator.vibrate([100,50,100]);let ac=new AudioContext(),o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=880;g.gain.setValueAtTime(0.4,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.01,ac.currentTime+0.6);o.start();o.stop(ac.currentTime+0.6);}catch(e){}
 }
-function reset(){document.getElementById('res').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
-function capture(){alert('Screenshot manual ya Beben! Tekan tombol power + volume (HP) biar bisa share ke story IG 😘');}
+function closeMatch(){document.getElementById('match').style.display='none';}
+function openIG(){let ig=currentMatch.ig.replace('@','');window.open(`https://instagram.com/${ig}`,'_blank');}
+function reset(){idx=0;render();}
+function addMe(){
+ let n=prompt('Nama lu:');if(!n)return;let j=prompt('Jurusan lu:')||'Teknik Informatika';let ig=prompt('IG lu (buat kalo match):')||'@'+n.toLowerCase();
+ profiles.unshift({n:n,age:20,j:j,bio:'Anak Horizon yang lagi cari jodoh sekampus 💘 | Swipe kanan kalo mau kenalan!',img:`https://i.pravatar.cc/600?u=${n}`,ig:ig});idx=0;render();alert('Profil lu udah masuk deck! Orang lain bisa swipe lu sekarang! 🔥');
+}
+render();
 </script>
 </body>
 </html>
