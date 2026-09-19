@@ -1,178 +1,67 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon Confess - Realtime</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horizon Confess</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:#fcf9ff;color:#111;padding-bottom:90px}
-.top{position:sticky;top:0;z-index:99;background:rgba(252,249,255,.9);backdrop-filter:blur(16px);border-bottom:1px solid #f0e6ff}
-.nav{max-width:640px;margin:0 auto;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
-.logoRow{display:flex;align-items:center;gap:10px}
-.logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(180deg,#ff8fa3,#b06cff);display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px;box-shadow:0 8px 20px #ff8fa355;position:relative}
-.logo:after{content:'';position:absolute;left:9px;right:9px;bottom:11px;height:2px;background:#fff;border-radius:2px}
-.brand{font-weight:800;font-size:18px;letter-spacing:-.6px}.brand span{background:linear-gradient(90deg,#ff5a8a,#8a5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.stat{background:#111;color:#fff;padding:7px 12px;border-radius:999px;font-size:11px;font-weight:700;display:flex;gap:6px;align-items:center}
-.dot{width:7px;height:7px;background:#00e676;border-radius:50%;animation:b 1s infinite}@keyframes b{0%,100%{opacity:1}50%{opacity:.3}}
-.wrap{max-width:640px;margin:0 auto;padding:0 14px}
-.hero{text-align:center;padding:20px 10px 6px}
-.hero h1{font-size:30px;line-height:1.05;letter-spacing:-1.2px;font-weight:800}.hero h1 span{background:linear-gradient(90deg,#ff5a8a,#8a5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:#7a7a90;font-size:14px;margin-top:8px;line-height:1.5}
-.card{background:#fff;border:1px solid #f0e6ff;border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 12px 40px #8a5cff12}
-.step{font-size:11px;font-weight:800;letter-spacing:1px;color:#8a5cff;margin-bottom:10px}
-textarea{width:100%;background:#fbf7ff;border:2px solid #efe6ff;border-radius:16px;padding:14px;font-size:15px;min-height:115px;outline:none;resize:none;font-family:inherit;line-height:1.5}
-textarea:focus{border-color:#8a5cff;background:#fff}
-.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.tag{padding:10px 16px;border-radius:999px;background:#f6f0ff;border:1.5px solid #e9deff;font-size:13px;font-weight:700;cursor:pointer}
-.tag.on{background:#111;color:#fff;border-color:#111;transform:scale(1.05)}
-.inp{width:100%;margin-top:12px;background:#fbf7ff;border:2px solid #efe6ff;border-radius:12px;padding:12px 14px;font-size:14px;outline:none}
-.btn{width:100%;margin-top:14px;padding:16px;background:#111;color:#fff;border:none;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer}
-.btn:disabled{opacity:.5}
-.status{margin-top:10px;text-align:center;font-size:11px;padding:8px;border-radius:999px;background:#f1e8ff;color:#6a5a8a}
-.filters{display:flex;gap:8px;overflow-x:auto;padding:14px 0 6px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}
-.f{padding:10px 18px;border-radius:999px;background:#fff;border:1px solid #eee;font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer;flex-shrink:0}.f.on{background:#111;color:#fff;border-color:#111}
-.feed{margin-top:8px}
-.item{background:#fff;border:1px solid #f0e8ff;border-radius:20px;padding:16px;margin-bottom:12px;animation:pop .3s}@keyframes pop{from{transform:translateY(6px);opacity:0}to{transform:translateY(0);opacity:1}}
-.head{display:flex;justify-content:space-between;align-items:center}
-.chip{font-size:11px;font-weight:800;padding:6px 12px;border-radius:999px}
-.chip.crush{background:#f2efff;color:#7a5cff}.chip.galau{background:#fff0f3;color:#ff3b6a}.chip.bucin{background:#fff0f7;color:#ff5aa8}.chip.roasting{background:#fff7e6;color:#ff9f1a}.chip.random{background:#e8fbff;color:#00aacc}
-.time{font-size:11px;color:#aaa}
-.to{font-size:12px;color:#777;margin-top:6px}.to b{color:#111}
-.msg{font-size:15px;line-height:1.6;margin-top:10px;white-space:pre-wrap;word-break:break-word}
-.acts{margin-top:12px;border-top:1px solid #f6f0ff;padding-top:10px;display:flex;gap:16px;font-size:13px;color:#888}
-.acts span{cursor:pointer}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Plus Jakarta Sans',sans-serif;background:#fcf9ff}
+.top{position:sticky;top:0;background:#fcf9ffe6;backdrop-filter:blur(12px);border-bottom:1px solid #eee;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo{width:40px;height:40px;border-radius:50%;background:linear-gradient(#ff8fa3,#b06cff);display:grid;place-items:center;color:#fff;font-weight:800}
+.wrap{max-width:600px;margin:0 auto;padding:14px}
+.hero{text-align:center;padding:18px 10px}.hero h1{font-size:28px;line-height:1.1}.hero h1 span{background:linear-gradient(90deg,#ff5a8a,#8a5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.card{background:#fff;border:1px solid #f0e6ff;border-radius:20px;padding:16px;margin-top:12px}
+textarea{width:100%;border:2px solid #efe6ff;background:#fbf7ff;border-radius:14px;padding:12px;min-height:100px;outline:none}
+.tag{display:inline-block;padding:8px 14px;border-radius:99px;background:#f3e8ff;margin:4px;font-size:13px;font-weight:700;cursor:pointer}.tag.on{background:#111;color:#fff}
+.inp{width:100%;margin-top:10px;border:2px solid #efe6ff;background:#fbf7ff;border-radius:10px;padding:10px 12px}
+.btn{width:100%;margin-top:12px;padding:14px;background:#111;color:#fff;border:none;border-radius:12px;font-weight:800}
+.item{background:#fff;border:1px solid #f0e8ff;border-radius:18px;padding:14px;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div class="top"><div class="nav"><div class="logoRow"><div class="logo">H</div><div class="brand">HORIZON <span>CONFESS</span></div></div><div class="stat"><span class="dot"></span><span id="cnt">0</span> LIVE</div></div></div>
-
+<div class="top"><div style="display:flex;gap:8px;align-items:center"><div class="logo">H</div><b>HORIZON CONFESS</b></div><div style="background:#111;color:#fff;padding:6px 10px;border-radius:99px;font-size:11px"><span id="cnt">0</span> LIVE</div></div>
 <div class="wrap">
-<div class="hero"><h1>Curhat Anonim,<br><span>Langsung Muncul!</span></h1><p>100% anonim • Realtime • Buat anak Kuningan. Tulis sekarang, temen lu liat 3 detik lagi!</p></div>
-
+<div class="hero"><h1>Curhat Anonim<br><span>Langsung Muncul</span></h1><p style="color:#888;font-size:13px;margin-top:6px">100% anonim • Realtime</p></div>
 <div class="card">
-<div class="step">LANGKAH 1 • TULIS CURHATAN</div>
-<textarea id="txt" placeholder="Contoh: Buat cewe hoodie item di perpus tadi... lu cantik banget 😳"></textarea>
-<div class="step" style="margin-top:16px">LANGKAH 2 • PILIH KATEGORI</div>
-<div class="tags" id="tags">
-<div class="tag on" data-t="crush">👀 Crush</div>
-<div class="tag" data-t="galau">💔 Galau</div>
-<div class="tag" data-t="bucin">😍 Bucin</div>
-<div class="tag" data-t="roasting">🔥 Roasting</div>
-<div class="tag" data-t="random">🤣 Random</div>
+<textarea id="txt" placeholder="Tulis curhatan lu..."></textarea>
+<div style="margin-top:10px"><div class="tag on" data-t="crush">👀 Crush</div><div class="tag" data-t="galau">💔 Galau</div><div class="tag" data-t="bucin">😍 Bucin</div><div class="tag" data-t="roasting">🔥 Roasting</div><div class="tag" data-t="random">🤣 Random</div></div>
+<input id="to" class="inp" placeholder="Untuk siapa? (boleh kosong)">
+<button class="btn" onclick="kirim()">🚀 KIRIM</button>
+<p id="st" style="text-align:center;font-size:11px;color:#888;margin-top:8px">Menghubungkan...</p>
 </div>
-<div class="step" style="margin-top:16px">LANGKAH 3 • TUJUKAN (BOLEH KOSONG)</div>
-<input id="to" class="inp" placeholder="Ex: TI 23, Kantin Teknik, Perpus lt 2">
-<button class="btn" id="btn" onclick="kirim()">🚀 KIRIM KE SELURUH KAMPUS</button>
-<div class="status" id="status">🔄 Menghubungkan ke server realtime...</div>
+<div id="feed" style="margin-top:14px"></div>
 </div>
-
-<div class="filters" id="filters">
-<div class="f on" onclick="filtr('all',this)">✨ Semua</div>
-<div class="f" onclick="filtr('crush',this)">👀 Crush</div>
-<div class="f" onclick="filtr('galau',this)">💔 Galau</div>
-<div class="f" onclick="filtr('bucin',this)">😍 Bucin</div>
-<div class="f" onclick="filtr('roasting',this)">🔥 Roasting</div>
-<div class="f" onclick="filtr('random',this)">🤣 Random</div>
-</div>
-
-<div class="feed" id="feed"></div>
-</div>
-
 <script>
-let curTag='crush', curFil='all', allData=[], BIN_ID=null;
-const API_BASE = "https://jsonblob.com/api/jsonBlob/";
-
-const tagsEl=document.getElementById('tags');
-tagsEl.querySelectorAll('.tag').forEach(el=>{
- el.onclick=()=>{
-  tagsEl.querySelectorAll('.tag').forEach(x=>x.classList.remove('on'));
-  el.classList.add('on');curTag=el.dataset.t;
- }
-});
-
-function filtr(f,el){
- curFil=f;
- document.querySelectorAll('.f').forEach(x=>x.classList.remove('on'));
- el.classList.add('on');render();
-}
-
-// AUTO BIKIN DATABASE - GAK PERLU SETTING MANUAL!
-async function initDB(){
- let savedId = localStorage.getItem('horizon_bin_id');
- if(savedId){
-  BIN_ID=savedId;
-  load();
-  return;
- }
- try{
-  document.getElementById('status').innerText='🚀 Bikin database baru untuk kampus lu...';
-  let res=await fetch(API_BASE,{
-   method:'POST',
-   headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({confess:[
-    {t:'Buat cewe di kantin teknik hoodie item, lu cantik banget sumpah 😭 IG apa?',tag:'crush',to:'Kantin Teknik',time:'2 jam lalu',like:42},
-    {t:'Dosen kalo ngasih tugas jangan H-1 dong pak 🙏',tag:'roasting',to:'Dosen Algoritma',time:'5 jam lalu',like:91}
-   ]})
-  });
-  let location = res.headers.get('Location') || res.headers.get('location');
-  BIN_ID = location.split('/').pop();
-  localStorage.setItem('horizon_bin_id',BIN_ID);
-  load();
- }catch(e){
-  document.getElementById('status').innerText='❌ Gagal bikin DB, pake mode demo dulu. Coba refresh.';
-  allData=[
-   {t:'Mode demo - database gagal dibuat, tapi design tetap jalan!',tag:'random',to:'System',time:'baru saja',like:0}
-  ];
-  render();
- }
-}
-
+let curTag='crush';let data=[];
+const API="https://api.npoint.io/42d5e8f9b1c0a7d6e9f2";
+document.querySelectorAll('.tag').forEach(el=>el.onclick=()=>{document.querySelectorAll('.tag').forEach(x=>x.classList.remove('on'));el.classList.add('on');curTag=el.dataset.t;});
 async function load(){
- if(!BIN_ID) return;
  try{
-  let res=await fetch(API_BASE+BIN_ID);
-  let json=await res.json();
-  allData=json.confess||[];
-  document.getElementById('cnt').innerText=allData.length;
-  document.getElementById('status').innerText='🟢 Realtime aktif • Auto refresh 3 detik • '+allData.length+' confess';
+  let r=await fetch(API);let j=await r.json();data=j.data||j.confess||[];
+  document.getElementById('cnt').innerText=data.length;
+  document.getElementById('st').innerText='🟢 Live - '+data.length+' confess';
   render();
  }catch(e){
-  document.getElementById('status').innerText='⚠️ Koneksi bermasalah, coba refresh';
+  // bikin database pertama kali
+  await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({data:[{t:'Buat cewe hoodie item di kantin teknik, lu cantik bgt 😭',tag:'crush',to:'Kantin Teknik',time:'baru saja'}]})});
+  load();
  }
 }
-
 function render(){
- let feed=document.getElementById('feed');feed.innerHTML='';
- let list=curFil==='all'?allData:allData.filter(d=>d.tag===curFil);
- list.slice().reverse().forEach(d=>{
-  let div=document.createElement('div');div.className='item';
-  div.innerHTML=`<div class="head"><span class="chip ${d.tag}">#${d.tag.toUpperCase()}</span><span class="time">${d.time}</span></div><div class="to">Untuk: <b>${d.to}</b></div><div class="msg">${d.t.replace(/</g,'&lt;')}</div><div class="acts"><span>❤️ ${d.like||0}</span><span>🔗 Share</span></div>`;
-  feed.appendChild(div);
+ let f=document.getElementById('feed');f.innerHTML='';
+ [...data].reverse().forEach(d=>{
+  f.innerHTML+=`<div class="item"><b style="font-size:11px;background:#f2efff;color:#7a5cff;padding:4px 8px;border-radius:99px">#${d.tag}</b><span style="float:right;font-size:11px;color:#aaa">${d.time}</span><div style="font-size:12px;color:#777;margin-top:6px">Untuk: <b>${d.to}</b></div><div style="margin-top:8px;font-size:15px;line-height:1.5">${d.t}</div></div>`;
  });
 }
-
 async function kirim(){
- let txt=document.getElementById('txt').value.trim();
- let to=document.getElementById('to').value.trim()||'Semua Orang';
- if(txt.length<5)return alert('Tulis agak panjang dikit dong!');
- if(!BIN_ID)return alert('Database belum siap, refresh dulu ya!');
- let btn=document.getElementById('btn');btn.disabled=true;btn.innerText='MENGIRIM...';
- try{
-  let res=await fetch(API_BASE+BIN_ID);
-  let json=await res.json();
-  json.confess=json.confess||[];
-  json.confess.push({t:txt,tag:curTag,to:to,time:'baru saja',like:0});
-  await fetch(API_BASE+BIN_ID,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(json)});
-  document.getElementById('txt').value='';document.getElementById('to').value='';
-  load();
- }catch(e){alert('Gagal kirim, coba lagi!')}
- btn.disabled=false;btn.innerText='🚀 KIRIM KE SELURUH KAMPUS';
+ let t=document.getElementById('txt').value.trim();let to=document.getElementById('to').value.trim()||'Semua Orang';
+ if(t.length<4)return alert('Tulis dulu!');
+ let r=await fetch(API);let j=await r.json();let arr=j.data||j.confess||[];
+ arr.push({t:t,tag:curTag,to:to,time:'baru saja'});
+ await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({data:arr})});
+ document.getElementById('txt').value='';load();
 }
-
-initDB();
-setInterval(()=>{ if(BIN_ID) load(); },3000);
+load();setInterval(load,3000);
 </script>
 </body>
 </html>
