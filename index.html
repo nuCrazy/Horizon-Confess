@@ -44,8 +44,7 @@
 </div>
 <div class="max-w-[1200px] mx-auto px-4 pb-28">
   <header class="sticky top-0 z-20 bg-broken/90 backdrop-blur-md border-b border-cream px-4 py-3 flex items-center justify-between -mx-4 mb-4">
-    <div class="flex items-center gap-2 font-bold text-maroon">
-      <img src="logo.png" class="w-[84px] h-[84px] rounded-full border-[3px] border-maroon object-cover">
+    <div class="flex items-center gap-2 font-bold text-maroon"> 
       <div class="w-9 h-9 rounded-full bg-white border-2 border-maroon grid place-items-center">H</div>
       <span class="leading-none text-[14px]">Horizon<br>Confess</span>
       <span class="text-[9px] bg-gold text-maroon px-2 py-0.5 rounded-full">ONLINE</span>
@@ -202,8 +201,38 @@ window.openDetail=function(fid){
 }
 window.closeDetail=function(){document.getElementById('detailModal').classList.add('hidden'); document.getElementById('detailModal').classList.remove('grid'); unlockScroll();}
 window.react=async function(fid,type,el){
-  let c=confesses.find(x=>x.firestoreId===fid); let newR={...(c.reactions||{})}; newR[type]=(newR[type]||0)+1;
-  await updateDoc(doc(db,"confesses",fid), {reactions:newR});
+  // Anti spam - 1 orang 1 like per confess
+  let key = `liked_${fid}_${type}`;
+  if(localStorage.getItem(key)){
+    el.style.transform='scale(0.9)';
+    setTimeout(()=>el.style.transform='scale(1)',150);
+    return; // udah pernah like
+  }
+
+  let c=confesses.find(x=>x.firestoreId===fid);
+  if(!c) return;
+
+  // Update langsung di layar biar gak lemot
+  let newCount = (c.reactions?.[type]||0) + 1;
+  el.innerHTML = el.innerHTML.replace(/\d+/, newCount);
+  el.classList.add('border-maroon','bg-cream');
+  el.style.transform='scale(1.2)';
+  setTimeout(()=>el.style.transform='scale(1)',200);
+
+  // Simpan biar gak bisa spam
+  localStorage.setItem(key, '1');
+
+  // Baru kirim ke Firebase
+  try{
+    let newR={...(c.reactions||{})};
+    newR[type]=newCount;
+    await updateDoc(doc(db,"confesses",fid), {reactions:newR});
+  }catch(e){
+    // Kalo gagal, balikin lagi
+    localStorage.removeItem(key);
+    el.innerHTML = el.innerHTML.replace(/\d+/, (c.reactions?.[type]||0));
+    alert('Gagal like: '+e.message);
+  }
 }
 window.addReply=async function(fid){
   let inp=document.getElementById(`reply-${fid}`); let v=inp.value.trim(); if(v.length<2) return;
