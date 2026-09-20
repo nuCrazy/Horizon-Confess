@@ -229,7 +229,7 @@ window.sendConfess=async function(){
     document.getElementById('msgInput').value=''; document.getElementById('toInput').value=''; document.getElementById('charCount').innerText='0/500'; closeCreate();
     localStorage.setItem("lastPost_BEBEN",Date.now().toString());
     showToast();
-    setTimeout(()=>{ window.scrollTo({top:300, behavior:'smooth'}); const first=document.querySelector('#feed.masonry-item'); if(first){ first.classList.add('ring-gold'); first.classList.add('border-gold'); setTimeout(()=> {first.classList.remove('ring-gold'); first.classList.remove('border-gold')},1200);} },700);
+    setTimeout(()=>{ window.scrollTo({top:300, behavior:'smooth'}); const first=document.querySelector('#feed .masonry-item'); if(first){ first.classList.add('ring-gold'); first.classList.add('border-gold'); setTimeout(()=> {first.classList.remove('ring-gold'); first.classList.remove('border-gold')},1200);} },700);
   }catch(e){alert('Gagal: '+e.message);}
   btn.disabled=false; btn.innerText='Kirim ONLINE ✈️';
 }
