@@ -26,11 +26,15 @@
         </div>
       </div>
       <h1 class="text-[36px] font-extrabold leading-[0.9] text-maroon mt-3">Horizon<br><span class="text-maroon2">Confess</span> <span class="text-[12px] bg-gold text-maroon px-2 py-0.5 rounded-full">ONLINE</span></h1>
-      <div class="mt-4 grid grid-cols-3 gap-2 text-center">
-        <div class="bg-broken border border-cream rounded-xl py-2"><div class="font-extrabold text-maroon text-[16px]" id="lTotal">0</div><div class="text-[9px] font-semibold opacity-60">TOTAL</div></div>
-        <div class="bg-maroon text-white rounded-xl py-2"><div class="font-extrabold text-[16px]" id="lToday">0</div><div class="text-[9px] opacity-80">HARI INI</div></div>
-        <div class="bg-cream border border-maroon/20 rounded-xl py-2"><div class="font-extrabold text-maroon text-[16px]" id="liveDot">LIVE</div><div class="text-[9px] opacity-60">REALTIME</div></div>
+
+      <div class="mt-4 text-center">
+        <div class="bg-broken border-2 border-cream rounded-[16px] py-4">
+          <div class="font-extrabold text-maroon text-[32px] leading-none" id="lTotal">0</div>
+          <div class="text-[10px] font-bold opacity-60 tracking-widest mt-1">TOTAL CONFESS</div>
+        </div>
+        <div class="hidden"><span id="lToday">0</span><span id="liveDot">LIVE</span></div>
       </div>
+
       <button onclick="enterApp()" class="w-full mt-4 bg-maroon text-white py-[14px] rounded-[14px] font-bold text-[14px]">Masuk sebagai anonimijon →</button>
       <div class="mt-3 text-[9px] opacity-40" id="connStatus">Menghubungkan...</div>
     </div>
@@ -192,9 +196,10 @@ window.render=function(){
       </div>
     </div>`;
   }).join('')||`<div class="text-center py-12 opacity-50 text-[12px]">Belum ada confess, kamu yang pertama!</div>`;
-  document.getElementById('todayCount').innerText=confesses.filter(c=>Date.now()-c.time<86400000).length;
-  document.getElementById('lTotal').innerText=confesses.length;
-  document.getElementById('lToday').innerText=confesses.filter(c=>Date.now()-c.time<86400000).length;
+  let tcEl=document.getElementById('todayCount'); if(tcEl) tcEl.innerText=confesses.filter(c=>Date.now()-c.time<86400000).length;
+  let ltEl=document.getElementById('lTotal'); if(ltEl) ltEl.innerText=confesses.length;
+  let ltdEl=document.getElementById('lToday'); if(ltdEl) ltdEl.innerText=confesses.filter(c=>Date.now()-c.time<86400000).length;
+  let ldEl=document.getElementById('liveDot'); if(ldEl) ldEl.innerText='LIVE '+confesses.length;
   renderTopConfess();
 }
 window.openDetail=function(fid){
@@ -231,10 +236,9 @@ function timeAgo(t){if(!t) return 'Baru saja'; let d=Math.floor((Date.now()-t)/6
 const q = query(colRef, orderBy("createdAt","desc"));
 onSnapshot(q, (snap)=>{
   confesses = snap.docs.map(d=>({firestoreId:d.id,...d.data(), time:d.data().time||Date.now(), tags:d.data().tags||[], reactions:d.data().reactions||{love:0,cry:0,coffee:0,shy:0}, replies:d.data().replies||[] }));
-  document.getElementById('connStatus').innerText='✅ LIVE - '+confesses.length+' confess';
-  document.getElementById('liveDot').innerText='LIVE '+confesses.length;
+  let cs=document.getElementById('connStatus'); if(cs) cs.innerText='✅ LIVE - '+confesses.length+' confess';
   render();
-}, (err)=>{document.getElementById('connStatus').innerText='❌ Error: '+err.message;});
+}, (err)=>{let cs=document.getElementById('connStatus'); if(cs) cs.innerText='❌ Error: '+err.message;});
 render();
 </script>
 </body>
