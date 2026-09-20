@@ -18,7 +18,6 @@
 .stiker { position: absolute; font-size: 20px; animation: goyang 2s infinite ease-in-out; }
 @keyframes goyang { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
-/* FITUR BARU ITA */
 @keyframes floaty {0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-10px) rotate(var(--r))}}
 .floaty{animation:floaty 4s ease-in-out infinite}
 @keyframes pulse-gold {0%{box-shadow:0 0 0 0 rgba(255,209,102,0.7)}70%{box-shadow:0 0 0 10px rgba(255,209,102,0)}100%{box-shadow:0 0 0 0 rgba(255,209,102,0)}}
@@ -29,7 +28,7 @@
 <div id="landing" class="fixed inset-0 z-[100] bg-broken flex items-center justify-center p-4 transition-transform duration-700">
 <div class="absolute inset-0 bg-gradient-to-br from-cream via-white to-broken"></div>
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute top-[8%] left-[5%] w-[90px] h-[110px] bg-white border border-maroon/10 rounded-[8px] rotate-[-12deg] blur-[2px] opacity-30 p-2 text-[6px] leading-[7px]">To anak gedung B...</div>
+    <div class="absolute top-[8%] left-[5%] w-[90px] h-[110px] bg-white border border-maroon/10 rounded-[8px] rotate-[-12deg] blur-[2px] opacity-30 p-2 text-[6px] leading-[7px]">To anak FICT / FMB / FHS / FEIS...</div>
     <div class="absolute top-[12%] right-[8%] w-[90px] h-[110px] bg-cream border rounded-[8px] rotate-[10deg] blur-[2px] opacity-30 p-2 text-[6px]">secret...</div>
     <div class="absolute bottom-[10%] left-[8%] w-[90px] h-[110px] bg-white border rounded-[8px] rotate-[8deg] blur-[2px] opacity-30 p-2 text-[6px]">curhat...</div>
     <div class="absolute bottom-[15%] right-[5%] w-[90px] h-[110px] bg-cream border rounded-[8px] rotate-[-8deg] blur-[2px] opacity-30 p-2 text-[6px]">...</div>
@@ -71,11 +70,11 @@
       <span class="text-[9px] bg-gold text-maroon px-2 py-0.5 rounded-full">ONLINE</span>
     </div>
     <div class="flex items-center gap-2">
-      <input id="search" oninput="render()" placeholder="Cari #tag / gedung..." class="hidden md:block w-[300px] bg-white border-2 border-cream rounded-full px-4 py-2 text-[11px] outline-none focus:border-gold focus:border-2 transition-colors">
+      <input id="search" oninput="render()" placeholder="Cari #tag / FICT / FMB..." class="hidden md:block w-[300px] bg-white border-2 border-cream rounded-full px-4 py-2 text-[11px] outline-none focus:border-gold focus:border-2 transition-colors">
       <div class="text-[10px] bg-white border border-cream rounded-full px-2.5 py-1 font-semibold">🔥 <span id="todayCount">0</span></div>
     </div>
   </header>
-  <input id="searchM" oninput="document.getElementById('search').value=this.value; render()" placeholder="🔍 Cari gedung, #tag..." class="md:hidden w-full bg-white border-2 border-cream rounded-full px-4 py-2.5 text-[12px] mb-3 focus:border-gold outline-none transition-colors">
+  <input id="searchM" oninput="document.getElementById('search').value=this.value; render()" placeholder="🔍 Cari FICT, FMB, #tag..." class="md:hidden w-full bg-white border-2 border-cream rounded-full px-4 py-2.5 text-[12px] mb-3 focus:border-gold outline-none transition-colors">
   <div class="grid md:grid-cols-[1.2fr_0.8fr] gap-3 mb-4">
     <div class="bg-white border-2 border-maroon rounded-[18px] p-4">
       <div class="flex justify-between"><span class="font-bold text-[12px] text-maroon">🔥 Trending di Karawang</span><span class="text-[10px] opacity-40" id="greetingSmall">Halo Cemuanya 😘</span></div>
@@ -156,11 +155,11 @@
     </div>
     <div class="space-y-3">
       <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-[11px] font-semibold">Untuk Siapa</label><input id="toInput" placeholder="Gedung B / Kantin" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] focus:border-gold outline-none transition-colors"></div>
+        <div><label class="text-[11px] font-semibold">Untuk Siapa</label><input id="toInput" placeholder="FICT / FMB / FHS / FEIS / Kantin / Perpus" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] focus:border-gold outline-none transition-colors"></div>
         <div><label class="text-[11px] font-semibold">Kategori</label><select id="catInput" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] focus:border-gold outline-none"><option>Perasaan</option><option>Curhat Dosen</option><option>Cari Teman</option><option>Random</option><option>Curhat Kuliah</option></select></div>
       </div>
       <div><label class="text-[11px] font-semibold">Pilih wujud anonimijon</label><div id="avatarPicker" class="mt-1 flex gap-1.5 overflow-auto scrollbar-hide"></div><div id="colorPicker" class="mt-2 flex gap-1.5"></div></div>
-      <div><label class="text-[11px] font-semibold">Isi Confess <span id="charCount" class="opacity-50">0/500</span></label><textarea id="msgInput" maxlength="500" placeholder="mau curcol apa lagi hari ini?" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] min-h-[110px] resize-none focus:border-gold outline-none transition-colors"></textarea></div>
+      <div><label class="text-[11px] font-semibold">Isi Confess <span id="charCount" class="opacity-50">0/500</span></label><textarea id="msgInput" maxlength="500" placeholder="To anak FICT / FMB / FHS / FEIS yang di kantin... mau curcol apa hari ini? ✨" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] min-h-[110px] resize-none focus:border-gold outline-none transition-colors"></textarea></div>
       <button id="sendBtn" onclick="sendConfess()" class="w-full bg-maroon text-white py-3 rounded-xl font-bold text-[14px] active:scale-[0.97] transition-all">Kirim ONLINE ✈️</button>
       <div id="limitInfo_BEBEN" class="text-[10px] text-center opacity-50"></div>
     </div>
@@ -186,8 +185,6 @@ const colRef = collection(db, "confesses");
 const avatars=['🦊','🐱','🐶','🐼','👻','🦄','🐙','🦝']; const colors=['#FFF2E2','#E0F2E9','#E0E7FF','#FFE4E6','#FEF3C7'];
 let selectedAvatar=avatars[0]; let selectedColor=colors[0];
 let confesses=[]; let activeCat='all'; let savedScroll=0;
-
-// PUNYA BEBEN - FITUR TAMBAHAN - GAK NGUBAH TAMPILAN
 const IG_BEBEN="https://www.instagram.com/informaticshorizonu_?stkn=eDlkMTQ2bmkxajNh";
 const KATA_KASAR_BEBEN=["anjing","babi","bangsat","bajingan","kampret","tolol","goblok","idiot","bego","dongo","brengsek","lonte","kontol","memek","ngentot","tai","eek","jelek","gendut","dekil"];
 const PESAN_BEBEN="aduh gabole gitu dong ngetiknya, jempolnya di jaga yaa";
@@ -195,11 +192,8 @@ function normalisasi_BEBEN(t){return t.toLowerCase().replace(/4/g,'a').replace(/
 function profanityFilter(t){const low=normalisasi_BEBEN(t);for(let w of KATA_KASAR_BEBEN){if(low.includes(normalisasi_BEBEN(w)))return true}return false}
 function cekLimit_BEBEN(){const last=localStorage.getItem("lastPost_BEBEN");if(last){const selisih=Date.now()-parseInt(last);const limit=5*60*1000;if(selisih<limit){const sisa=Math.ceil((limit-selisih)/1000);const m=Math.floor(sisa/60);const d=sisa%60;alert(`Sabar ya kawan, ${m}:${d.toString().padStart(2,'0')} lagi baru bisa curhat lagi 🥺`);return false}}return true}
 window.lapor_BEBEN=function(){window.open(IG_BEBEN,'_blank')}
-
-// FITUR BARU ITA - TOAST + SKELETON
 function showToast(){const t=document.getElementById('toast'); t.classList.remove('translate-y-[150px]','opacity-0'); t.classList.add('translate-y-0','opacity-100'); setTimeout(()=>{ t.classList.add('translate-y-[150px]','opacity-0'); t.classList.remove('translate-y-0','opacity-100'); },2500);}
 function showSkeleton(){document.getElementById('feed').innerHTML=`<div class="masonry-item bg-white border-2 border-cream rounded-[18px] p-4 animate-pulse"><div class="h-4 bg-broken rounded w-3/4 mb-2"></div><div class="h-3 bg-broken rounded w-1/2"></div></div><div class="masonry-item bg-white border-2 border-cream rounded-[18px] p-4 animate-pulse"><div class="h-4 bg-broken rounded w-2/3 mb-2"></div><div class="h-3 bg-broken rounded w-3/4"></div></div><div class="masonry-item bg-white border-2 border-cream rounded-[18px] p-4 animate-pulse"><div class="h-4 bg-broken rounded w-1/2 mb-2"></div><div class="h-3 bg-broken rounded w-2/3"></div></div>`;}
-
 function esc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function parseContent(t){return esc(t).replace(/#(\w+)/g,'<span class="text-maroon2 font-bold">#$1</span>')}
 function getGreeting(){ return 'Halo Cemuanya 😘'; }
