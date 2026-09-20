@@ -21,18 +21,18 @@
 </head>
 <body class="bg-broken text-[#2b1116] overflow-x-hidden">
 
-<!-- MUSIK SLOT BEBEN - GANTI SRC DISINI -->
+<!-- MUSIK SLOT -->
 <audio id="bgMusic" loop preload="auto">
   <source src="horizon-lofi.mp3" type="audio/mpeg">
 </audio>
 
-<!-- LANDING -->
+<!-- LANDING ALA-ALA-->
 <div id="landing" class="fixed inset-0 z-[100] bg-broken flex items-center justify-center p-4 transition-transform duration-700">
   <div class="absolute inset-0 bg-gradient-to-br from-cream via-white to-broken"></div>
-  <div class="absolute top-[8%] left-[6%] w-12 h-12 bg-white border-2 border-maroon rounded-2xl grid place-items-center text-[20px] rotate-[-8deg] animate-[floatY_4s_ease-in-out_infinite] shadow-sm">📚</div>
-  <div class="absolute top-[14%] right-[8%] w-10 h-10 bg-gold border-2 border-maroon rounded-full grid place-items-center text-[18px] rotate-[12deg] animate-[floatY_3.5s_ease-in-out_infinite]">☕</div>
-  <div class="absolute bottom-[18%] left-[10%] w-11 h-11 bg-maroon text-white border-2 border-maroon rounded-xl grid place-items-center text-[18px] rotate-[6deg] animate-[floatY_3s_ease-in-out_infinite]">🅿️</div>
-  <div class="absolute bottom-[10%] right-[12%] w-14 h-14 bg-white border-2 border-maroon rounded-2xl grid place-items-center text-[22px] rotate-[-6deg] animate-[floatY_4.5s_ease-in-out_infinite]">🏫</div>
+<div class="absolute top-[8%] left-[6%] w-12 h-12 bg-white border-2 border-maroon rounded-2xl grid place-items-center text-[20px] rotate-[-8deg] animate-[floatY_4s_ease-in-out_infinite] shadow-sm z-[15] pointer-events-none">📚</div>
+<div class="absolute top-[14%] right-[8%] w-10 h-10 bg-gold border-2 border-maroon rounded-full grid place-items-center text-[18px] rotate-[12deg] animate-[floatY_3.5s_ease-in-out_infinite] z-[15] pointer-events-none">☕</div>
+<div class="absolute bottom-[18%] left-[10%] w-11 h-11 bg-maroon text-white border-2 border-maroon rounded-xl grid place-items-center text-[18px] rotate-[6deg] animate-[floatY_3s_ease-in-out_infinite] z-[15] pointer-events-none">🅿️</div>
+<div class="absolute bottom-[10%] right-[12%] w-14 h-14 bg-white border-2 border-maroon rounded-2xl grid place-items-center text-[22px] rotate-[-6deg] animate-[floatY_4.5s_ease-in-out_infinite] z-[15] pointer-events-none">🏫</div>
 
   <div class="relative z-10 w-full max-w-[420px]">
     <div class="bg-white border-[3px] border-maroon rounded-[28px] p-7 shadow-[0_20px_60px_rgba(128,0,32,0.16)] text-center" style="animation:bounceSoft 0.5s cubic-bezier(0.34,1.56,0.64,1)">
@@ -75,7 +75,7 @@
   </div>
 </div>
 
-<!-- MAIN -->
+<!--TEMPATNYA MASALAH-->
 <div class="max-w-[1200px] mx-auto px-4 pb-28">
   <header class="sticky top-0 z-20 bg-broken/90 glass border-b border-cream px-4 py-3 flex items-center justify-between -mx-4 mb-4">
     <div class="flex items-center gap-2 font-bold text-maroon">
@@ -124,7 +124,7 @@
 
 <button onclick="openCreate()" class="fixed bottom-6 right-6 z-30 bg-maroon text-white px-5 py-3.5 rounded-full font-bold text-[13px] shadow-[0_12px_30px_rgba(128,0,32,0.4)]">➕ Spill sebagai anonimijon</button>
 
-<!-- CREATE MODAL -->
+<!-- ANIMACACI -->
 <div id="createModal" class="fixed inset-0 z-[80] bg-[#2b1116]/35 glass hidden place-items-center p-4">
   <div class="bg-broken border-[3px] border-maroon rounded-[22px] max-w-[460px] w-full p-5 shadow-[0_25px_80px_rgba(0,0,0,0.45)] relative max-h-[90vh] overflow-auto" style="animation:bounceSoft 0.4s ease">
     <div class="flex justify-between items-center mb-4">
@@ -143,7 +143,7 @@
   </div>
 </div>
 
-<!-- DETAIL POPUP -->
+<!-- DETAIL POPUP BIKIN PUYENG -->
 <div id="detailModal" class="fixed inset-0 z-[90] bg-[#2b1116]/40 glass backdrop-blur-[18px] hidden place-items-center p-4">
   <div class="bg-broken border-[3px] border-maroon rounded-[24px] max-w-[560px] w-full p-0 shadow-[0_30px_90px_rgba(0,0,0,0.5)] relative max-h-[88vh] flex flex-col overflow-hidden" style="animation:bounceSoft 0.4s ease">
     <div class="flex items-center justify-between p-4 border-b-2 border-cream bg-white">
