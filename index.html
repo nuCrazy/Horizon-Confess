@@ -190,7 +190,7 @@ const PESAN_BEBEN="aduh gabole gitu dong ngetiknya, jempolnya di jaga yaa";
 
 function normalisasi_BEBEN(t){return t.toLowerCase().replace(/4/g,'a').replace(/@/g,'a').replace(/1/g,'i').replace(/!/g,'i').replace(/0/g,'o').replace(/3/g,'e').replace(/5/g,'s').replace(/\$/g,'s').replace(/(.)\1{1,}/g,'$1')}
 function profanityFilter(t){const low=normalisasi_BEBEN(t);for(let w of KATA_KASAR_BEBEN){if(low.includes(normalisasi_BEBEN(w)))return true}return false}
-function cekLimit_BEBEN(){const last=localStorage.getItem("lastPost_BEBEN");if(last){const selisih=Date.now()-parseInt(last);const limit=5*60*1000;if(selisih<limit){const sisa=Math.ceil((limit-selisih)/1000);const m=Math.floor(sisa/60);const d=sisa%60;alert(`Sabar ya beben, ${m}:${d.toString().padStart(2,'0')} lagi baru bisa curhat lagi 🥺`);return false}}return true}
+function cekLimit_BEBEN(){const last=localStorage.getItem("lastPost_BEBEN");if(last){const selisih=Date.now()-parseInt(last);const limit=5*60*1000;if(selisih<limit){const sisa=Math.ceil((limit-selisih)/1000);const m=Math.floor(sisa/60);const d=sisa%60;alert(`Sabar ya kawan, ${m}:${d.toString().padStart(2,'0')} lagi baru bisa curhat lagi 🥺`);return false}}return true}
 window.lapor_BEBEN=function(){window.open(IG_BEBEN,'_blank')}
 // END PUNYA BEBEN
 
