@@ -3,125 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💌 Surat Cinta Horizon</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Great+Vibes&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<title>Horizon Confess — Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root{--maroon:#7A1020;--maroon2:#A11D33;--broken:#FFFBF5}
-*{margin:0;padding:0;box-sizing:border-box}
-body{height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 50% 20%, #A11D33 0%, #7A1020 45%, #4E0A14 100%);overflow:hidden;font-family:'Poppins',sans-serif}
-.bg-hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden}
-.bg-hearts span{position:absolute;animation:floatHeart 6s linear infinite;font-size:20px;opacity:0.3}
-@keyframes floatHeart{0%{transform:translateY(110vh) rotate(0deg) scale(0.5);opacity:0}10%{opacity:0.6}90%{opacity:0.6}100%{transform:translateY(-10vh) rotate(360deg) scale(1.2);opacity:0}}
-
-.envelope-wrap{position:relative;width:360px;height:260px;cursor:pointer;transition:0.3s;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.4))}
-.envelope-wrap:hover{transform:scale(1.03) rotate(-1deg)}
-.envelope-wrap.vibrate{animation:shake 0.4s ease-in-out infinite}
-@keyframes shake{0%,100%{transform:translateX(0) rotate(0)}25%{transform:translateX(-4px) rotate(-1deg)}75%{transform:translateX(4px) rotate(1deg)}}
-
-.envelope{position:absolute;inset:0;background:var(--broken);border-radius:0 0 18px 18px;border:3px solid #fff;overflow:hidden}
-.envelope::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(122,16,32,0.04) 14px, rgba(122,16,32,0.04) 28px)}
-.flap{position:absolute;top:0;left:0;width:100%;height:55%;background:linear-gradient(135deg, #8E1428, #7A1020);clip-path:polygon(0 0, 100% 0, 50% 100%);transform-origin:top;transition:transform 0.8s cubic-bezier(0.77,0,0.175,1);z-index:3;border:3px solid #fff;border-bottom:none}
-.envelope-wrap.open .flap{transform:rotateX(180deg);z-index:0}
-.wax{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:var(--maroon);border-radius:50%;display:grid;place-items:center;color:#fff;font-size:28px;border:4px solid #fff;box-shadow:0 6px 18px rgba(0,0,0,0.3);z-index:4;transition:0.5s}
-.envelope-wrap.open .wax{transform:translate(-50%,-50%) scale(0);opacity:0}
-.seal-text{position:absolute;top:58%;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;color:var(--maroon);background:#fff;padding:4px 10px;border-radius:999px;letter-spacing:0.5px;z-index:2}
-
-.letter{
- position:absolute;left:10px;right:10px;bottom:10px;height:92%;
- background:#fff;border-radius:14px;padding:18px;
- box-shadow:0 8px 24px rgba(0,0,0,0.15);transform:translateY(70%);
- transition:transform 0.9s cubic-bezier(0.34,1.56,0.64,1) 0.3s;z-index:1;
- display:flex;flex-direction:column;text-align:center;overflow:hidden;
+:root{
+ --maroon:#7A1020;
+ --maroon-dark:#4E0A14;
+ --maroon-light:#A11D33;
+ --broken:#FFFBF5;
+ --broken-2:#FFF2E2;
+ --ink:#1E1E1E;
+ --muted:#8A7A7A;
 }
-.envelope-wrap.open .letter{transform:translateY(-38%)}
-.l-top{font-family:'Great Vibes',cursive;font-size:32px;color:var(--maroon);margin-bottom:4px}
-.l-badge{display:inline-block;background:var(--maroon);color:var(--broken);padding:4px 12px;border-radius:999px;font-size:9px;font-weight:800;margin-bottom:10px;letter-spacing:0.8px}
-.l-title{font-family:'Playfair Display',serif;font-size:26px;line-height:1.1;color:var(--maroon);margin:8px 0;animation:glow 1.5s ease-in-out infinite alternate}
-@keyframes glow{from{text-shadow:0 0 0px rgba(122,16,32,0.2)}to{text-shadow:0 0 12px rgba(161,29,51,0.4)}}
-.l-sub{font-size:13px;line-height:1.7;opacity:0.8}
-.l-logo{width:66px;height:66px;margin:10px auto;background:#fff;border-radius:50%;padding:6px;border:3px solid var(--maroon);object-fit:contain;animation:float 2.5s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.l-hearts{font-size:26px;margin:8px 0;letter-spacing:6px;animation:beat 0.8s ease-in-out infinite}
-@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
-.btn-love{margin-top:12px;padding:12px;background:var(--maroon);color:#fff;border:none;border-radius:999px;font-weight:800;font-size:12px;cursor:pointer;box-shadow:0 8px 20px rgba(122,16,32,0.4);transition:0.2s}
-.btn-love:hover{transform:scale(1.05)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+ min-height:100vh;
+ display:flex;align-items:center;justify-content:center;
+ background:radial-gradient(1200px 600px at 50% -10%, #A11D33 0%, #7A1020 38%, #4E0A14 100%);
+ font-family:'Inter',sans-serif;
+ color:var(--ink);
+ padding:24px;
+ -webkit-font-smoothing:antialiased;
+}
+.noise{
+ position:fixed;inset:0;pointer-events:none;opacity:0.04;
+ background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-.hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:#fff;font-size:11px;opacity:0.7;animation:bounce 1.5s infinite;background:rgba(0,0,0,0.25);padding:6px 14px;border-radius:999px;backdrop-filter:blur(6px);white-space:nowrap}
-@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-6px)}}
-.envelope-wrap.open ~ .hint{opacity:0}
+.stage{width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;gap:28px}
+.brand{color:#fff;text-align:center}
+.brand-mark{
+ width:88px;height:88px;margin:0 auto 14px;
+ background:#fff;border-radius:50%;
+ padding:8px;border:3px solid rgba(255,255,255,0.9);
+ box-shadow:0 12px 30px rgba(0,0,0,0.25);
+ display:grid;place-items:center;
+}
+.brand-mark img{width:100%;height:100%;object-fit:contain;border-radius:50%}
+.brand h1{font-family:'Playfair Display',serif;font-size:14px;letter-spacing:3px;font-weight:800;opacity:0.9}
+.brand p{font-size:11px;letter-spacing:1.2px;opacity:0.6;margin-top:4px;text-transform:uppercase}
 
-.confetti{position:fixed;inset:0;pointer-events:none;z-index:10}
-.confetti i{position:absolute;font-style:normal;animation:confettiFall 2.5s linear forwards}
-@keyframes confettiFall{0%{transform:translateY(-10vh) rotate(0deg) scale(0)}20%{transform:translateY(20vh) rotate(90deg) scale(1)}100%{transform:translateY(110vh) rotate(720deg) scale(0.5);opacity:0}}
+.envelope-wrap{
+ position:relative;width:100%;height:258px;
+ cursor:pointer;perspective:1200px;
+}
+.envelope-base{
+ position:absolute;inset:0;
+ background:var(--broken);
+ border-radius:0 0 20px 20px;
+ border:2.5px solid #fff;
+ box-shadow:0 24px 60px rgba(0,0,0,0.35);
+ overflow:hidden;
+ background-image:repeating-linear-gradient(135deg, transparent 0 22px, rgba(122,16,32,0.045) 22px 44px);
+}
+.envelope-wrap.closed .envelope-base{overflow:hidden}
+.envelope-wrap.open .envelope-base{overflow:visible}
+
+.flap{
+ position:absolute;top:-2px;left:-2.5px;right:-2.5px;height:62%;
+ background:linear-gradient(180deg, #8C1429 0%, #7A1020 100%);
+ clip-path:polygon(0 0, 100% 0, 50% 100%);
+ transform-origin:top;
+ transition:transform 0.85s cubic-bezier(0.77,0,0.175,1);
+ z-index:4;
+ border:2.5px solid #fff;border-bottom:none;
+}
+.envelope-wrap.open .flap{transform:rotateX(180deg);z-index:1}
+
+.wax-seal{
+ position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);
+ width:72px;height:72px;background:var(--maroon);border-radius:50%;
+ border:4px solid #fff;display:grid;place-items:center;
+ color:#fff;font-size:26px;box-shadow:0 10px 24px rgba(0,0,0,0.3);
+ z-index:5;transition:transform 0.4s ease, opacity 0.4s ease;
+}
+.envelope-wrap.open .wax-seal{transform:translate(-50%,-50%) scale(0);opacity:0}
+.tap-label{
+ position:absolute;left:50%;top:76%;transform:translateX(-50%);
+ background:#fff;color:var(--maroon);padding:6px 14px;border-radius:999px;
+ font-size:10px;font-weight:700;letter-spacing:0.8px;z-index:3;
+ box-shadow:0 4px 14px rgba(0,0,0,0.12);
+}
+
+/* LETTER - HIDDEN BEFORE OPEN */
+.letter{
+ position:absolute;left:14px;right:14px;bottom:12px;
+ background:#FFFFFF;
+ border-radius:18px;
+ padding:26px 22px 20px;
+ box-shadow:0 16px 40px rgba(0,0,0,0.18);
+ transform:translateY(115%) scale(0.92);
+ opacity:0;
+ transition:transform 0.9s cubic-bezier(0.34,1.56,0.64,1) 0.25s, opacity 0.5s ease 0.25s;
+ z-index:2;
+ pointer-events:none;
+ text-align:center;
+ border:1.5px solid var(--broken-2);
+}
+.envelope-wrap.open .letter{
+ transform:translateY(-18%) scale(1);
+ opacity:1;
+ pointer-events:auto;
+ z-index:6;
+}
+.kicker{
+ font-size:10px;letter-spacing:2px;font-weight:800;color:var(--maroon-light);
+ text-transform:uppercase;margin-bottom:10px;
+}
+.title{
+ font-family:'Playfair Display',serif;
+ font-size:28px;line-height:1.05;
+ color:var(--maroon);
+ font-weight:800;
+}
+.divider{width:42px;height:3px;background:var(--maroon);border-radius:999px;margin:14px auto;opacity:0.9}
+.desc{
+ font-size:13px;line-height:1.7;color:#5A4A4A;
+ max-width:300px;margin:0 auto;
+}
+.meta{
+ margin-top:16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;
+}
+.meta span{
+ font-size:10px;font-weight:600;
+ padding:6px 10px;border-radius:999px;
+ background:var(--broken-2);border:1px solid #FFE0C0;color:var(--maroon-dark);
+}
+.btn-primary{
+ margin-top:18px;width:100%;
+ padding:13px 16px;border:none;border-radius:12px;
+ background:var(--maroon);color:#fff;
+ font-weight:700;font-size:13px;letter-spacing:0.3px;
+ cursor:pointer;transition:transform 0.15s ease, background 0.15s ease;
+ box-shadow:0 10px 24px rgba(122,16,32,0.3);
+}
+.btn-primary:active{transform:scale(0.98)}
+.btn-primary:hover{background:var(--maroon-dark)}
+
+.hint{
+ color:rgba(255,255,255,0.7);
+ font-size:11px;letter-spacing:0.3px;
+ background:rgba(0,0,0,0.22);padding:8px 16px;border-radius:999px;
+ backdrop-filter:blur(8px);
+ animation:floatHint 2s ease-in-out infinite;
+}
+@keyframes floatHint{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.envelope-wrap.open ~ .hint{opacity:0;pointer-events:none;transition:0.3s}
+
+.shake{animation:shake 0.32s ease-in-out 2}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 </style>
 </head>
 <body>
+<div class="noise"></div>
 
-<div class="bg-hearts" id="bgHearts"></div>
-<div class="confetti" id="confetti"></div>
-
-<div class="envelope-wrap" id="env" onclick="openLetter()">
-  <div class="envelope"></div>
-  <div class="flap"></div>
-  <div class="wax">💌</div>
-  <div class="seal-text">KLIK UNTUK BUKA • HC</div>
-
-  <div class="letter">
-    <div class="l-top">for you</div>
-    <div class="l-badge">🏫 HORIZON UNIVERSITY INDONESIA</div>
-    <img src="logo.png" class="l-logo" onerror="this.style.display='none'">
-    <div class="l-title">Horizon Confess<br>Coming Soon ya Guys! 💘</div>
-    <div class="l-hearts">💖✨💌✨💖</div>
-    <div class="l-sub">
-      Hai anak Horizon! 🫶<br>
-      Siapin rahasia & crush kamu yaa...<br>
-      <b>100% anonim, aman & maroon banget!</b><br>
-      Bakal rilis sebentar lagi! 🫧
+<div class="stage">
+  <div class="brand">
+    <div class="brand-mark">
+      <img src="https://i.imgur.com/8QJ4sQh.png" alt="Horizon Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='H'" />
     </div>
-    <button class="btn-love" onclick="event.stopPropagation(); loveAgain()">💓 Getarin Lagi Dong!</button>
-    <div style="font-size:9px;opacity:0.4;margin-top:8px">© 2026 HC • Made with 💘 maroon + broken white</div>
+    <h1>HORIZON UNIVERSITY INDONESIA</h1>
+    <p>Confession Platform • 2026</p>
   </div>
+
+  <div class="envelope-wrap closed" id="envWrap" onclick="openEnvelope()">
+    <div class="envelope-base"></div>
+    <div class="flap"></div>
+    <div class="wax-seal">✉</div>
+    <div class="tap-label">KETUK UNTUK MEMBUKA</div>
+
+    <div class="letter">
+      <div class="kicker">Official Announcement</div>
+      <div class="title">Horizon Confess<br>Coming Soon.</div>
+      <div class="divider"></div>
+      <div class="desc">
+        Platform pengakuan anonim untuk seluruh civitas Horizon University Indonesia.
+        Aman, termoderasi, dan 100% anonim.<br><br>
+        <strong style="color:var(--maroon)">Persiapkan cerita terbaikmu.</strong>
+      </div>
+      <div class="meta">
+        <span>🔒 100% Anonim</span>
+        <span>🛡️ Termoderasi</span>
+        <span>🎨 Maroon Identity</span>
+      </div>
+      <button class="btn-primary" onclick="event.stopPropagation(); closeEnvelope()">Tutup Surat</button>
+      <div style="font-size:9px;color:var(--muted);margin-top:12px;letter-spacing:0.5px">© 2026 HORIZON CONFESS • EST. HORIZON UNIVERSITY INDONESIA</div>
+    </div>
+  </div>
+
+  <div class="hint">Ketuk amplop untuk membuka • Ada getaran halus</div>
 </div>
 
-<div class="hint">👇 Tap amplopnya Guys!💓</div>
-
 <script>
-let opened=false;
-let hearts=['💌','💘','💖','💝','🫶','✨','💓','🌹'];
-for(let i=0;i<18;i++){
- let s=document.createElement('span'); s.innerText=hearts[Math.floor(Math.random()*hearts.length)];
- s.style.left=Math.random()*100+'vw'; s.style.animationDelay=Math.random()*6+'s'; s.style.fontSize=(16+Math.random()*18)+'px';
- document.getElementById('bgHearts').appendChild(s);
+let isOpen = false;
+function openEnvelope(){
+  if(isOpen) return;
+  isOpen = true;
+  const wrap = document.getElementById('envWrap');
+  wrap.classList.remove('closed');
+  wrap.classList.add('open','shake');
+  if(navigator.vibrate) navigator.vibrate([60,30,60]);
+  setTimeout(()=>wrap.classList.remove('shake'), 800);
 }
-
-function openLetter(){
- let env=document.getElementById('env');
- if(opened) return;
- opened=true;
- env.classList.add('open','vibrate');
- // GETARAN HP
- if(navigator.vibrate){ navigator.vibrate([80,40,80,40,120]); }
- // CONFETTI MELEDAK
- spawnConfetti();
- // Suara visual beat
- setTimeout(()=>env.classList.remove('vibrate'),1200);
-}
-
-function loveAgain(){
- if(navigator.vibrate){ navigator.vibrate([100,50,100,50,200]); }
- document.getElementById('env').classList.add('vibrate');
- spawnConfetti();
- setTimeout(()=>document.getElementById('env').classList.remove('vibrate'),800);
-}
-
-function spawnConfetti(){
- let box=document.getElementById('confetti'); box.innerHTML='';
- for(let i=0;i<28;i++){
-  let el=document.createElement('i'); el.innerText=hearts[Math.floor(Math.random()*hearts.length)];
-  el.style.left=Math.random()*100+'vw'; el.style.top='-5vh';
-  el.style.animationDelay=(Math.random()*0.4)+'s'; el.style.fontSize=(18+Math.random()*20)+'px';
-  box.appendChild(el);
- }
+function closeEnvelope(){
+  isOpen = false;
+  const wrap = document.getElementById('envWrap');
+  wrap.classList.remove('open');
+  wrap.classList.add('closed');
+  if(navigator.vibrate) navigator.vibrate(30);
 }
 </script>
 </body>
