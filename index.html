@@ -106,7 +106,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 const firebaseConfig = { apiKey: "AIzaSyCToBiaTsuCCWrDnKK8cI1aQf7BDHICsQ4", authDomain: "confess-f4711.firebaseapp.com", projectId: "confess-f4711", storageBucket: "confess-f4711.firebasestorage.app", messagingSenderId: "484779882136", appId: "1:484779882136:web:52ec1b393f5777e2b582ed" };
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db = getFirestore(cnfss);
 const colRef = collection(db, "confesses");
 const avatars=['🦊','🐱','🐶','🐼','👻','🦄','🐙','🦝']; const colors=['#FFF2E2','#E0F2E9','#E0E7FF','#FFE4E6','#FEF3C7'];
 let selectedAvatar=avatars[0]; let selectedColor=colors[0];
