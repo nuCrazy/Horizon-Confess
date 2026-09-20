@@ -28,10 +28,10 @@
 <div id="landing" class="fixed inset-0 z-[100] bg-broken flex items-center justify-center p-4 transition-transform duration-700">
 <div class="absolute inset-0 bg-gradient-to-br from-cream via-white to-broken"></div>
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute top-[8%] left-[5%] w-[90px] h-[110px] bg-white border border-maroon/10 rounded-[8px] rotate-[-12deg] blur-[2px] opacity-30 p-2 text-[6px] leading-[7px]">To anak FICT / FMB / FHS / FEIS...</div>
-    <div class="absolute top-[12%] right-[8%] w-[90px] h-[110px] bg-cream border rounded-[8px] rotate-[10deg] blur-[2px] opacity-30 p-2 text-[6px]">secret...</div>
-    <div class="absolute bottom-[10%] left-[8%] w-[90px] h-[110px] bg-white border rounded-[8px] rotate-[8deg] blur-[2px] opacity-30 p-2 text-[6px]">curhat...</div>
-    <div class="absolute bottom-[15%] right-[5%] w-[90px] h-[110px] bg-cream border rounded-[8px] rotate-[-8deg] blur-[2px] opacity-30 p-2 text-[6px]">...</div>
+    <div class="absolute top-[8%] left-[5%] w-[90px] h-[110px] bg-white border border-maroon/10 rounded-[8px] rotate-[-12deg] blur-[2px] opacity-30 p-2 text-[6px] leading-[7px]"></div>
+    <div class="absolute top-[12%] right-[8%] w-[90px] h-[110px] bg-cream border rounded-[8px] rotate-[10deg] blur-[2px] opacity-30 p-2 text-[6px]"></div>
+    <div class="absolute bottom-[10%] left-[8%] w-[90px] h-[110px] bg-white border rounded-[8px] rotate-[8deg] blur-[2px] opacity-30 p-2 text-[6px]"></div>
+    <div class="absolute bottom-[15%] right-[5%] w-[90px] h-[110px] bg-cream border rounded-[8px] rotate-[-8deg] blur-[2px] opacity-30 p-2 text-[6px]"></div>
     <div class="absolute top-[45%] left-[2%] text-[14px] opacity-10 floaty" style="--r:-20deg">♡</div>
     <div class="absolute top-[30%] right-[15%] text-[14px] opacity-10 floaty" style="--r:15deg; animation-delay:.5s">✨</div>
     <div class="absolute bottom-[30%] left-[12%] text-[14px] opacity-10 floaty" style="--r:10deg; animation-delay:1s">✦</div>
@@ -97,7 +97,6 @@
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold active:scale-[0.96] transition-all" onclick="setCat('Cari Teman',this)">🤝 Cari Teman</button>
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold active:scale-[0.96] transition-all" onclick="setCat('Random',this)">🎉 Random</button>
   </div>
-
   <div class="card-aesthetic p-4 mb-4 relative bg-yellow-50/90 overflow-hidden">
     <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-[26px] drop-shadow-sm">📌</div>
     <div class="stiker top-2 right-10 text-[14px]">🎁</div>
@@ -122,7 +121,6 @@
       <div class="text-[9px] opacity-30">📌 di-pin oleh admin</div>
     </div>
   </div>
-
   <div class="card-aesthetic p-4 mb-4 relative overflow-hidden">
     <div class="stiker -top-1 -right-1">🌷</div>
     <div class="stiker -bottom-1 -left-1 text-[16px]">✨</div>
@@ -155,11 +153,11 @@
     </div>
     <div class="space-y-3">
       <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-[11px] font-semibold">Untuk Siapa</label><input id="toInput" placeholder="FICT / FMB / FHS / FEIS / Kantin / Perpus" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] focus:border-gold outline-none transition-colors"></div>
+        <div><label class="text-[11px] font-semibold">Untuk Siapa</label><input id="toInput" placeholder="" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] focus:border-gold outline-none transition-colors"></div>
         <div><label class="text-[11px] font-semibold">Kategori</label><select id="catInput" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] focus:border-gold outline-none"><option>Perasaan</option><option>Curhat Dosen</option><option>Cari Teman</option><option>Random</option><option>Curhat Kuliah</option></select></div>
       </div>
       <div><label class="text-[11px] font-semibold">Pilih wujud anonimijon</label><div id="avatarPicker" class="mt-1 flex gap-1.5 overflow-auto scrollbar-hide"></div><div id="colorPicker" class="mt-2 flex gap-1.5"></div></div>
-      <div><label class="text-[11px] font-semibold">Isi Confess <span id="charCount" class="opacity-50">0/500</span></label><textarea id="msgInput" maxlength="500" placeholder="To anak FICT / FMB / FHS / FEIS yang di kantin... mau curcol apa hari ini? ✨" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] min-h-[110px] resize-none focus:border-gold outline-none transition-colors"></textarea></div>
+      <div><label class="text-[11px] font-semibold">Isi Confess <span id="charCount" class="opacity-50">0/500</span></label><textarea id="msgInput" maxlength="500" placeholder="mau curcol apa hari ini? ✨" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] min-h-[110px] resize-none focus:border-gold outline-none transition-colors"></textarea></div>
       <button id="sendBtn" onclick="sendConfess()" class="w-full bg-maroon text-white py-3 rounded-xl font-bold text-[14px] active:scale-[0.97] transition-all">Kirim ONLINE ✈️</button>
       <div id="limitInfo_BEBEN" class="text-[10px] text-center opacity-50"></div>
     </div>
