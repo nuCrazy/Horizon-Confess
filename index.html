@@ -7,15 +7,25 @@
 <script>tailwind.config={theme:{extend:{colors:{maroon:'#800020',maroon2:'#A11D33',broken:'#FFFBF5',cream:'#FFF2E2',gold:'#FFD166'}}}}</script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* FIX BUG FONT - PUNYA BEBEN - HARUS PALING ATAS */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 *{font-family:'Poppins',sans-serif}
 .masonry{column-count:1;column-gap:14px} @media(min-width:640px){.masonry{column-count:2}} @media(min-width:1024px){.masonry{column-count:3}}
 .masonry-item{break-inside:avoid;margin-bottom:14px}
+/* AESTHETIC PACK - PUNYA BEBEN */
+.font-lucu { font-family: 'Patrick Hand', cursive; }
+.card-aesthetic { background: white; border-radius: 20px; border: 2.5px solid #7A1F1F; box-shadow: 4px 4px 0px #7A1F1F; transform: rotate(-0.5deg); transition: all 0.2s; }
+.card-aesthetic:nth-child(even) { transform: rotate(0.5deg); }
+.card-aesthetic:hover { transform: rotate(0deg) scale(1.02); box-shadow: 6px 6px 0px #7A1F1F; }
+.stiker { position: absolute; font-size: 20px; animation: goyang 2s infinite ease-in-out; }
+@keyframes goyang { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
 </style>
 </head>
 <body class="bg-broken text-[#2b1116] overflow-x-hidden">
 <div id="landing" class="fixed inset-0 z-[100] bg-broken flex items-center justify-center p-4 transition-transform duration-700">
 <div class="absolute inset-0 bg-gradient-to-br from-cream via-white to-broken"></div>
-    <!-- MEH RADA KECE CEES-->
+    <!-- PUNYA BEBEN - RADA KECE CEES-->
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <div class="absolute top-[8%] left-[5%] w-[90px] h-[110px] bg-white border border-maroon/10 rounded-[8px] rotate-[-12deg] blur-[2px] opacity-30 p-2 text-[6px] leading-[7px]">To anak gedung B...</div>
     <div class="absolute top-[12%] right-[8%] w-[90px] h-[110px] bg-cream border rounded-[8px] rotate-[10deg] blur-[2px] opacity-30 p-2 text-[6px]">secret...</div>
@@ -39,7 +49,6 @@
         </div>
       </div>
       <h1 class="text-[36px] font-extrabold leading-[0.9] text-maroon mt-3">Horizon<br><span class="text-maroon2">Confess</span> <span class="text-[12px] bg-gold text-maroon px-2 py-0.5 rounded-full">ONLINE</span></h1>
-
       <div class="mt-4 text-center">
         <div class="bg-broken border-2 border-cream rounded-[16px] py-4">
           <div class="font-extrabold text-maroon text-[32px] leading-none" id="lTotal">0</div>
@@ -47,7 +56,6 @@
         </div>
         <div class="hidden"><span id="lToday">0</span><span id="liveDot">LIVE</span></div>
       </div>
-
       <button onclick="enterApp()" class="w-full mt-4 bg-maroon text-white py-[14px] rounded-[14px] font-bold text-[14px]">Masuk sebagai anonimijon →</button>
       <div class="mt-3 text-[9px] opacity-40" id="connStatus">Menghubungkan...</div>
     </div>
@@ -87,6 +95,28 @@
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Curhat Dosen',this)">😤 Curhat Dosen</button>
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Cari Teman',this)">🤝 Cari Teman</button>
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Random',this)">🎉 Random</button>
+  </div>
+  <!-- AESTHETIC HEADER - PUNYA BEBEN -->
+  <div class="card-aesthetic p-4 mb-4 relative overflow-hidden">
+    <div class="stiker -top-1 -right-1">🌷</div>
+    <div class="stiker -bottom-1 -left-1 text-[16px]">✨</div>
+    <div class="flex justify-between items-center">
+      <div>
+        <div class="font-lucu text-[22px] text-maroon leading-none">halo anonimijon! ♡</div>
+        <div class="text-[11px] opacity-60 mt-1 font-bold">Mau curhat apa hari ini?</div>
+      </div>
+      <div class="flex gap-1">
+        <div class="w-8 h-8 rounded-full bg-pink-100 border-2 border-maroon flex items-center justify-center text-[14px]">🥰</div>
+        <div class="w-8 h-8 rounded-full bg-yellow-100 border-2 border-maroon flex items-center justify-center text-[14px]">🤫</div>
+        <div class="w-8 h-8 rounded-full bg-blue-100 border-2 border-maroon flex items-center justify-center text-[14px]">💌</div>
+      </div>
+    </div>
+    <div class="mt-3 flex gap-2 overflow-x-auto scrollbar-hide">
+      <span class="whitespace-nowrap px-3 py-1 rounded-full bg-pink-50 border border-pink-200 text-[10px] font-bold">#bucin-core 🥺</span>
+      <span class="whitespace-nowrap px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[10px] font-bold">#galau-malam 🌙</span>
+      <span class="whitespace-nowrap px-3 py-1 rounded-full bg-yellow-50 border border-yellow-200 text-[10px] font-bold">#spill-tea ☕</span>
+      <span class="whitespace-nowrap px-3 py-1 rounded-full bg-green-50 border border-green-200 text-[10px] font-bold">#healing 🌿</span>
+    </div>
   </div>
   <div id="feed" class="masonry mt-3"></div>
 </div>
