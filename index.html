@@ -53,25 +53,15 @@
     <div class="bg-white border-2 border-maroon rounded-[18px] p-4">
       <div class="flex justify-between"><span class="font-bold text-[12px] text-maroon">🔥 Trending di Karawang</span><span class="text-[10px] opacity-40" id="greetingSmall">Pagi!</span></div>
       <div id="trending" class="mt-2 flex flex-wrap gap-1.5"></div>
-      </div>
+    </div>
     <div class="bg-white border-2 border-maroon/20 rounded-[18px] p-4">
-  <div class="flex justify-between items-center">
-    <div class="font-bold text-[12px] text-maroon">🏆 Top Confess Minggu Ini</div>
-    <div class="text-[9px] bg-gold px-2 py-0.5 rounded-full font-bold">HOT</div>
-  </div>
-  <div id="topConfessList" class="mt-3 flex flex-col gap-2">
-    <div class="text-[11px] opacity-40">Loading...</div>
-  </div>
-</div>
-   <div class="bg-white border-2 border-cream rounded-[18px] p-4">
-      <div class="font-bold text-[12px]">Filter Gedung</div>
-      <div class="mt-2 flex flex-wrap gap-1.5">
-        <button onclick="quickFilter('Gedung B')" class="text-[10px] bg-broken border border-cream px-2.5 py-1 rounded-full">Gedung B</button>
-        <button onclick="quickFilter('Kantin')" class="text-[10px] bg-broken border border-cream px-2.5 py-1 rounded-full">Kantin</button>
-        <button onclick="quickFilter('Perpus')" class="text-[10px] bg-broken border border-cream px-2.5 py-1 rounded-full">Perpus</button>
-        <button onclick="quickFilter('Parkiran')" class="text-[10px] bg-broken border border-cream px-2.5 py-1 rounded-full">Parkiran</button>
+      <div class="flex justify-between items-center">
+        <div class="font-bold text-[12px] text-maroon">🏆 Top Confess Minggu Ini</div>
+        <div class="text-[9px] bg-gold px-2 py-0.5 rounded-full font-bold">HOT</div>
       </div>
-      <div class="mt-2 text-[9px] opacity-40" id="headerDate">...</div>
+      <div id="topConfessList" class="mt-3 flex flex-col gap-2">
+        <div class="text-[11px] opacity-40">Loading...</div>
+      </div>
     </div>
   </div>
   <div class="flex gap-2 overflow-auto pb-2">
@@ -115,7 +105,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 const firebaseConfig = { apiKey: "AIzaSyCToBiaTsuCCWrDnKK8cI1aQf7BDHICsQ4", authDomain: "confess-f4711.firebaseapp.com", projectId: "confess-f4711", storageBucket: "confess-f4711.firebasestorage.app", messagingSenderId: "484779882136", appId: "1:484779882136:web:52ec1b393f5777e2b582ed" };
 const app = initializeApp(firebaseConfig);
-const db = getFirestore("cnfss");
+const db = getFirestore(app);
 const colRef = collection(db, "confesses");
 const avatars=['🦊','🐱','🐶','🐼','👻','🦄','🐙','🦝']; const colors=['#FFF2E2','#E0F2E9','#E0E7FF','#FFE4E6','#FEF3C7'];
 let selectedAvatar=avatars[0]; let selectedColor=colors[0];
@@ -129,7 +119,6 @@ function updateDateTime(){
   let tanggal = now.toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric'});
   let t1=document.getElementById('timeBadge'); if(t1) t1.innerText=`KARAWANG • ${jam}`;
   let t2=document.getElementById('dateBadge'); if(t2) t2.innerText=tanggal;
-  let t3=document.getElementById('headerDate'); if(t3) t3.innerText=tanggal;
   let g1=document.getElementById('campusGreeting'); if(g1) g1.innerText=getGreeting();
   let g2=document.getElementById('greetingSmall'); if(g2) g2.innerText=getGreeting();
 }
@@ -162,6 +151,29 @@ window.sendConfess=async function(){
 window.setCat=function(cat,btn){activeCat=cat; document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.remove('bg-maroon','text-white');b.classList.add('bg-white')}); btn.classList.add('bg-maroon','text-white'); btn.classList.remove('bg-white'); render();}
 window.quickFilter=function(k){document.getElementById('search').value=k; document.getElementById('searchM').value=k; render();}
 function getTrending(){let m={}; confesses.forEach(c=>(c.tags||[]).forEach(t=>{m[t]=(m[t]||0)+1})); return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,6);}
+function renderTopConfess(){
+  const container = document.getElementById('topConfessList');
+  if(!container) return;
+  if(confesses.length===0){ container.innerHTML='<div class="text-[11px] opacity-40">Belum ada confess</div>'; return; }
+  const top3 = [...confesses].sort((a,b)=>{
+    const totalA = Object.values(a.reactions||{}).reduce((x,y)=>x+y,0);
+    const totalB = Object.values(b.reactions||{}).reduce((x,y)=>x+y,0);
+    return totalB-totalA;
+  }).slice(0,3);
+  container.innerHTML = top3.map((c,i)=>{
+    const medal = i===0?'🥇':i===1?'🥈':'🥉';
+    const total = Object.values(c.reactions||{}).reduce((x,y)=>x+y,0);
+    const shortText = esc(c.text).slice(0,45) + (c.text.length>45?'...':'');
+    return `<div onclick="openDetail('${c.firestoreId}')" class="cursor-pointer bg-broken border border-cream hover:border-maroon rounded-xl px-3 py-2.5 flex gap-2.5 items-center transition-all">
+      <div class="text-[18px]">${medal}</div>
+      <div class="flex-1 overflow-hidden">
+        <div class="text-[11px] font-semibold leading-tight line-clamp-1">${shortText}</div>
+        <div class="text-[9px] opacity-50 mt-0.5">To: ${esc(c.to)} • 💖 ${total} reaksi</div>
+      </div>
+      <div class="text-[9px] bg-white border px-1.5 py-0.5 rounded-full">${esc(c.cat)}</div>
+    </div>`;
+  }).join('');
+}
 window.render=function(){
   let s=(document.getElementById('search')?.value||'').toLowerCase();
   let filtered=confesses.filter(c=>{let catOk=activeCat==='all'||c.cat===activeCat; let searchOk=!s||c.text.toLowerCase().includes(s)||c.to.toLowerCase().includes(s)||(c.tags||[]).join(' ').toLowerCase().includes(s); return catOk&&searchOk;});
@@ -183,23 +195,7 @@ window.render=function(){
   document.getElementById('todayCount').innerText=confesses.filter(c=>Date.now()-c.time<86400000).length;
   document.getElementById('lTotal').innerText=confesses.length;
   document.getElementById('lToday').innerText=confesses.filter(c=>Date.now()-c.time<86400000).length;
-  function renderTopConfess(){
-  const container = document.getElementById('topConfessList');
-  if(!container) return;
-  const top3 = [...confesses].sort((a,b)=>{
-    const totalA = Object.values(a.reactions||{}).reduce((x,y)=>x+y,0);
-    const totalB = Object.values(b.reactions||{}).reduce((x,y)=>x+y,0);
-    return totalB-totalA;
-  }).slice(0,3);
-  container.innerHTML = top3.map((c,i)=>{
-    const medal = i===0?'🥇':i===1?'🥈':'🥉';
-    const total = Object.values(c.reactions||{}).reduce((x,y)=>x+y,0);
-    return `<div onclick="openDetail('${c.firestoreId}')" class="cursor-pointer bg-broken border border-cream rounded-xl px-3 py-2.5 flex gap-2 items-center">
-      <div class="text-[18px]">${medal}</div>
-      <div class="flex-1"><div class="text-[11px] font-semibold line-clamp-1">${c.text.slice(0,40)}...</div><div class="text-[9px] opacity-50">💖 ${total} reaksi</div></div>
-    </div>`;
-  }).join('');
-}
+  renderTopConfess();
 }
 window.openDetail=function(fid){
   let c=confesses.find(x=>x.firestoreId===fid); if(!c) return; lockScroll();
@@ -224,7 +220,7 @@ window.react=async function(fid,type,el){
   el.classList.add('border-maroon','bg-cream'); el.classList.remove('bg-broken','bg-white','border-cream');
   el.animate([{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}],{duration:250});
   localStorage.setItem(key, '1');
-  try{ let newR={...(c.reactions||{})}; await updateDoc(doc(db,"confesses",fid), {reactions:newR}); }catch(e){ localStorage.removeItem(key); c.reactions[type]--; el.innerHTML = el.innerHTML.replace(/\d+/, c.reactions[type]); }
+  try{ let newR={...(c.reactions||{})}; await updateDoc(doc(db,"confesses",fid), {reactions:newR}); renderTopConfess(); }catch(e){ localStorage.removeItem(key); c.reactions[type]--; el.innerHTML = el.innerHTML.replace(/\d+/, c.reactions[type]); }
 }
 window.addReply=async function(fid){
   let inp=document.getElementById(`reply-${fid}`); let v=inp.value.trim(); if(v.length<2) return;
