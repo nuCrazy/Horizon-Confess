@@ -21,7 +21,7 @@
         <img src="logo.png" class="w-[84px] h-[84px] rounded-full border-[3px] border-maroon object-cover bg-white" onerror="this.style.display='none'">
         <div class="text-left leading-none">
           <div class="text-[10px] font-bold bg-maroon text-white px-2 py-1 rounded-full" id="timeBadge">KARAWANG</div>
-          <div class="text-[11px] font-semibold mt-1 opacity-60" id="campusGreeting">Pagi!</div>
+          <div class="text-[11px] font-semibold mt-1 opacity-60" id="campusGreeting">Halo Cemuanya 😘</div>
           <div class="text-[9px] opacity-40 mt-0.5" id="dateBadge">Loading...</div>
         </div>
       </div>
@@ -51,7 +51,7 @@
   <input id="searchM" oninput="document.getElementById('search').value=this.value; render()" placeholder="🔍 Cari gedung, #tag..." class="md:hidden w-full bg-white border-2 border-cream rounded-full px-4 py-2.5 text-[12px] mb-3">
   <div class="grid md:grid-cols-[1.2fr_0.8fr] gap-3 mb-4">
     <div class="bg-white border-2 border-maroon rounded-[18px] p-4">
-      <div class="flex justify-between"><span class="font-bold text-[12px] text-maroon">🔥 Trending di Karawang</span><span class="text-[10px] opacity-40" id="greetingSmall">Pagi!</span></div>
+      <div class="flex justify-between"><span class="font-bold text-[12px] text-maroon">🔥 Trending di Karawang</span><span class="text-[10px] opacity-40" id="greetingSmall">Halo Cemuanya 😘</span></div>
       <div id="trending" class="mt-2 flex flex-wrap gap-1.5"></div>
     </div>
     <div class="bg-white border-2 border-maroon/20 rounded-[18px] p-4">
@@ -105,7 +105,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 const firebaseConfig = { apiKey: "AIzaSyCToBiaTsuCCWrDnKK8cI1aQf7BDHICsQ4", authDomain: "confess-f4711.firebaseapp.com", projectId: "confess-f4711", storageBucket: "confess-f4711.firebasestorage.app", messagingSenderId: "484779882136", appId: "1:484779882136:web:52ec1b393f5777e2b582ed" };
 const app = initializeApp(firebaseConfig);
-const db = getFirestore("cnfss");
+const db = getFirestore(app, "cnfss");
 const colRef = collection(db, "confesses");
 const avatars=['🦊','🐱','🐶','🐼','👻','🦄','🐙','🦝']; const colors=['#FFF2E2','#E0F2E9','#E0E7FF','#FFE4E6','#FEF3C7'];
 let selectedAvatar=avatars[0]; let selectedColor=colors[0];
@@ -113,7 +113,7 @@ let confesses=[]; let activeCat='all'; let savedScroll=0;
 function esc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function parseContent(t){return esc(t).replace(/#(\w+)/g,'<span class="text-maroon2 font-bold">#$1</span>')}
 function profanityFilter(t){const bad=['anjing','babi','tolol','goblok','kontol','memek']; let low=t.toLowerCase(); for(let w of bad){if(low.includes(w)) return true} return false;}
-function getGreeting(){let h=new Date().getHours(); if(h<11) return 'Pagi, anak gedung B!'; if(h<14) return 'Siang, lagi di kantin ya?'; if(h<18) return 'Sore, perpus masih rame?'; return 'Malam, masih ngerjain tugas!';}
+function getGreeting(){ return 'Halo Cemuanya 😘'; }
 function updateDateTime(){
   let now = new Date(); let jam = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB';
   let tanggal = now.toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric'});
