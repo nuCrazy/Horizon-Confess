@@ -7,12 +7,10 @@
 <script>tailwind.config={theme:{extend:{colors:{maroon:'#800020',maroon2:'#A11D33',broken:'#FFFBF5',cream:'#FFF2E2',gold:'#FFD166'}}}}</script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* FIX BUG FONT - PUNYA BEBEN */
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 *{font-family:'Poppins',sans-serif}
 .masonry{column-count:1;column-gap:14px} @media(min-width:640px){.masonry{column-count:2}} @media(min-width:1024px){.masonry{column-count:3}}
 .masonry-item{break-inside:avoid;margin-bottom:14px}
-/* AESTHETIC PACK - PUNYA BEBEN */
 .font-lucu { font-family: 'Patrick Hand', cursive; }
 .card-aesthetic { background: white; border-radius: 20px; border: 2.5px solid #7A1F1F; box-shadow: 4px 4px 0px #7A1F1F; transform: rotate(-0.5deg); transition: all 0.2s; }
 .card-aesthetic:nth-child(even) { transform: rotate(0.5deg); }
@@ -25,7 +23,6 @@
 <body class="bg-broken text-[#2b1116] overflow-x-hidden">
 <div id="landing" class="fixed inset-0 z-[100] bg-broken flex items-center justify-center p-4 transition-transform duration-700">
 <div class="absolute inset-0 bg-gradient-to-br from-cream via-white to-broken"></div>
-    <!-- PUNYA BEBEN - RADA KECE CEES-->
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <div class="absolute top-[8%] left-[5%] w-[90px] h-[110px] bg-white border border-maroon/10 rounded-[8px] rotate-[-12deg] blur-[2px] opacity-30 p-2 text-[6px] leading-[7px]">To anak gedung B...</div>
     <div class="absolute top-[12%] right-[8%] w-[90px] h-[110px] bg-cream border rounded-[8px] rotate-[10deg] blur-[2px] opacity-30 p-2 text-[6px]">secret...</div>
@@ -97,8 +94,6 @@
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Random',this)">🎉 Random</button>
   </div>
 
-  <!-- PAPAN PENGUMUMAN - PUNYA BEBEN -->
-  <!-- EDIT PENGUMUMAN DISINI - PUNYA BEBEN - BEBEN GANTI TEKS DI DALAM DIV INI AJA YA! -->
   <div class="card-aesthetic p-4 mb-4 relative bg-yellow-50/90 overflow-hidden">
     <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-[26px] drop-shadow-sm">📌</div>
     <div class="stiker top-2 right-10 text-[14px]">🎁</div>
@@ -123,9 +118,7 @@
       <div class="text-[9px] opacity-30">📌 di-pin oleh admin</div>
     </div>
   </div>
-  <!-- END PAPAN PENGUMUMAN - PUNYA BEBEN -->
 
-  <!-- AESTHETIC HEADER - PUNYA BEBEN -->
   <div class="card-aesthetic p-4 mb-4 relative overflow-hidden">
     <div class="stiker -top-1 -right-1">🌷</div>
     <div class="stiker -bottom-1 -left-1 text-[16px]">✨</div>
@@ -164,6 +157,7 @@
       <div><label class="text-[11px] font-semibold">Pilih wujud anonimijon</label><div id="avatarPicker" class="mt-1 flex gap-1.5 overflow-auto"></div><div id="colorPicker" class="mt-2 flex gap-1.5"></div></div>
       <div><label class="text-[11px] font-semibold">Isi Confess <span id="charCount" class="opacity-50">0/500</span></label><textarea id="msgInput" maxlength="500" placeholder="To anak gedung B yang jaket maroon..." class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] min-h-[110px] resize-none"></textarea></div>
       <button id="sendBtn" onclick="sendConfess()" class="w-full bg-maroon text-white py-3 rounded-xl font-bold text-[14px]">Kirim ONLINE ✈️</button>
+      <div id="limitInfo_BEBEN" class="text-[10px] text-center opacity-50"></div>
     </div>
   </div>
 </div>
@@ -186,9 +180,22 @@ const colRef = collection(db, "confesses");
 const avatars=['🦊','🐱','🐶','🐼','👻','🦄','🐙','🦝']; const colors=['#FFF2E2','#E0F2E9','#E0E7FF','#FFE4E6','#FEF3C7'];
 let selectedAvatar=avatars[0]; let selectedColor=colors[0];
 let confesses=[]; let activeCat='all'; let savedScroll=0;
+
+// =========================================
+// PUNYA BEBEN - FITUR TAMBAHAN - GAK NGUBAH TAMPILAN
+// =========================================
+const IG_BEBEN="https://www.instagram.com/informaticshorizonu_?stkn=eDlkMTQ2bmkxajNh";
+const KATA_KASAR_BEBEN=["anjing","babi","bangsat","bajingan","kampret","tolol","goblok","idiot","bego","dongo","brengsek","lonte","kontol","memek","ngentot","tai","eek","jelek","gendut","dekil"];
+const PESAN_BEBEN="aduh gabole gitu dong ngetiknya, jempolnya di jaga yaa";
+
+function normalisasi_BEBEN(t){return t.toLowerCase().replace(/4/g,'a').replace(/@/g,'a').replace(/1/g,'i').replace(/!/g,'i').replace(/0/g,'o').replace(/3/g,'e').replace(/5/g,'s').replace(/\$/g,'s').replace(/(.)\1{1,}/g,'$1')}
+function profanityFilter(t){const low=normalisasi_BEBEN(t);for(let w of KATA_KASAR_BEBEN){if(low.includes(normalisasi_BEBEN(w)))return true}return false}
+function cekLimit_BEBEN(){const last=localStorage.getItem("lastPost_BEBEN");if(last){const selisih=Date.now()-parseInt(last);const limit=5*60*1000;if(selisih<limit){const sisa=Math.ceil((limit-selisih)/1000);const m=Math.floor(sisa/60);const d=sisa%60;alert(`Sabar ya beben, ${m}:${d.toString().padStart(2,'0')} lagi baru bisa curhat lagi 🥺`);return false}}return true}
+window.lapor_BEBEN=function(){window.open(IG_BEBEN,'_blank')}
+// END PUNYA BEBEN
+
 function esc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function parseContent(t){return esc(t).replace(/#(\w+)/g,'<span class="text-maroon2 font-bold">#$1</span>')}
-function profanityFilter(t){const bad=['anjing','babi','tolol','goblok','kontol','memek']; let low=t.toLowerCase(); for(let w of bad){if(low.includes(w)) return true} return false;}
 function getGreeting(){ return 'Halo Cemuanya 😘'; }
 function updateDateTime(){
   let now = new Date(); let jam = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB';
@@ -215,12 +222,15 @@ window.closeCreate=function(){document.getElementById('createModal').classList.a
 window.sendConfess=async function(){
   let to=document.getElementById('toInput').value.trim(); let cat=document.getElementById('catInput').value; let text=document.getElementById('msgInput').value.trim();
   if(text.length<8){alert('Minimal 8 karakter');return} if(!to){alert('Isi Untuk Siapa');return}
-  if(profanityFilter(text)||profanityFilter(to)){alert('Jaga etika kampus ya!');return}
+  // PUNYA BEBEN - TAMBAHAN FILTER + LIMIT
+  if(profanityFilter(text)||profanityFilter(to)){alert(PESAN_BEBEN);return}
+  if(!cekLimit_BEBEN()){return}
   let tags=(text.match(/#(\w+)/g)||[]).map(t=>t.replace('#','')).slice(0,4);
   let btn=document.getElementById('sendBtn'); btn.disabled=true; btn.innerText='Mengirim ONLINE...';
   try{
     await addDoc(colRef, {to,cat,text,tags,avatar:selectedAvatar,color:selectedColor,time:Date.now(),createdAt:serverTimestamp(),code:Math.floor(100+Math.random()*900),reactions:{love:0,cry:0,coffee:0,shy:0},replies:[]});
     document.getElementById('msgInput').value=''; document.getElementById('toInput').value=''; document.getElementById('charCount').innerText='0/500'; closeCreate();
+    localStorage.setItem("lastPost_BEBEN",Date.now().toString()); // PUNYA BEBEN
   }catch(e){alert('Gagal: '+e.message);}
   btn.disabled=false; btn.innerText='Kirim ONLINE ✈️';
 }
@@ -264,7 +274,8 @@ window.render=function(){
       <div class="mt-3 flex items-center gap-1">
         <button onclick="react('${c.firestoreId}','love',this)" class="text-[10px] border px-2 py-1 rounded-full font-semibold transition-all ${likedLove}">💖 ${c.reactions?.love||0}</button>
         <button onclick="react('${c.firestoreId}','cry',this)" class="text-[10px] bg-broken border border-cream px-2 py-1 rounded-full">😭 ${c.reactions?.cry||0}</button>
-        <span class="text-[10px] opacity-40 ml-auto">${total} reaksi • LIVE</span>
+        <button onclick="lapor_BEBEN()" class="text-[10px] bg-white border border-cream px-2 py-1 rounded-full ml-auto">🚩 Lapor</button>
+        <span class="text-[10px] opacity-40 ml-1">${total} reaksi</span>
       </div>
     </div>`;
   }).join('')||`<div class="text-center py-12 opacity-50 text-[12px]">Belum ada confess, kamu yang pertama!</div>`;
@@ -281,6 +292,7 @@ window.openDetail=function(fid){
   document.getElementById('detailContent').innerHTML=`
     <div class="bg-white border-2 border-cream rounded-xl p-3"><div class="text-[11px] opacity-60">To: ${esc(c.to)}</div><div class="text-[14px] leading-7 mt-2">${parseContent(c.text)}</div><div class="mt-2 flex flex-wrap gap-1">${(c.tags||[]).map(t=>`<span class="text-[11px] bg-broken border px-2.5 py-1 rounded-full">#${esc(t)}</span>`).join('')}</div></div>
     <div class="mt-4 grid grid-cols-4 gap-2">${['love','cry','coffee','shy'].map(type=>{let emoji={love:'💖',cry:'😭',coffee:'☕',shy:'🫣'}[type]; let liked = localStorage.getItem(`liked_${c.firestoreId}_${type}`)? 'border-maroon bg-cream' : 'border-cream bg-white'; return `<button onclick="react('${c.firestoreId}','${type}',this)" class="py-2.5 rounded-xl border-2 font-bold text-[13px] transition-all ${liked}">${emoji} ${c.reactions?.[type]||0}</button>`}).join('')}</div>
+    <button onclick="lapor_BEBEN()" class="mt-3 w-full bg-white border-2 border-cream rounded-xl py-2 text-[11px] font-bold">🚩 Lapor ke IG</button>
     <div class="mt-5"><div class="font-bold text-[12px]">Thread (${(c.replies||[]).length})</div><div class="mt-2 grid gap-2 max-h-[160px] overflow-auto">${(c.replies||[]).map(r=>`<div class="flex gap-2"><div class="w-7 h-7 rounded-full border grid place-items-center text-[14px]" style="background:${r.color}">${r.avatar}</div><div class="bg-white border rounded-xl px-3 py-2 text-[12px] flex-1"><div class="font-bold text-[10px] text-maroon">${esc(r.name)}</div>${esc(r.text)}</div></div>`).join('')||'<div class="text-[11px] opacity-40">Belum ada balasan</div>'}</div>
     <div class="mt-3 flex gap-2"><input id="reply-${c.firestoreId}" placeholder="Balas..." class="flex-1 bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px]"><button onclick="addReply('${c.firestoreId}')" class="bg-maroon text-white px-4 rounded-xl font-bold text-[12px]">Kirim</button></div></div>
     <div class="mt-3"><button onclick="closeDetail()" class="w-full bg-cream border-2 rounded-xl py-2.5 text-[11px]">Tutup</button></div>`;
