@@ -7,7 +7,7 @@
 <script>tailwind.config={theme:{extend:{colors:{maroon:'#800020',maroon2:'#A11D33',broken:'#FFFBF5',cream:'#FFF2E2',gold:'#FFD166'}}}}</script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* FIX BUG FONT - PUNYA BEBEN - HARUS PALING ATAS */
+/* FIX BUG FONT - PUNYA BEBEN */
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 *{font-family:'Poppins',sans-serif}
 .masonry{column-count:1;column-gap:14px} @media(min-width:640px){.masonry{column-count:2}} @media(min-width:1024px){.masonry{column-count:3}}
@@ -96,6 +96,35 @@
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Cari Teman',this)">🤝 Cari Teman</button>
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Random',this)">🎉 Random</button>
   </div>
+
+  <!-- PAPAN PENGUMUMAN - PUNYA BEBEN -->
+  <!-- EDIT PENGUMUMAN DISINI - PUNYA BEBEN - BEBEN GANTI TEKS DI DALAM DIV INI AJA YA! -->
+  <div class="card-aesthetic p-4 mb-4 relative bg-yellow-50/90 overflow-hidden">
+    <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-[26px] drop-shadow-sm">📌</div>
+    <div class="stiker top-2 right-10 text-[14px]">🎁</div>
+    <div class="flex justify-between items-center mb-3 mt-3">
+      <div class="font-lucu text-[20px] text-maroon leading-none">papan pengumuman! 📢</div>
+      <span class="text-[8px] bg-red-500 text-white px-2.5 py-1 rounded-full font-bold animate-pulse">PENTING</span>
+    </div>
+    <div id="announcementContent" class="bg-white border-[2px] border-maroon/10 rounded-[14px] p-3.5">
+      <div class="text-[12px] font-bold text-maroon leading-5">🎁 GIVEAWAY KRITIK & SARAN TERBAIK!</div>
+      <div class="text-[11px] leading-[18px] mt-2">
+        Halo anonimijon! 🌷 Punya kritik & saran paling membangun buat <b>Horizon Confess</b>? Yuk spill! Kritik & saran terbaik bakal dapet <b>HADIAH MENARIK</b> dari kita! ✨
+        <br><br>
+        Caranya gampang: langsung lapor / DM ke IG kita yaa! 👇
+      </div>
+      <a href="https://www.instagram.com/informaticshorizonu_?stkn=eDlkMTQ2bmkxajNh" target="_blank" class="mt-3 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 text-white rounded-full py-2.5 text-[11px] font-bold flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform">
+        📸 Laporkan ke @informaticshorizonu_
+      </a>
+      <div class="text-[9px] opacity-50 mt-2 text-center">Buruan! Periode terbatas ⏰</div>
+    </div>
+    <div class="mt-2 flex justify-between items-center">
+      <div class="text-[9px] opacity-40 font-bold">— panitia horizon ♡</div>
+      <div class="text-[9px] opacity-30">📌 di-pin oleh admin</div>
+    </div>
+  </div>
+  <!-- END PAPAN PENGUMUMAN - PUNYA BEBEN -->
+
   <!-- AESTHETIC HEADER - PUNYA BEBEN -->
   <div class="card-aesthetic p-4 mb-4 relative overflow-hidden">
     <div class="stiker -top-1 -right-1">🌷</div>
