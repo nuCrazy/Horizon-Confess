@@ -11,7 +11,7 @@ body{background:#050505;color:#e0e0e0;font-family:'JetBrains Mono',monospace;min
 body::before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,0,0,0.03) 2px,rgba(255,0,0,0.03) 4px);pointer-events:none;z-index:10}
 .glitch{font-family:'Creepster',cursive;font-size:42px;color:#ff0033;text-shadow:0 0 10px #ff0033,0 0 20px #ff0033;letter-spacing:3px;animation:flicker 2s infinite}
 @keyframes flicker{0%,19%,21%,23%,25%,54%,56%,100%{opacity:1}20%,24%,55%{opacity:0.4}}
-.card{background:linear-gradient(145deg,#0f0f0f,#1a0000);border:1px solid #330000;padding:16px;border-radius:4px;margin-bottom:12px;position:relative;overflow:hidden;transition:0.3s}
+.card{background:linear-gradient(145deg,#0f0f0f,#1a0000);border:1px solid #330000;padding:16px;border-radius:4px;margin-bottom:12px;position:relative;overflow:hidden;transition:0.3s;display:flex;justify-content:space-between;gap:10px}
 .card::before{content:"";position:absolute;left:0;top:0;width:3px;height:100%;background:#ff0033;box-shadow:0 0 10px #ff0033}
 .card:hover{border-color:#ff0033;transform:translateX(4px);box-shadow:0 0 20px rgba(255,0,51,0.2)}
 .btn-hapus{background:#ff0033;color:#000;font-weight:700;padding:8px 16px;border:none;cursor:pointer;font-family:'JetBrains Mono';letter-spacing:1px}
@@ -30,7 +30,7 @@ input:focus{border-color:#ff0033;box-shadow:0 0 10px rgba(255,0,51,0.3)}
     <p style="font-size:10px;color:#ff0033;margin-bottom:8px">[ENTER PASSWORD]</p>
     <input id="pass" type="password" placeholder="••••••••">
     <button onclick="login()" style="width:100%;margin-top:16px;background:#ff0033;color:#000;padding:12px;font-weight:700;letter-spacing:2px;cursor:pointer;border:none">> UNLOCK</button>
-    <p style="font-size:9px;color:#444;margin-top:16px;text-align:center">failed attempts are logged</p>
+    <p style="font-size:9px;color:#444;margin-top:16px;text-align:center">DB: cnfss // failed attempts logged</p>
   </div>
 </div>
 
@@ -38,32 +38,30 @@ input:focus{border-color:#ff0033;box-shadow:0 0 10px rgba(255,0,51,0.3)}
   <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:24px;border-bottom:1px solid #220000;padding-bottom:16px">
     <div>
       <div class="glitch" style="font-size:32px">ADMIN PANEL</div>
-      <div style="font-size:11px;color:#666;margin-top:4px">TOTAL VICTIMS: <span id="count" style="color:#ff0033;font-weight:700">0</span> // AUTO-PURGE 24H ACTIVE</div>
+      <div style="font-size:11px;color:#666;margin-top:4px">TOTAL VICTIMS: <span id="count" style="color:#ff0033;font-weight:700">0</span> // AUTO-PURGE ACTIVE</div>
     </div>
     <button onclick="logout()" style="background:transparent;border:1px solid #333;color:#666;padding:6px 12px;font-size:10px;cursor:pointer">LOGOUT</button>
   </div>
   <div id="list"></div>
-  <div style="text-align:center;color:#222;font-size:10px;margin-top:40px">HORIZON CONFESS // WE SEE EVERYTHING</div>
+  <div style="text-align:center;color:#222;font-size:10px;margin-top:40px">HORIZON CONFESS // WE SEE EVERYTHING // DB: confess-f4711</div>
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, query, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, query, orderBy, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// === COPY DARI index.html LU YANG ASLI YA BEBEN ===
-const firebaseConfig = {
-  apiKey: "AIzaSyDummyGantiIni",
-  authDomain: "horizon-confess.firebaseapp.com",
-  projectId: "horizon-confess",
-  storageBucket: "horizon-confess.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef"
+const firebaseConfig = { 
+  apiKey: "AIzaSyCToBiaTsuCCWrDnKK8cI1aQf7BDHICsQ4", 
+  authDomain: "confess-f4711.firebaseapp.com", 
+  projectId: "confess-f4711", 
+  storageBucket: "confess-f4711.firebasestorage.app", 
+  messagingSenderId: "484779882136", 
+  appId: "1:484779882136:web:52ec1b393f5777e2b582ed" 
 };
-// === SAMPE SINI ===
-// KALO LU BINGUNG, BUKA index.html -> CARI firebaseConfig -> COPY PASTE GANTI YANG ATAS
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// INI KUNCINYA BEBEN - DB LU NAMA NYA cnfss BUKAN DEFAULT!
+const db = getFirestore(app, "cnfss");
 
 window.login = () => {
   if(document.getElementById('pass').value === "bebenkasep"){
@@ -80,18 +78,28 @@ window.logout=()=>{localStorage.removeItem("admin_beben");location.reload()}
 function showPanel(){
   document.getElementById('login').style.display='none';
   document.getElementById('panel').style.display='block';
-  const q = query(collection(db, "confesses"));
+  const colRef = collection(db, "confesses");
+  const q = query(colRef, orderBy("createdAt","desc"));
   onSnapshot(q, snap=>{
-    const data = snap.docs.map(d=>({id:d.id, ...d.data()})).sort((a,b)=> (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+    const data = snap.docs.map(d=>({id:d.id, ...d.data()}));
     document.getElementById('count').innerText = data.length;
     document.getElementById('list').innerHTML = data.length ? data.map(c=>`
       <div class="card">
         <div style="width:78%">
-          <div style="font-size:11px;color:#ff0033;margin-bottom:6px">#${c.id.slice(0,6)} // ${c.createdAt?new Date(c.createdAt.seconds*1000).toLocaleString('id-ID'):'unknown time'}</div>
+          <div style="font-size:11px;color:#ff0033;margin-bottom:6px">#${c.id.slice(0,6)} // ${c.createdAt?new Date(c.createdAt.seconds*1000).toLocaleString('id-ID'):'just now'} // ${c.cat||'Random'} // To: ${c.to||'-'}</div>
           <div style="font-size:14px;line-height:1.5;word-break:break-word">${c.text||c.message||'(empty)'}</div>
+          <div style="font-size:10px;color:#666;margin-top:6px">${(c.tags||[]).join(' ')} | ${c.avatar||''} | ${Object.values(c.reactions||{}).reduce((a,b)=>a+b,0)} reacts</div>
         </div>
         <button class="btn-hapus" onclick="hapus('${c.id}')">PURGE</button>
       </div>
     `).join('') : `<div style="text-align:center;padding:60px;color:#333">NO CONFESS FOUND<br><span style="font-size:11px">the void is empty...</span></div>`;
   });
 }
+window.hapus = async (id) => {
+  if(confirm("PURGE confess ini permanen beben?")) await deleteDoc(doc(db,"confesses",id));
+}
+if(localStorage.getItem("admin_beben")==="true") showPanel();
+</script>
+<style>@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}</style>
+</body>
+</html>
