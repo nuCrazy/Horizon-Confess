@@ -2,123 +2,133 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ADMIN // HORIZON</title>
-<link href="https://fonts.googleapis.com/css2?family=Creepster&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>ADMIN FBI V2</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Creepster&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#050505;color:#e0e0e0;font-family:'JetBrains Mono',monospace;min-height:100vh;overflow-x:hidden}
-#matrix{position:fixed;inset:0;z-index:0;opacity:0.15;pointer-events:none}
-.glitch{font-family:'Creepster',cursive;font-size:42px;color:#ff0033;text-shadow:0 0 10px #ff0033,0 0 20px #ff0033;letter-spacing:3px;animation:flicker 2s infinite}
-@keyframes flicker{0%,19%,21%,23%,25%,54%,56%,100%{opacity:1}20%,24%,55%{opacity:0.4}}
-.card{background:linear-gradient(145deg,#0f0f0fcc,#1a0000cc);border:1px solid #330000;padding:16px;border-radius:4px;margin-bottom:12px;position:relative;overflow:hidden;backdrop-filter:blur(4px)}
-.card::before{content:"";position:absolute;left:0;top:0;width:3px;height:100%;background:#ff0033;box-shadow:0 0 10px #ff0033}
-.btn-hapus{background:#ff0033;color:#000;font-weight:700;padding:8px 16px;border:none;cursor:pointer;font-family:'JetBrains Mono';font-size:11px}
-.btn-mini{background:transparent;border:1px solid #ff0033;color:#ff0033;padding:4px 8px;font-size:9px;cursor:pointer;margin-left:6px}
-#login{ min-height:100vh;display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at center,#1a0000 0%,#000 70%);position:relative;z-index:2}
-.box{border:1px solid #330000;padding:32px;background:rgba(10,0,0,0.9);width:380px;box-shadow:0 0 60px rgba(255,0,51,0.25)}
-.loc-box{background:#0a0a0a;border:1px solid #222;padding:8px;margin-top:8px;font-size:10px;display:none}
-.stat{border:1px solid #330000;padding:12px;background:#0a0000cc}
+*{margin:0;padding:0;box-sizing:border-box} body{background:#050505;color:#e0e0e0;font-family:'JetBrains Mono',monospace;min-height:100vh}
+#matrix{position:fixed;inset:0;z-index:0;opacity:0.12;pointer-events:none}
+.card{background:linear-gradient(145deg,#0f0f0fcc,#1a0000cc);border:1px solid #330000;padding:14px;border-radius:4px;margin-bottom:10px;position:relative;backdrop-filter:blur(4px)}
+.card.spam{border-color:#ff0000;box-shadow:0 0 15px rgba(255,0,0,0.4)}
+.card::before{content:"";position:absolute;left:0;top:0;width:3px;height:100%;background:#ff0033}
+.btn-hapus{background:#ff0033;color:#000;font-weight:700;padding:8px 14px;border:none;cursor:pointer;font-size:11px}
+.btn-mini{background:transparent;border:1px solid #ff0033;color:#ff0033;padding:3px 7px;font-size:9px;cursor:pointer;margin-left:5px}
+.btn-ban{background:#ff0;color:#000;padding:3px 7px;font-size:9px;font-weight:700;border:none;cursor:pointer;margin-left:5px}
+.stat{border:1px solid #330000;padding:10px;background:#0a0000cc}
+.blur{filter:blur(6px);cursor:pointer}.blur:hover{filter:none}
+#login{min-height:100vh;display:flex;justify-content:center;align-items:center;position:relative;z-index:2}
+.box{border:1px solid #330000;padding:30px;background:rgba(10,0,0,0.9);width:400px;box-shadow:0 0 60px rgba(255,0,51,0.25)}
+canvas#chart{width:100%;height:90px;background:#0a0a0a;border:1px solid #222;margin-top:8px}
 </style>
 </head>
 <body>
 <canvas id="matrix"></canvas>
-<div id="login">
-  <div class="box">
-    <div class="glitch">HORIZON</div>
-    <p style="color:#666;font-size:11px;margin:8px 0 4px;letter-spacing:2px">ULTIMATE // MATRIX MODE</p>
-    <div id="typewriter" style="font-size:10px;color:#ff0033;height:14px;margin-bottom:16px"></div>
-    <p style="font-size:10px;color:#ff0033;margin-bottom:8px">[ENTER PASSWORD]</p>
-    <input id="pass" type="password" placeholder="••••••••" style="background:#000;border:1px solid #333;color:#ff0033;padding:12px;width:100%;font-family:'JetBrains Mono';outline:none">
-    <button onclick="login()" style="width:100%;margin-top:16px;background:#ff0033;color:#000;padding:12px;font-weight:700;letter-spacing:2px;cursor:pointer;border:none">> UNLOCK MATRIX</button>
+<div id="login"><div class="box"><div style="font-family:'Creepster';font-size:38px;color:#ff0033;text-shadow:0 0 15px #f00">FBI V2</div><div style="font-size:10px;color:#666;letter-spacing:2px">ALL FEATURES + ANTI BUG</div><input id="pass" type="password" placeholder="password" style="background:#000;border:1px solid #333;color:#f33;padding:12px;width:100%;margin-top:16px;outline:none"><button onclick="login()" style="width:100%;margin-top:12px;background:#f33;color:#000;padding:12px;font-weight:700;cursor:pointer;border:none">UNLOCK</button></div></div>
+
+<div id="panel" style="display:none;padding:20px;max-width:1050px;margin:0 auto;position:relative;z-index:2">
+  <div style="display:flex;justify-content:space-between;border-bottom:1px solid #220000;padding-bottom:14px;margin-bottom:14px">
+    <div><div style="font-family:'Creepster';font-size:30px;color:#ff0033">ADMIN FBI V2</div><div style="font-size:11px;color:#666">TOTAL <span id="count" style="color:#f33">0</span> | TODAY <span id="todayC" style="color:#0f8">0</span> | UNIQUE IP <span id="uniqIP" style="color:#ff0">0</span> | BANNED <span id="bannedC" style="color:#f00">0</span></div></div>
+    <div><button onclick="enableNotif()" style="background:#00ff88;color:#000;padding:6px 10px;font-size:10px;font-weight:700;border:none;cursor:pointer;margin-right:6px">🔔 NOTIF ON</button><button onclick="logout()" style="background:transparent;border:1px solid #333;color:#666;padding:6px 10px;font-size:10px;cursor:pointer">LOGOUT</button></div>
   </div>
-</div>
-<div id="panel" style="display:none;padding:24px;max-width:1000px;margin:0 auto;position:relative;z-index:2">
-  <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:16px;border-bottom:1px solid #220000;padding-bottom:16px">
-    <div>
-      <div class="glitch" style="font-size:32px">ADMIN PAGE</div>
-      <div style="font-size:11px;color:#666;margin-top:4px">TOTAL: <span id="count" style="color:#ff0033;font-weight:700">0</span> // TODAY: <span id="todayC" style="color:#00ff88">0</span> // IP: <span id="uniqIP" style="color:#ff0">0</span> unique</div>
-    </div>
-    <button onclick="logout()" style="background:transparent;border:1px solid #333;color:#666;padding:6px 12px;font-size:10px;cursor:pointer">LOGOUT</button>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px">
-    <div class="stat"><div style="font-size:9px;color:#666">TOTAL CONFESS</div><div id="sTotal" style="font-size:22px;color:#ff0033;font-weight:700">0</div></div>
-    <div class="stat"><div style="font-size:9px;color:#666">HARI INI</div><div id="sToday" style="font-size:22px;color:#00ff88;font-weight:700">0</div></div>
-    <div class="stat"><div style="font-size:9px;color:#666">TOP IP (SPAMMER?)</div><div id="sTopIP" style="font-size:11px;color:#ff0;word-break:break-all">-</div></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
+    <div class="stat"><div style="font-size:9px;color:#666">JAM RAMAI</div><canvas id="chart"></canvas></div>
+    <div class="stat"><div style="font-size:9px;color:#666">SEARCH</div><input id="search" placeholder="cari nama / isi confess..." style="width:100%;background:#000;border:1px solid #333;color:#fff;padding:8px;margin-top:6px;font-size:11px" oninput="render()"><label style="font-size:9px;color:#888;display:flex;gap:6px;margin-top:6px"><input type="checkbox" id="onlyIP" onchange="render()"> Hanya yang ada IP</label><label style="font-size:9px;color:#888;display:flex;gap:6px;margin-top:4px"><input type="checkbox" id="onlySpam" onchange="render()"> Hanya spammer >5x</label></div>
+    <div class="stat"><div style="font-size:9px;color:#666">TOP SPAMMER</div><div id="sTopIP" style="font-size:11px;color:#ff0;margin-top:6px;word-break:break-all">-</div><div style="font-size:9px;color:#666;margin-top:8px">KATA KASAR FILTER: <span style="color:#f33">AUTO BLUR</span></div></div>
   </div>
   <div id="list"></div>
 </div>
+
+<audio id="ting" src="https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3"></audio>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, query, orderBy, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-const firebaseConfig = { apiKey: "AIzaSyCToBiaTsuCCWrDnKK8cI1aQf7BDHICsQ4", authDomain: "confess-f4711.firebaseapp.com", projectId: "confess-f4711", storageBucket: "confess-f4711.firebasestorage.app", messagingSenderId: "484779882136", appId: "1:484779882136:web:52ec1b393f5777e2b582ed" };
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app, "cnfss");
+import { getFirestore, collection, query, orderBy, onSnapshot, deleteDoc, doc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const firebaseConfig={apiKey:"AIzaSyCToBiaTsuCCWrDnKK8cI1aQf7BDHICsQ4",authDomain:"confess-f4711.firebaseapp.com",projectId:"confess-f4711",storageBucket:"confess-f4711.firebasestorage.app",messagingSenderId:"484779882136",appId:"1:484779882136:web:52ec1b393f5777e2b582ed"};
+const app=initializeApp(firebaseConfig); const db=getFirestore(app,"cnfss");
 
-// MATRIX RAIN
+// MATRIX
 const c=document.getElementById('matrix'), ctx=c.getContext('2d');
-c.width=window.innerWidth; c.height=window.innerHeight;
-const chars="HORIZON01".split(""); const font=14; const cols=c.width/font; const drops=Array(Math.floor(cols)).fill(1);
-function drawM(){ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#ff0033";ctx.font=font+"px monospace";for(let i=0;i<drops.length;i++){const t=chars[Math.floor(Math.random()*chars.length)];ctx.fillText(t,i*font,drops[i]*font);if(drops[i]*font>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++}}setInterval(drawM,50)
+function rs(){c.width=innerWidth;c.height=innerHeight} rs(); addEventListener('resize',rs);
+const chars="FBI01".split(""); const font=14; let drops=Array(Math.floor(c.width/font)).fill(1);
+function drawM(){ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#ff0033";ctx.font=font+"px monospace";for(let i=0;i<drops.length;i++){ctx.fillText(chars[Math.random()*chars.length|0],i*font,drops[i]*font);if(drops[i]*font>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++}}
+setInterval(drawM,50);
 
-// TYPEWRITER + TIK SOUND (fake)
-const txt="> CONNECTING TO cnfss... IP LOG READY...";
-let j=0; const tw=document.getElementById('typewriter');
-function typeW(){if(j<txt.length){tw.innerHTML+=txt.charAt(j);j++;setTimeout(typeW,40)}}typeW();
+const BADWORDS=["anjing","babi","kontol","memek","ngentot","tolol","goblok","bangsat","kampang","bego"];
+let allData=[], bannedSet=new Set(), firstLoad=true, prevCount=0;
 
-window.login = () => {
-  if(document.getElementById('pass').value === "bebenkasep"){
-    localStorage.setItem("admin_beben","true");
-    showPanel();
-  } else {
-    document.body.style.animation="shake 0.3s"; setTimeout(()=>document.body.style.animation="",300);
-    alert("ACCESS DENIED");
-  }
-}
-window.logout=()=>{localStorage.removeItem("admin_beben");location.reload()}
+window.login=()=>{if(pass.value==="bebenkasep"){localStorage.setItem("admin_beben","true");showPanel()}else alert("DENIED")};
+window.logout=()=>{localStorage.removeItem("admin_beben");location.reload()};
+window.enableNotif=async()=>{await Notification.requestPermission(); alert("Notif ON! Nanti kalo ada confess baru bunyi TING!")};
+
 function esc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-window.copyIP=(ip)=>{navigator.clipboard.writeText(ip); alert('IP '+ip+' dicopy beben!');}
-window.cekLokasi=async(ip,id)=>{
-  const box=document.getElementById('loc-'+id); box.style.display='block'; box.innerHTML='🔍 Tracking '+ip+'...';
-  try{
-    const res=await fetch(`https://ipapi.co/${ip}/json/`); const d=await res.json();
-    if(d.error){box.innerHTML='❌ '+d.reason;return;}
-    box.innerHTML=`<div style="color:#ff0033;font-weight:700">📍 ${d.city}, ${d.region}</div><div>${d.country_name} | ${d.org||''}</div><div>${d.latitude},${d.longitude}</div><a href="https://www.google.com/maps?q=${d.latitude},${d.longitude}" target="_blank" style="color:#ff0033">📍 Google Maps</a> | <a href="https://whatismyipaddress.com/ip/${ip}" target="_blank" style="color:#888">Detail</a>`;
-  }catch(e){box.innerHTML=`<a href="https://whatismyipaddress.com/ip/${ip}" target="_blank" style="color:#ff0033">Cek manual</a>`}
+function containsBad(s){const low=(s||'').toLowerCase(); return BADWORDS.some(w=>low.includes(w))}
+
+window.copyIP=(ip)=>{navigator.clipboard.writeText(ip); alert('Copy '+ip)};
+window.banIP=async(ip)=>{if(!confirm('BAN IP '+ip+'? Dia gak bisa confess lagi!'))return; await setDoc(doc(db,"banned_ips",ip.replace(/\./g,'_')),{ip, time:Date.now()}); alert('IP '+ip+' DI BAN!');}
+window.unbanIP=async(ip)=>{await deleteDoc(doc(db,"banned_ips",ip.replace(/\./g,'_'))); alert('UNBAN '+ip)};
+window.cekLokasi=async(ip,id)=>{const box=document.getElementById('loc-'+id); box.style.display='block'; box.innerHTML='Tracking...'; try{const r=await fetch(`https://ipapi.co/${ip}/json/`); const d=await r.json(); if(d.error){box.innerHTML='❌ '+d.reason;return;} box.innerHTML=`📍 ${d.city}, ${d.region} - ${d.country_name}<br>${d.org||''}<br><a href="https://www.google.com/maps?q=${d.latitude},${d.longitude}" target="_blank" style="color:#f33">Maps</a>`;}catch{box.innerHTML=`<a href="https://whatismyipaddress.com/ip/${ip}" target="_blank" style="color:#f33">Cek manual</a>`}};
+window.hapus=async(id)=>{if(confirm("HAPUS?")) await deleteDoc(doc(db,"confesses",id))};
+
+function drawChart(data){
+  const cv=document.getElementById('chart'), cx=cv.getContext('2d'); cv.width=cv.offsetWidth*2; cv.height=90*2; cx.clearRect(0,0,cv.width,cv.height);
+  const hours=Array(24).fill(0); data.forEach(d=>{if(d.createdAt?.seconds){const h=new Date(d.createdAt.seconds*1000).getHours(); hours[h]++}});
+  const max=Math.max(1,...hours); const w=cv.width/24;
+  hours.forEach((v,i)=>{const h=(v/max)*(cv.height-20); cx.fillStyle=v===Math.max(...hours)?"#ff0033":"#330000"; cx.fillRect(i*w+2, cv.height-h-10, w-4, h);});
+  cx.fillStyle="#666"; cx.font="10px monospace"; cx.fillText("0h",2,cv.height-2); cx.fillText("12h",cv.width/2-10,cv.height-2); cx.fillText("23h",cv.width-20,cv.height-2);
 }
-function showPanel(){
-  document.getElementById('login').style.display='none'; document.getElementById('panel').style.display='block';
-  const colRef=collection(db,"confesses"); const q=query(colRef, orderBy("createdAt","desc"));
-  onSnapshot(q,snap=>{
-    const data=snap.docs.map(d=>({id:d.id,...d.data()}));
-    document.getElementById('count').innerText=data.length; document.getElementById('sTotal').innerText=data.length;
-    const today=data.filter(c=>c.time && Date.now()-c.time<86400000).length;
-    document.getElementById('todayC').innerText=today; document.getElementById('sToday').innerText=today;
-    const ipCount={}; data.forEach(c=>{if(c.sender?.ip && c.sender.ip!=='unknown'){ipCount[c.sender.ip]=(ipCount[c.sender.ip]||0)+1}});
-    document.getElementById('uniqIP').innerText=Object.keys(ipCount).length;
-    const top=Object.entries(ipCount).sort((a,b)=>b[1]-a[1])[0];
-    document.getElementById('sTopIP').innerText=top?`${top[0]} (${top[1]}x)`:'-';
-    document.getElementById('list').innerHTML=data.map(c=>{
-      const ip=c.sender?.ip||'unknown';
-      return `<div class="card">
-        <div style="display:flex;justify-content:space-between;gap:12px">
-          <div style="flex:1">
-            <div style="font-size:11px;color:#ff0033">#${c.id.slice(0,6)} // To:${esc(c.to)} // ${c.createdAt?new Date(c.createdAt.seconds*1000).toLocaleString('id-ID'):'now'}</div>
-            <div style="font-size:14px;margin-top:6px;word-break:break-word">${esc(c.text)}</div>
-            <div style="margin-top:10px;background:#0f0000;border:1px dashed #440000;padding:8px;font-size:10px">
-              <div>IP: <b style="color:#fff">${esc(ip)}</b> ${ip!=='unknown'?`<button class="btn-mini" onclick="copyIP('${esc(ip)}')">COPY</button><button class="btn-mini" onclick="cekLokasi('${esc(ip)}','${c.id}')">CEK 📍</button>`:''}</div>
-              <div>UA: ${esc((c.sender?.ua||'').substring(0,80))}</div>
-              <div id="loc-${c.id}" class="loc-box"></div>
-            </div>
+
+window.render=()=>{
+  const q=document.getElementById('search').value.toLowerCase(); const onlyIP=document.getElementById('onlyIP').checked; const onlySpam=document.getElementById('onlySpam').checked;
+  const ipCount={}; allData.forEach(c=>{if(c.sender?.ip && c.sender.ip!=='unknown') ipCount[c.sender.ip]=(ipCount[c.sender.ip]||0)+1});
+  let filtered=allData.filter(c=>{
+    if(q &&!(c.text.toLowerCase().includes(q) || (c.to||'').toLowerCase().includes(q))) return false;
+    if(onlyIP && (!c.sender?.ip || c.sender.ip==='unknown')) return false;
+    if(onlySpam && (!c.sender?.ip || (ipCount[c.sender.ip]||0)<=5)) return false;
+    return true;
+  });
+  document.getElementById('list').innerHTML=filtered.map(c=>{
+    const ip=c.sender?.ip||'unknown'; const cnt=ipCount[ip]||0; const isSpam=cnt>5; const isBad=containsBad(c.text); const isBanned=bannedSet.has(ip);
+    return `<div class="card ${isSpam?'spam':''}">
+      <div style="display:flex;justify-content:space-between;gap:10px">
+        <div style="flex:1">
+          <div style="font-size:10px;color:#f33">#${c.id.slice(0,6)} To:${esc(c.to)} ${isSpam?`<span style="background:#f00;color:#000;padding:2px 5px;font-weight:700;margin-left:6px">⚠️ SPAMMER ${cnt}x</span>`:''} ${isBanned?`<span style="background:#ff0;color:#000;padding:2px 5px">BANNED</span>`:''} ${isBad?`<span style="background:#900;color:#fff;padding:2px 5px">BAD WORD</span>`:''}</div>
+          <div class="${isBad?'blur':''}" onclick="this.classList.remove('blur')" title="klik buat buka blur" style="font-size:13px;margin-top:6px;word-break:break-word">${esc(c.text)}</div>
+          <div style="margin-top:8px;background:#0f0000;border:1px dashed #440000;padding:6px;font-size:10px">
+            IP: <b>${esc(ip)}</b> ${ip!=='unknown'?`<button class="btn-mini" onclick="copyIP('${esc(ip)}')">COPY</button><button class="btn-mini" onclick="cekLokasi('${esc(ip)}','${c.id}')">📍 CEK</button>${!isBanned?`<button class="btn-ban" onclick="banIP('${esc(ip)}')">BAN</button>`:`<button class="btn-mini" onclick="unbanIP('${esc(ip)}')">UNBAN</button>`} (${cnt}x)`:''}
+            <div id="loc-${c.id}" style="display:none;margin-top:6px;border-top:1px solid #222;padding-top:6px"></div>
           </div>
-          <button class="btn-hapus" onclick="hapus('${c.id}')">HAPUS AH</button>
         </div>
-      </div>`
-    }).join('');
+        <button class="btn-hapus" onclick="hapus('${c.id}')">HAPUS</button>
+      </div>
+    </div>`
+  }).join('') || '<div style="color:#666;text-align:center;margin-top:20px">Gak ketemu beben</div>';
+}
+
+async function showPanel(){
+  document.getElementById('login').style.display='none'; document.getElementById('panel').style.display='block';
+  // banned
+  onSnapshot(collection(db,"banned_ips"),snap=>{bannedSet=new Set(snap.docs.map(d=>d.data().ip)); document.getElementById('bannedC').innerText=bannedSet.size; render();});
+  // confesses
+  const q=query(collection(db,"confesses"),orderBy("createdAt","desc"));
+  onSnapshot(q,snap=>{
+    allData=snap.docs.map(d=>({id:d.id,...d.data()}));
+    document.getElementById('count').innerText=allData.length;
+    const today=allData.filter(c=>c.time && Date.now()-c.time<86400000).length;
+    document.getElementById('todayC').innerText=today;
+    const ipCount={}; allData.forEach(c=>{if(c.sender?.ip && c.sender.ip!=='unknown') ipCount[c.sender.ip]=1}); document.getElementById('uniqIP').innerText=Object.keys(ipCount).length;
+    const top=Object.entries(allData.reduce((a,c)=>{if(c.sender?.ip && c.sender.ip!=='unknown'){a[c.sender.ip]=(a[c.sender.ip]||0)+1} return a},{})).sort((a,b)=>b[1]-a[1])[0];
+    document.getElementById('sTopIP').innerText=top?`${top[0]} (${top[1]}x)`: '-';
+    drawChart(allData);
+    // NOTIF BUNYI TING
+    if(!firstLoad && allData.length>prevCount){
+      document.getElementById('ting').play().catch(()=>{});
+      if(Notification.permission==="granted"){new Notification("Confess baru! 🔥",{body:allData[0].text.slice(0,60)})}
+    }
+    firstLoad=false; prevCount=allData.length;
+    render();
   });
 }
-window.hapus=async(id)=>{if(confirm("PURGE?")) await deleteDoc(doc(db,"confesses",id));}
 if(localStorage.getItem("admin_beben")==="true") showPanel();
 </script>
-<style>@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}</style>
 </body>
 </html>
