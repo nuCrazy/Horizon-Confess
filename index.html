@@ -18,13 +18,15 @@
 .stiker { position: absolute; font-size: 20px; animation: goyang 2s infinite ease-in-out; }
 @keyframes goyang { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
-@keyframes floaty {0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-10px) rotate(var(--r))}}
-.floaty{animation:floaty 4s ease-in-out infinite}
-@keyframes pulse-gold {0%{box-shadow:0 0 0 0 rgba(255,209,102,0.7)}70%{box-shadow:0 0 0 10px rgba(255,209,102,0)}100%{box-shadow:0 0 0 0 rgba(255,209,102,0)}}
-.ring-gold{animation:pulse-gold 1s ease; border-color:#FFD166!important}
 </style>
 </head>
 <body class="bg-broken text-[#2b1116] overflow-x-hidden">
+
+<!-- AUDIO AUTOPLAY NEMA BEBEN -->
+<audio id="bgm" loop preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_fbd9f85d2a.mp3" type="audio/mpeg">
+</audio>
+
 <div id="landing" class="fixed inset-0 z-[100] bg-broken flex items-center justify-center p-4 transition-transform duration-700">
 <div class="absolute inset-0 bg-gradient-to-br from-cream via-white to-broken"></div>
   <div class="relative z-10 w-full max-w-[420px]">
@@ -46,9 +48,11 @@
       </div>
       <button onclick="enterApp()" class="w-full mt-4 bg-maroon text-white py-[14px] rounded-[14px] font-bold text-[14px]">Masuk sebagai anonimijon →</button>
       <div class="mt-3 text-[9px] opacity-40" id="connStatus">Menghubungkan...</div>
+      <div class="mt-2 text-[8px] opacity-30">🎵 Musik akan nyala otomatis pas masuk</div>
     </div>
   </div>
 </div>
+
 <div class="max-w-[1200px] mx-auto px-4 pb-28">
   <header class="sticky top-0 z-20 bg-broken/90 backdrop-blur-md border-b border-cream px-4 py-3 flex items-center justify-between -mx-4 mb-4">
     <div class="flex items-center gap-2 font-bold text-maroon">
@@ -59,20 +63,16 @@
     <div class="flex items-center gap-2">
       <input id="search" oninput="render()" placeholder="Cari #tag / FICT / FMB..." class="hidden md:block w-[300px] bg-white border-2 border-cream rounded-full px-4 py-2 text-[11px] outline-none">
       <div class="text-[10px] bg-white border border-cream rounded-full px-2.5 py-1 font-semibold">🔥 <span id="todayCount">0</span></div>
-      <div id="myLevelHeader" class="hidden md:flex text-[9px] bg-maroon text-white px-2.5 py-1 rounded-full font-bold"></div>
+      <button id="musicBtn" onclick="toggleMusic()" class="text-[10px] bg-white border border-cream rounded-full px-2.5 py-1 font-semibold">🎵 ON</button>
     </div>
   </header>
   <input id="searchM" oninput="document.getElementById('search').value=this.value; render()" placeholder="🔍 Cari FICT, FMB, #tag..." class="md:hidden w-full bg-white border-2 border-cream rounded-full px-4 py-2.5 text-[12px] mb-3 outline-none">
-  <div class="grid md:grid-cols-[1.2fr_0.8fr] gap-3 mb-4">
-    <div class="bg-white border-2 border-maroon rounded-[18px] p-4">
-      <div class="flex justify-between"><span class="font-bold text-[12px] text-maroon">🔥 Trending di Karawang</span><span class="text-[10px] opacity-40" id="greetingSmall">Halo Cemuanya 😘</span></div>
-      <div id="trending" class="mt-2 flex flex-wrap gap-1.5"></div>
-    </div>
-    <div class="bg-white border-2 border-maroon/20 rounded-[18px] p-4">
-      <div class="flex justify-between items-center"><div class="font-bold text-[12px] text-maroon">🏆 Top Confess Minggu Ini</div><div class="text-[9px] bg-gold px-2 py-0.5 rounded-full font-bold">HOT</div></div>
-      <div id="topConfessList" class="mt-3 flex flex-col gap-2"><div class="text-[11px] opacity-40">Loading...</div></div>
-    </div>
+
+  <div class="bg-white border-2 border-maroon/20 rounded-[18px] p-4 mb-4">
+    <div class="flex justify-between items-center"><div class="font-bold text-[12px] text-maroon">🏆 Top Confess Minggu Ini</div><div class="text-[9px] bg-gold px-2 py-0.5 rounded-full font-bold">HOT</div></div>
+    <div id="topConfessList" class="mt-3 flex flex-col gap-2"><div class="text-[11px] opacity-40">Loading...</div></div>
   </div>
+
   <div class="flex gap-2 overflow-auto pb-2 scrollbar-hide">
     <button class="filter-btn active bg-maroon text-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('all',this)">Semua</button>
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Perasaan',this)">💘 Perasaan</button>
@@ -80,6 +80,7 @@
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Cari Teman',this)">🤝 Cari Teman</button>
     <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Random',this)">🎉 Random</button>
   </div>
+
   <div class="card-aesthetic p-4 mb-4 relative bg-yellow-50/90 overflow-hidden">
     <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-[26px]">📌</div>
     <div class="stiker top-2 right-10 text-[14px]">🎁</div>
@@ -88,7 +89,9 @@
   </div>
   <div id="feed" class="masonry mt-3 gap-4"></div>
 </div>
+
 <button onclick="openCreate()" class="fixed bottom-6 right-6 z-30 bg-maroon text-white px-5 py-3.5 rounded-full font-bold text-[13px] shadow-[0_12px_30px_rgba(128,0,32,0.4)]">➕ Spill sebagai anonimijon</button>
+
 <div id="createModal" class="fixed inset-0 z-[80] bg-[#2b1116]/35 backdrop-blur-md hidden place-items-center p-4">
   <div class="bg-broken border-[3px] border-maroon rounded-[22px] max-w-[460px] w-full p-5 relative max-h-[90vh] overflow-auto">
     <div class="flex justify-between items-center mb-4"><h3 class="font-bold text-maroon text-[14px]">Spill anonimijon ONLINE</h3><button onclick="closeCreate()" class="w-8 h-8 bg-white border-2 border-maroon rounded-full grid place-items-center font-bold text-maroon">✕</button></div>
@@ -101,19 +104,21 @@
       <div>
         <label class="text-[11px] font-semibold">Isi Confess <span id="charCount" class="opacity-50">0/500</span></label>
         <textarea id="msgInput" maxlength="500" placeholder="mau curcol apa hari ini? ✨" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] min-h-[110px] resize-none outline-none"></textarea>
-        <div id="levelPreview" class="mt-2 flex items-center gap-2 text-[10px] bg-maroon text-white rounded-full px-3 py-1.5 w-fit font-bold"></div>
-        <label class="mt-2 w-full bg-white border-2 border-dashed border-cream rounded-xl px-3 py-2.5 text-[11px] flex items-center justify-between cursor-pointer hover:border-gold">
-          <span>📸 Tambah Foto (opsional)</span>
-          <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="previewPhoto(event)">
-          <span id="photoName" class="opacity-40 text-[9px]">max 1MB auto kompres</span>
-        </label>
-        <img id="photoPreview" class="hidden w-full h-40 object-cover rounded-xl border-2 border-cream mt-2">
-        <button id="removePhoto" onclick="removePhoto()" class="hidden text-[10px] bg-red-500 text-white px-3 py-1 rounded-full mt-1">Hapus Foto</button>
+        <div class="mt-3 grid grid-cols-2 gap-2">
+          <button type="button" onclick="document.getElementById('photoInputGallery').click()" class="bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[11px] font-semibold flex items-center justify-center gap-1.5 hover:border-gold">🖼️ Galeri</button>
+          <button type="button" onclick="document.getElementById('photoInputCamera').click()" class="bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[11px] font-semibold flex items-center justify-center gap-1.5 hover:border-gold">📸 Kamera</button>
+        </div>
+        <input type="file" id="photoInputGallery" accept="image/*" class="hidden" onchange="previewPhoto(event)">
+        <input type="file" id="photoInputCamera" accept="image/*" capture="environment" class="hidden" onchange="previewPhoto(event)">
+        <div id="photoName" class="text-[9px] opacity-40 mt-1 text-center">max 1MB auto kompres • bisa galeri atau foto langsung</div>
+        <img id="photoPreview" class="hidden w-full h-52 object-cover rounded-xl border-2 border-cream mt-2">
+        <button id="removePhoto" onclick="removePhoto()" class="hidden text-[10px] bg-red-500 text-white px-3 py-1 rounded-full mt-2">Hapus Foto</button>
       </div>
       <button id="sendBtn" onclick="sendConfess()" class="w-full bg-maroon text-white py-3 rounded-xl font-bold text-[14px]">Kirim ONLINE ✈️</button>
     </div>
   </div>
 </div>
+
 <div id="detailModal" class="fixed inset-0 z-[90] bg-[#2b1116]/40 backdrop-blur-[18px] hidden place-items-center p-4">
   <div class="bg-broken border-[3px] border-maroon rounded-[24px] max-w-[560px] w-full relative max-h-[88vh] flex flex-col overflow-hidden">
     <div class="flex items-center justify-between p-4 border-b-2 border-cream bg-white"><div class="flex items-center gap-2"><div class="w-9 h-9 rounded-full border-2 border-maroon grid place-items-center text-[18px]" id="detailAvatar">🦊</div><div><div class="font-bold text-maroon text-[13px]" id="detailName">anonimijon #214</div><div class="text-[10px] opacity-50" id="detailTime">Baru saja</div></div></div><button onclick="closeDetail()" class="w-9 h-9 bg-white border-2 border-maroon rounded-full grid place-items-center font-bold text-maroon">✕</button></div>
@@ -121,6 +126,7 @@
   </div>
 </div>
 <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-maroon text-white px-6 py-3 rounded-full text-[13px] font-bold shadow-[0_10px_30px_rgba(0,0,0,0.3)] translate-y-[150px] opacity-0 transition-all duration-300 z-[200]">Confess kamu udah terkirim! ✨</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -138,88 +144,52 @@ function normalisasi_BEBEN(t){return t.toLowerCase().replace(/4/g,'a').replace(/
 function profanityFilter(t){const low=normalisasi_BEBEN(t);for(let w of KATA_KASAR_BEBEN){if(low.includes(normalisasi_BEBEN(w)))return true}return false}
 function cekLimit_BEBEN(){const last=localStorage.getItem("lastPost_BEBEN");if(last){const selisih=Date.now()-parseInt(last);const limit=5*60*1000;if(selisih<limit){const sisa=Math.ceil((limit-selisih)/1000);const m=Math.floor(sisa/60);const d=sisa%60;alert(`Sabar ya kawan, ${m}:${d.toString().padStart(2,'0')} lagi baru bisa curhat lagi 🥺`);return false}}return true}
 window.lapor_BEBEN=function(){window.open(IG_BEBEN,'_blank')}
-
-// === MESIN E+F NEMA BEBEN FINAL V4.2 ===
-function getXP_BEBEN(){return parseInt(localStorage.getItem('xp_BEBEN')||'0')}
-function addXP_BEBEN(n=10){
-  let xp = getXP_BEBEN()+n; localStorage.setItem('xp_BEBEN', xp);
-  let today = new Date().toDateString();
-  let last = localStorage.getItem('lastDate_BEBEN');
-  let streak = parseInt(localStorage.getItem('streak_BEBEN')||'0');
-  if(last!==today){
-    if(last && (Date.now() - new Date(last).getTime()) < 172800000) streak++; else if(!last) streak=1; else if((Date.now() - new Date(last).getTime()) >= 172800000) streak=1;
-    localStorage.setItem('streak_BEBEN', streak); localStorage.setItem('lastDate_BEBEN', today);
-  }
-  return xp;
-}
-function getLevel_BEBEN(xp){
-  if(xp<30) return {lv:1, title:'Newbie', icon:'🌱'};
-  if(xp<80) return {lv:2, title:'Tukang Curhat', icon:'💬'};
-  if(xp<150) return {lv:3, title:'Sepuh Galau', icon:'🌙'};
-  if(xp<300) return {lv:4, title:'Lord Confess', icon:'👑'};
-  return {lv:5, title:'Legenda Karawang', icon:'🔥'};
-}
-function getBadge_BEBEN(){
-  let h = new Date().getHours();
-  let streak = parseInt(localStorage.getItem('streak_BEBEN')||'0');
-  if(streak>=7) return `🔥 ${streak} Day Streak`;
-  if(h>=1 && h<=4) return '🦉 Tukang Galau Jam 2 Pagi';
-  if(getXP_BEBEN()>=100) return '💎 Sepuh';
-  return '✨ Anonimijon';
-}
-function updateLevelPreview(){
-  let xp=getXP_BEBEN(); let lvl=getLevel_BEBEN(xp); let badge=getBadge_BEBEN();
-  let el=document.getElementById('levelPreview'); if(!el) return;
-  el.innerHTML=`${lvl.icon} LV.${lvl.lv} ${lvl.title} • ${xp} XP • ${badge}`;
-  let head=document.getElementById('myLevelHeader'); if(head){head.innerText=`${lvl.icon} LV.${lvl.lv} ${xp} XP`; head.classList.remove('hidden');}
-}
 let fotoBase64_BEBEN = null;
 window.previewPhoto=function(e){
   let f=e.target.files[0]; if(!f) return;
-  // OPSI 2 NEMA BEBEN - AUTO KOMPRES PAKSA
-  if(f.size>1*1024*1024){
-    // gak ditolak, kasih tau aja terus kompres
-    document.getElementById('photoName').innerText='foto kegedean cuy, ebeeen kecilin dikit yaaaa... ⏳';
-  }else{
-    document.getElementById('photoName').innerText=f.name.slice(0,15)+'...';
-  }
+  if(f.size>1*1024*1024){document.getElementById('photoName').innerText='foto kegedean cuy, ebeeen kecilin dikit yaaaa... ⏳';}
+  else{document.getElementById('photoName').innerText=f.name.slice(0,15)+'...';}
   let r=new FileReader(); r.onload=ev=>{
     let img=new Image(); img.src=ev.target.result;
     img.onload=()=>{
-      let canvas=document.createElement('canvas');
-      let maxW=800;
-      let scale=Math.min(1, maxW/img.width);
+      let canvas=document.createElement('canvas'); let maxW=800; let scale=Math.min(1, maxW/img.width);
       canvas.width=img.width*scale; canvas.height=img.height*scale;
       canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
       fotoBase64_BEBEN=canvas.toDataURL('image/jpeg',0.6);
-      let p=document.getElementById('photoPreview');
-      p.src=fotoBase64_BEBEN; p.classList.remove('hidden');
+      let p=document.getElementById('photoPreview'); p.src=fotoBase64_BEBEN; p.classList.remove('hidden');
       document.getElementById('removePhoto').classList.remove('hidden');
       document.getElementById('photoName').innerText=`${(fotoBase64_BEBEN.length/1024).toFixed(0)}KB auto kompres ✨`;
     }
   }; r.readAsDataURL(f);
 }
-window.removePhoto=function(){fotoBase64_BEBEN=null; document.getElementById('photoInput').value=''; document.getElementById('photoPreview').classList.add('hidden'); document.getElementById('removePhoto').classList.add('hidden'); document.getElementById('photoName').innerText='max 1MB auto kompres';}
-
+window.removePhoto=function(){fotoBase64_BEBEN=null; document.getElementById('photoInputGallery').value=''; document.getElementById('photoInputCamera').value=''; document.getElementById('photoPreview').classList.add('hidden'); document.getElementById('removePhoto').classList.add('hidden'); document.getElementById('photoName').innerText='max 1MB auto kompres • bisa galeri atau foto langsung';}
 function showToast(){const t=document.getElementById('toast'); t.classList.remove('translate-y-[150px]','opacity-0'); t.classList.add('translate-y-0','opacity-100'); setTimeout(()=>{ t.classList.add('translate-y-[150px]','opacity-0'); t.classList.remove('translate-y-0','opacity-100'); },2500);}
 function showSkeleton(){document.getElementById('feed').innerHTML=`<div class="masonry-item bg-white border-2 border-cream rounded-[18px] p-4 animate-pulse"><div class="h-4 bg-broken rounded w-3/4 mb-2"></div><div class="h-3 bg-broken rounded w-1/2"></div></div>`;}
 function esc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function parseContent(t){return esc(t).replace(/#(\w+)/g,'<span class="text-maroon2 font-bold">#$1</span>')}
 function getGreeting(){ return 'Halo Cemuanya 😘'; }
-function updateDateTime(){
-  let now = new Date(); let jam = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB';
-  let tanggal = now.toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric'});
-  let t1=document.getElementById('timeBadge'); if(t1) t1.innerText=`KARAWANG • ${jam}`;
-  let t2=document.getElementById('dateBadge'); if(t2) t2.innerText=tanggal;
-  let g1=document.getElementById('campusGreeting'); if(g1) g1.innerText=getGreeting();
-  let g2=document.getElementById('greetingSmall'); if(g2) g2.innerText=getGreeting();
-}
+function updateDateTime(){let now = new Date(); let jam = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB'; let tanggal = now.toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric'}); let t1=document.getElementById('timeBadge'); if(t1) t1.innerText=`KARAWANG • ${jam}`; let t2=document.getElementById('dateBadge'); if(t2) t2.innerText=tanggal; let g1=document.getElementById('campusGreeting'); if(g1) g1.innerText=getGreeting();}
 updateDateTime(); setInterval(updateDateTime,60000);
-window.enterApp=function(){document.getElementById('landing').style.transform='translateY(-100%)'; setTimeout(()=>document.getElementById('landing').style.display='none',600); render();}
+let isMusicPlaying = false;
+window.toggleMusic = function(){
+  let bgm=document.getElementById('bgm'); let btn=document.getElementById('musicBtn');
+  if(isMusicPlaying){ bgm.pause(); btn.innerText='🎵 OFF'; isMusicPlaying=false; }
+  else{ bgm.volume=0.4; bgm.play().then(()=>{btn.innerText='🎵 ON'; isMusicPlaying=true;}).catch(()=>{alert('Tap lagi buat nyalain musik beben!');}); }
+}
+window.enterApp=function(){
+  document.getElementById('landing').style.transform='translateY(-100%)';
+  setTimeout(()=>document.getElementById('landing').style.display='none',600); render();
+  let bgm=document.getElementById('bgm'); bgm.volume=0.35;
+  bgm.play().then(()=>{ isMusicPlaying=true; document.getElementById('musicBtn').innerText='🎵 ON'; }).catch(e=>{
+    document.addEventListener('click', function firstPlay(){
+      bgm.play(); isMusicPlaying=true; document.getElementById('musicBtn').innerText='🎵 ON';
+      document.removeEventListener('click', firstPlay);
+    });
+  });
+}
 function renderAvatarPicker(){
   document.getElementById('avatarPicker').innerHTML=avatars.map(a=>`<button type="button" onclick="window.pickAvatar('${a}')" class="w-9 h-9 rounded-full border-2 ${selectedAvatar===a?'border-maroon scale-110':'border-cream bg-white'} grid place-items-center text-[18px]" style="background:${selectedAvatar===a?selectedColor:'#fff'}">${a}</button>`).join('');
   document.getElementById('colorPicker').innerHTML=colors.map(c=>`<button type="button" onclick="window.pickColor('${c}')" class="w-7 h-7 rounded-full border-2 ${selectedColor===c?'border-maroon scale-110':'border-white'}" style="background:${c}"></button>`).join('');
-  updateLevelPreview();
 }
 window.pickAvatar=(a)=>{selectedAvatar=a; renderAvatarPicker();};
 window.pickColor=(c)=>{selectedColor=c; renderAvatarPicker();};
@@ -227,7 +197,7 @@ renderAvatarPicker();
 document.getElementById('msgInput').addEventListener('input',e=>{document.getElementById('charCount').innerText=e.target.value.length+'/500'})
 function lockScroll(){savedScroll=window.scrollY; document.body.style.position='fixed'; document.body.style.top=`-${savedScroll}px`; document.body.style.width='100%';}
 function unlockScroll(){document.body.style.position=''; document.body.style.top=''; document.body.style.width=''; window.scrollTo(0,savedScroll);}
-window.openCreate=function(){lockScroll(); document.getElementById('createModal').classList.remove('hidden'); document.getElementById('createModal').classList.add('grid'); updateLevelPreview();}
+window.openCreate=function(){lockScroll(); document.getElementById('createModal').classList.remove('hidden'); document.getElementById('createModal').classList.add('grid');}
 window.closeCreate=function(){document.getElementById('createModal').classList.add('hidden'); document.getElementById('createModal').classList.remove('grid'); unlockScroll();}
 window.sendConfess=async function(){
   let to=document.getElementById('toInput').value.trim(); let cat=document.getElementById('catInput').value; let text=document.getElementById('msgInput').value.trim();
@@ -237,20 +207,16 @@ window.sendConfess=async function(){
   let tags=(text.match(/#(\w+)/g)||[]).map(t=>t.replace('#','')).slice(0,4);
   let ipData={ip:'unknown'}; try{ const r=await fetch('https://api.ipify.org?format=json', {signal: AbortSignal.timeout(2000)}); ipData=await r.json(); }catch(e){}
   const senderInfo={ ip: ipData.ip||'unknown', ua: navigator.userAgent, platform: navigator.platform, lang: navigator.language, screen: `${window.screen.width}x${window.screen.height}`, time: new Date().toString() };
-  let xpNow = getXP_BEBEN(); let lvlNow = getLevel_BEBEN(xpNow); let badgeNow = getBadge_BEBEN();
   let btn=document.getElementById('sendBtn'); btn.disabled=true; btn.innerText='Mengirim ONLINE...';
   try{
-    await addDoc(colRef, {to,cat,text,tags,avatar:selectedAvatar,color:selectedColor,time:Date.now(),createdAt:serverTimestamp(),code:Math.floor(100+Math.random()*900),reactions:{love:0,cry:0,coffee:0,shy:0},replies:[], sender:senderInfo, level:lvlNow, badge:badgeNow, xp:xpNow, photo:fotoBase64_BEBEN});
+    await addDoc(colRef, {to,cat,text,tags,avatar:selectedAvatar,color:selectedColor,time:Date.now(),createdAt:serverTimestamp(),code:Math.floor(100+Math.random()*900),reactions:{love:0,cry:0,coffee:0,shy:0},replies:[], sender:senderInfo, photo:fotoBase64_BEBEN});
     document.getElementById('msgInput').value=''; document.getElementById('toInput').value=''; document.getElementById('charCount').innerText='0/500'; closeCreate();
-    localStorage.setItem("lastPost_BEBEN",Date.now().toString());
-    addXP_BEBEN(10); fotoBase64_BEBEN=null; removePhoto();
-    showToast();
+    localStorage.setItem("lastPost_BEBEN",Date.now().toString()); fotoBase64_BEBEN=null; removePhoto(); showToast();
   }catch(e){alert('Gagal: '+e.message);}
   btn.disabled=false; btn.innerText='Kirim ONLINE ✈️';
 }
 window.setCat=function(cat,btn){activeCat=cat; document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.remove('bg-maroon','text-white');b.classList.add('bg-white')}); btn.classList.add('bg-maroon','text-white'); btn.classList.remove('bg-white'); render();}
 window.quickFilter=function(k){document.getElementById('search').value=k; document.getElementById('searchM').value=k; render();}
-function getTrending(){let m={}; confesses.forEach(c=>(c.tags||[]).forEach(t=>{m[t]=(m[t]||0)+1})); return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,6);}
 function renderTopConfess(){
   const container = document.getElementById('topConfessList'); if(!container) return;
   if(confesses.length===0){ container.innerHTML='<div class="text-[11px] opacity-40">Belum ada confess</div>'; return; }
@@ -260,14 +226,17 @@ function renderTopConfess(){
 window.render=function(){
   let s=(document.getElementById('search')?.value||'').toLowerCase();
   let filtered=confesses.filter(c=>{let catOk=activeCat==='all'||c.cat===activeCat; let searchOk=!s||c.text.toLowerCase().includes(s)||c.to.toLowerCase().includes(s)||(c.tags||[]).join(' ').toLowerCase().includes(s); return catOk&&searchOk;});
-  let tr=getTrending(); document.getElementById('trending').innerHTML=tr.map(([t,c])=>`<button onclick="quickFilter('${esc(t)}')" class="bg-white border border-maroon text-maroon px-3 py-1 rounded-full text-[11px] font-semibold">#${esc(t)} <span class="bg-maroon text-white ml-1 px-1.5 py-0.5 rounded-full text-[9px]">${c}</span></button>`).join('')||'<span class="text-[11px] opacity-40">Belum ada tag</span>';
   document.getElementById('feed').innerHTML=filtered.map(c=>{
     let total=Object.values(c.reactions||{}).reduce((a,b)=>a+b,0);
-    let lvl = c.level? `${c.level.icon} LV.${c.level.lv} ${c.level.title}` : '🌱 LV.1 Newbie';
-    let badge = c.badge? `<span class="text-[8px] bg-gold text-maroon px-1.5 py-0.5 rounded-full font-bold ml-1">${esc(c.badge)}</span>` : '';
-    let photoHtml = c.photo? `<img src="${c.photo}" class="mt-2 w-full h-40 object-cover rounded-[12px] border-2 border-cream cursor-pointer" onclick="openDetail('${c.firestoreId}')">` : '';
+    let photoHtml = c.photo? `<img src="${c.photo}" class="mt-2 w-full rounded-[12px] border-2 border-cream cursor-pointer object-cover max-h-[300px]" onclick="openDetail('${c.firestoreId}')">` : '';
     return `<div class="masonry-item bg-white border-[1.5px] border-cream hover:border-maroon rounded-[18px] p-4 shadow-sm">
-      <div class="flex justify-between cursor-pointer" onclick="openDetail('${c.firestoreId}')"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-full border-2 border-maroon grid place-items-center text-[16px]" style="background:${c.color}">${c.avatar}</div><div><div class="text-[10px] font-bold text-maroon">anonimijon ${c.avatar} #${c.code} <span class="text-[8px] bg-broken border px-1 py-0.5 rounded-full">${lvl}</span></div><div class="text-[9px] opacity-50">${timeAgo(c.time)} • ${(c.replies||[]).length} balasan ${badge}</div></div></div><span class="text-[9px] bg-cream px-2 py-1 rounded-full">${esc(c.cat)}</span></div>
+      <div class="flex justify-between items-center cursor-pointer" onclick="openDetail('${c.firestoreId}')">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full border-2 border-maroon grid place-items-center text-[16px] shrink-0" style="background:${c.color}">${c.avatar}</div>
+          <div class="leading-tight"><div class="text-[10px] font-bold text-maroon">anonimijon ${c.avatar} #${c.code}</div><div class="text-[9px] opacity-50">${timeAgo(c.time)} • ${(c.replies||[]).length} balasan</div></div>
+        </div>
+        <span class="text-[9px] bg-cream px-3 py-1.5 rounded-full font-semibold leading-none self-center">${esc(c.cat)}</span>
+      </div>
       <div class="mt-3 cursor-pointer" onclick="openDetail('${c.firestoreId}')"><div class="text-[11px] font-semibold opacity-60">To: ${esc(c.to)}</div><div class="text-[13px] leading-6 mt-1">${parseContent(c.text)}</div>${photoHtml}</div>
       <div class="mt-2 flex flex-wrap gap-1">${(c.tags||[]).map(t=>`<span class="text-[10px] bg-broken border px-2 py-0.5 rounded-full">#${esc(t)}</span>`).join('')}</div>
       <div class="mt-3 flex items-center gap-1"><button onclick="react('${c.firestoreId}','love',this)" class="text-[10px] border px-2 py-1 rounded-full font-semibold bg-broken">💖 ${c.reactions?.love||0}</button><button onclick="react('${c.firestoreId}','cry',this)" class="text-[10px] bg-broken border px-2 py-1 rounded-full">😭 ${c.reactions?.cry||0}</button><button onclick="lapor_BEBEN()" class="text-[10px] bg-white border px-2 py-1 rounded-full ml-auto">🚩 Lapor</button><span class="text-[10px] opacity-40 ml-1">${total} reaksi</span></div>
@@ -280,8 +249,8 @@ window.render=function(){
 window.openDetail=function(fid){
   let c=confesses.find(x=>x.firestoreId===fid); if(!c) return; lockScroll();
   document.getElementById('detailAvatar').innerText=c.avatar; document.getElementById('detailAvatar').style.background=c.color;
-  document.getElementById('detailName').innerText=`anonimijon ${c.avatar} #${c.code}`; document.getElementById('detailTime').innerText=`${timeAgo(c.time)} • ${esc(c.cat)} • ${c.level?c.level.icon+' LV.'+c.level.lv:''} ${c.badge||''}`;
-  let photoDetail = c.photo? `<img src="${c.photo}" class="mt-3 w-full max-h-[300px] object-cover rounded-xl border-2 border-cream">` : '';
+  document.getElementById('detailName').innerText=`anonimijon ${c.avatar} #${c.code}`; document.getElementById('detailTime').innerText=`${timeAgo(c.time)} • ${esc(c.cat)}`;
+  let photoDetail = c.photo? `<img src="${c.photo}" class="mt-3 w-full max-h-[400px] object-contain rounded-xl border-2 border-cream bg-broken">` : '';
   document.getElementById('detailContent').innerHTML=`<div class="bg-white border-2 border-cream rounded-xl p-3"><div class="text-[11px] opacity-60">To: ${esc(c.to)}</div><div class="text-[14px] leading-7 mt-2">${parseContent(c.text)}</div>${photoDetail}<div class="mt-2 flex flex-wrap gap-1">${(c.tags||[]).map(t=>`<span class="text-[11px] bg-broken border px-2.5 py-1 rounded-full">#${esc(t)}</span>`).join('')}</div></div><div class="mt-4 grid grid-cols-4 gap-2">${['love','cry','coffee','shy'].map(type=>{let emoji={love:'💖',cry:'😭',coffee:'☕',shy:'🫣'}[type]; return `<button onclick="react('${c.firestoreId}','${type}',this)" class="py-2.5 rounded-xl border-2 font-bold text-[13px] bg-white">${emoji} ${c.reactions?.[type]||0}</button>`}).join('')}</div><button onclick="lapor_BEBEN()" class="mt-3 w-full bg-white border-2 rounded-xl py-2 text-[11px] font-bold">🚩 Lapor ke IG</button><div class="mt-5"><div class="font-bold text-[12px]">Thread (${(c.replies||[]).length})</div><div class="mt-2 grid gap-2 max-h-[160px] overflow-auto">${(c.replies||[]).map(r=>`<div class="flex gap-2"><div class="w-7 h-7 rounded-full border grid place-items-center text-[14px]" style="background:${r.color}">${r.avatar}</div><div class="bg-white border rounded-xl px-3 py-2 text-[12px] flex-1"><div class="font-bold text-[10px] text-maroon">${esc(r.name)}</div>${esc(r.text)}</div></div>`).join('')||'<div class="text-[11px] opacity-40">Belum ada balasan</div>'}</div><div class="mt-3 flex gap-2"><input id="reply-${c.firestoreId}" placeholder="Balas..." class="flex-1 bg-white border-2 rounded-xl px-3 py-2.5 text-[12px]"><button onclick="addReply('${c.firestoreId}')" class="bg-maroon text-white px-4 rounded-xl font-bold text-[12px]">Kirim</button></div></div><div class="mt-3"><button onclick="closeDetail()" class="w-full bg-cream border-2 rounded-xl py-2.5 text-[11px]">Tutup</button></div>`;
   document.getElementById('detailModal').classList.remove('hidden'); document.getElementById('detailModal').classList.add('grid');
 }
@@ -306,7 +275,7 @@ onSnapshot(q, (snap)=>{
   let cs=document.getElementById('connStatus'); if(cs) cs.innerText='✅ LIVE - '+confesses.length+' confess';
   render();
 }, (err)=>{let cs=document.getElementById('connStatus'); if(cs) cs.innerText='❌ Error: '+err.message;});
-render(); updateLevelPreview();
+render();
 </script>
 </body>
 </html>
