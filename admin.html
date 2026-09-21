@@ -2,45 +2,48 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ADMIN // HORIZON - TRACKER PRO</title>
+<title>ADMIN // HORIZON - ULTIMATE</title>
 <link href="https://fonts.googleapis.com/css2?family=Creepster&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#050505;color:#e0e0e0;font-family:'JetBrains Mono',monospace;min-height:100vh;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,0,0,0.03) 2px,rgba(255,0,0,0.03) 4px);pointer-events:none;z-index:10}
+#matrix{position:fixed;inset:0;z-index:0;opacity:0.15;pointer-events:none}
 .glitch{font-family:'Creepster',cursive;font-size:42px;color:#ff0033;text-shadow:0 0 10px #ff0033,0 0 20px #ff0033;letter-spacing:3px;animation:flicker 2s infinite}
 @keyframes flicker{0%,19%,21%,23%,25%,54%,56%,100%{opacity:1}20%,24%,55%{opacity:0.4}}
-.card{background:linear-gradient(145deg,#0f0f0f,#1a0000);border:1px solid #330000;padding:16px;border-radius:4px;margin-bottom:12px;position:relative;overflow:hidden;transition:0.3s}
+.card{background:linear-gradient(145deg,#0f0f0fcc,#1a0000cc);border:1px solid #330000;padding:16px;border-radius:4px;margin-bottom:12px;position:relative;overflow:hidden;backdrop-filter:blur(4px)}
 .card::before{content:"";position:absolute;left:0;top:0;width:3px;height:100%;background:#ff0033;box-shadow:0 0 10px #ff0033}
-.card:hover{border-color:#ff0033;box-shadow:0 0 20px rgba(255,0,51,0.2)}
 .btn-hapus{background:#ff0033;color:#000;font-weight:700;padding:8px 16px;border:none;cursor:pointer;font-family:'JetBrains Mono';font-size:11px}
-.btn-hapus:hover{background:#fff;color:#ff0033;box-shadow:0 0 15px #ff0033}
 .btn-mini{background:transparent;border:1px solid #ff0033;color:#ff0033;padding:4px 8px;font-size:9px;cursor:pointer;margin-left:6px}
-.btn-mini:hover{background:#ff0033;color:#000}
-input{background:#000;border:1px solid #333;color:#ff0033;padding:12px;width:100%;font-family:'JetBrains Mono';outline:none}
-#login{ min-height:100vh;display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at center,#1a0000 0%,#000 70%)}
-.box{border:1px solid #330000;padding:32px;background:rgba(10,0,0,0.8);backdrop-filter:blur(10px);width:360px;box-shadow:0 0 40px rgba(255,0,51,0.15)}
+#login{ min-height:100vh;display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at center,#1a0000 0%,#000 70%);position:relative;z-index:2}
+.box{border:1px solid #330000;padding:32px;background:rgba(10,0,0,0.9);width:380px;box-shadow:0 0 60px rgba(255,0,51,0.25)}
 .loc-box{background:#0a0a0a;border:1px solid #222;padding:8px;margin-top:8px;font-size:10px;display:none}
+.stat{border:1px solid #330000;padding:12px;background:#0a0000cc}
 </style>
 </head>
 <body>
+<canvas id="matrix"></canvas>
 <div id="login">
   <div class="box">
     <div class="glitch">HORIZON</div>
-    <p style="color:#666;font-size:11px;margin:8px 0 20px;letter-spacing:2px">DETEKTIF MODE // TRACKER PRO</p>
+    <p style="color:#666;font-size:11px;margin:8px 0 4px;letter-spacing:2px">ULTIMATE // MATRIX MODE</p>
+    <div id="typewriter" style="font-size:10px;color:#ff0033;height:14px;margin-bottom:16px"></div>
     <p style="font-size:10px;color:#ff0033;margin-bottom:8px">[ENTER PASSWORD]</p>
-    <input id="pass" type="password" placeholder="••••••••">
-    <button onclick="login()" style="width:100%;margin-top:16px;background:#ff0033;color:#000;padding:12px;font-weight:700;letter-spacing:2px;cursor:pointer;border:none">> UNLOCK</button>
-    <p style="font-size:9px;color:#444;margin-top:16px;text-align:center">IP + LOCATION TRACKER ACTIVE</p>
+    <input id="pass" type="password" placeholder="••••••••" style="background:#000;border:1px solid #333;color:#ff0033;padding:12px;width:100%;font-family:'JetBrains Mono';outline:none">
+    <button onclick="login()" style="width:100%;margin-top:16px;background:#ff0033;color:#000;padding:12px;font-weight:700;letter-spacing:2px;cursor:pointer;border:none">> UNLOCK MATRIX</button>
   </div>
 </div>
-<div id="panel" style="display:none;padding:24px;max-width:950px;margin:0 auto">
-  <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:24px;border-bottom:1px solid #220000;padding-bottom:16px">
+<div id="panel" style="display:none;padding:24px;max-width:1000px;margin:0 auto;position:relative;z-index:2">
+  <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:16px;border-bottom:1px solid #220000;padding-bottom:16px">
     <div>
-      <div class="glitch" style="font-size:32px">ADMIN DETEKTIF</div>
-      <div style="font-size:11px;color:#666;margin-top:4px">TOTAL: <span id="count" style="color:#ff0033;font-weight:700">0</span> // LOCATION READY</div>
+      <div class="glitch" style="font-size:32px">ADMIN ULTIMATE</div>
+      <div style="font-size:11px;color:#666;margin-top:4px">TOTAL: <span id="count" style="color:#ff0033;font-weight:700">0</span> // TODAY: <span id="todayC" style="color:#00ff88">0</span> // IP: <span id="uniqIP" style="color:#ff0">0</span> unique</div>
     </div>
     <button onclick="logout()" style="background:transparent;border:1px solid #333;color:#666;padding:6px 12px;font-size:10px;cursor:pointer">LOGOUT</button>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px">
+    <div class="stat"><div style="font-size:9px;color:#666">TOTAL CONFESS</div><div id="sTotal" style="font-size:22px;color:#ff0033;font-weight:700">0</div></div>
+    <div class="stat"><div style="font-size:9px;color:#666">HARI INI</div><div id="sToday" style="font-size:22px;color:#00ff88;font-weight:700">0</div></div>
+    <div class="stat"><div style="font-size:9px;color:#666">TOP IP (SPAMMER?)</div><div id="sTopIP" style="font-size:11px;color:#ff0;word-break:break-all">-</div></div>
   </div>
   <div id="list"></div>
 </div>
@@ -51,84 +54,69 @@ const firebaseConfig = { apiKey: "AIzaSyCToBiaTsuCCWrDnKK8cI1aQf7BDHICsQ4", auth
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app, "cnfss");
 
+// MATRIX RAIN
+const c=document.getElementById('matrix'), ctx=c.getContext('2d');
+c.width=window.innerWidth; c.height=window.innerHeight;
+const chars="HORIZON01".split(""); const font=14; const cols=c.width/font; const drops=Array(Math.floor(cols)).fill(1);
+function drawM(){ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#ff0033";ctx.font=font+"px monospace";for(let i=0;i<drops.length;i++){const t=chars[Math.floor(Math.random()*chars.length)];ctx.fillText(t,i*font,drops[i]*font);if(drops[i]*font>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++}}setInterval(drawM,50)
+
+// TYPEWRITER + TIK SOUND (fake)
+const txt="> CONNECTING TO cnfss... IP LOG READY...";
+let j=0; const tw=document.getElementById('typewriter');
+function typeW(){if(j<txt.length){tw.innerHTML+=txt.charAt(j);j++;setTimeout(typeW,40)}}typeW();
+
 window.login = () => {
   if(document.getElementById('pass').value === "bebenkasep"){
     localStorage.setItem("admin_beben","true");
     showPanel();
   } else {
-    document.body.style.animation="shake 0.3s";
-    setTimeout(()=>document.body.style.animation="",300);
+    document.body.style.animation="shake 0.3s"; setTimeout(()=>document.body.style.animation="",300);
     alert("ACCESS DENIED");
   }
 }
 window.logout=()=>{localStorage.removeItem("admin_beben");location.reload()}
-
 function esc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-
-window.copyIP=(ip)=>{
-  navigator.clipboard.writeText(ip);
-  alert('IP '+ip+' dicopy!');
-}
-
-window.cekLokasi=async(ip, id)=>{
-  const box=document.getElementById('loc-'+id);
-  box.style.display='block';
-  box.innerHTML='🔍 Melacak lokasi IP '+ip+'...';
+window.copyIP=(ip)=>{navigator.clipboard.writeText(ip); alert('IP '+ip+' dicopy beben!');}
+window.cekLokasi=async(ip,id)=>{
+  const box=document.getElementById('loc-'+id); box.style.display='block'; box.innerHTML='🔍 Tracking '+ip+'...';
   try{
-    const res=await fetch(`https://ipapi.co/${ip}/json/`);
-    const d=await res.json();
-    if(d.error){ box.innerHTML='❌ Gagal: '+d.reason; return; }
-    box.innerHTML=`
-      <div style="color:#ff0033;font-weight:700;margin-bottom:4px">📍 LOKASI DITEMUKAN:</div>
-      <div>Kota: <b style="color:#fff">${d.city||'-'}, ${d.region||'-'}</b></div>
-      <div>Negara: ${d.country_name||'-'} (${d.country||'-'})</div>
-      <div>Provider: ${d.org||'-'}</div>
-      <div>LatLong: ${d.latitude}, ${d.longitude}</div>
-      <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
-        <a href="https://www.google.com/maps?q=${d.latitude},${d.longitude}" target="_blank" style="color:#ff0033;text-decoration:underline">📍 Buka di Google Maps</a>
-        <a href="https://whatismyipaddress.com/ip/${ip}" target="_blank" style="color:#888;text-decoration:underline">🔎 Detail IP</a>
-      </div>
-    `;
-  }catch(e){
-    box.innerHTML='❌ Error fetch lokasi, coba manual: <a href="https://whatismyipaddress.com/ip/'+ip+'" target="_blank" style="color:#ff0033">klik disini</a>';
-  }
+    const res=await fetch(`https://ipapi.co/${ip}/json/`); const d=await res.json();
+    if(d.error){box.innerHTML='❌ '+d.reason;return;}
+    box.innerHTML=`<div style="color:#ff0033;font-weight:700">📍 ${d.city}, ${d.region}</div><div>${d.country_name} | ${d.org||''}</div><div>${d.latitude},${d.longitude}</div><a href="https://www.google.com/maps?q=${d.latitude},${d.longitude}" target="_blank" style="color:#ff0033">📍 Google Maps</a> | <a href="https://whatismyipaddress.com/ip/${ip}" target="_blank" style="color:#888">Detail</a>`;
+  }catch(e){box.innerHTML=`<a href="https://whatismyipaddress.com/ip/${ip}" target="_blank" style="color:#ff0033">Cek manual</a>`}
 }
-
 function showPanel(){
-  document.getElementById('login').style.display='none';
-  document.getElementById('panel').style.display='block';
-  const colRef = collection(db, "confesses");
-  const q = query(colRef, orderBy("createdAt","desc"));
-  onSnapshot(q, snap=>{
-    const data = snap.docs.map(d=>({id:d.id,...d.data()}));
-    document.getElementById('count').innerText = data.length;
-    document.getElementById('list').innerHTML = data.length? data.map(c=>{
+  document.getElementById('login').style.display='none'; document.getElementById('panel').style.display='block';
+  const colRef=collection(db,"confesses"); const q=query(colRef, orderBy("createdAt","desc"));
+  onSnapshot(q,snap=>{
+    const data=snap.docs.map(d=>({id:d.id,...d.data()}));
+    document.getElementById('count').innerText=data.length; document.getElementById('sTotal').innerText=data.length;
+    const today=data.filter(c=>c.time && Date.now()-c.time<86400000).length;
+    document.getElementById('todayC').innerText=today; document.getElementById('sToday').innerText=today;
+    const ipCount={}; data.forEach(c=>{if(c.sender?.ip && c.sender.ip!=='unknown'){ipCount[c.sender.ip]=(ipCount[c.sender.ip]||0)+1}});
+    document.getElementById('uniqIP').innerText=Object.keys(ipCount).length;
+    const top=Object.entries(ipCount).sort((a,b)=>b[1]-a[1])[0];
+    document.getElementById('sTopIP').innerText=top?`${top[0]} (${top[1]}x)`:'-';
+    document.getElementById('list').innerHTML=data.map(c=>{
       const ip=c.sender?.ip||'unknown';
-      return `
-      <div class="card">
+      return `<div class="card">
         <div style="display:flex;justify-content:space-between;gap:12px">
           <div style="flex:1">
-            <div style="font-size:11px;color:#ff0033;margin-bottom:6px">#${c.id.slice(0,6)} // To: ${esc(c.to||'-')} // ${esc(c.cat||'')} // ${c.createdAt?new Date(c.createdAt.seconds*1000).toLocaleString('id-ID'):'just now'}</div>
-            <div style="font-size:14px;line-height:1.5;word-break:break-word">${esc(c.text||'')}</div>
-            <div style="margin-top:10px;background:#0f0000;border:1px dashed #440000;padding:8px;font-size:10px;line-height:1.6">
-              <div style="color:#ff0033;font-weight:700">🕵️ SENDER INTEL ${!c.sender? '(OLD - NO IP)' : ''}</div>
-              <div>IP: <span style="color:#fff;font-weight:700">${esc(ip)}</span>
-                ${ip!=='unknown'? `<button class="btn-mini" onclick="copyIP('${esc(ip)}')">COPY</button> <button class="btn-mini" onclick="cekLokasi('${esc(ip)}','${c.id}')">CEK LOKASI 📍</button>` : ''}
-              </div>
-              <div>Device: ${esc(c.sender?.ua? c.sender.ua.substring(0,90) : 'no data')}</div>
-              <div>Screen: ${esc(c.sender?.screen||'-')} | Lang: ${esc(c.sender?.lang||'-')}</div>
+            <div style="font-size:11px;color:#ff0033">#${c.id.slice(0,6)} // To:${esc(c.to)} // ${c.createdAt?new Date(c.createdAt.seconds*1000).toLocaleString('id-ID'):'now'}</div>
+            <div style="font-size:14px;margin-top:6px;word-break:break-word">${esc(c.text)}</div>
+            <div style="margin-top:10px;background:#0f0000;border:1px dashed #440000;padding:8px;font-size:10px">
+              <div>IP: <b style="color:#fff">${esc(ip)}</b> ${ip!=='unknown'?`<button class="btn-mini" onclick="copyIP('${esc(ip)}')">COPY</button><button class="btn-mini" onclick="cekLokasi('${esc(ip)}','${c.id}')">CEK 📍</button>`:''}</div>
+              <div>UA: ${esc((c.sender?.ua||'').substring(0,80))}</div>
               <div id="loc-${c.id}" class="loc-box"></div>
             </div>
           </div>
-          <div>
-            <button class="btn-hapus" onclick="hapus('${c.id}')">PURGE</button>
-          </div>
+          <button class="btn-hapus" onclick="hapus('${c.id}')">PURGE</button>
         </div>
-      </div>
-    `}).join('') : `<div style="text-align:center;padding:60px;color:#333">NO CONFESS FOUND</div>`;
+      </div>`
+    }).join('');
   });
 }
-window.hapus = async (id) => { if(confirm("PURGE permanen?")) await deleteDoc(doc(db,"confesses",id)); }
+window.hapus=async(id)=>{if(confirm("PURGE?")) await deleteDoc(doc(db,"confesses",id));}
 if(localStorage.getItem("admin_beben")==="true") showPanel();
 </script>
 <style>@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}</style>
