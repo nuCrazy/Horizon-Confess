@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Horizon</title>
+<style>
+body{background:#000;color:#fff;font-family:sans-serif;padding:20px}
+.card{background:#18181b;padding:12px;border-radius:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+input,button{padding:10px;border-radius:8px;border:none}
+button{font-weight:bold;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="login" style="min-height:80vh;display:flex;justify-content:center;align-items:center">
+  <div style="border:1px solid #333;padding:24px;border-radius:12px;width:300px">
+    <h2>Login Admin</h2>
+    <input id="pass" type="password" placeholder="Password" style="width:100%;background:#222;color:#fff;margin-top:12px">
+    <button onclick="login()" style="width:100%;margin-top:12px;background:#fff;color:#000">Masuk</button>
+  </div>
+</div>
+
+<div id="panel" style="display:none">
+  <h1>Admin Panel - <span id="count">0</span> Confess</h1>
+  <p style="color:gray;font-size:12px">Login sebagai bebenkasep | auto 24 jam hilang</p>
+  <div id="list" style="margin-top:20px"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, query, where, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// COPAS CONFIG FIREBASE LU DARI index.html KESINI
+const firebaseConfig = {
+  apiKey: "AIzaSy...",
+  authDomain: "...",
+  projectId: "...",
+  // <-- SALIN DARI index.html LU YA BEBEN, JANGAN PAKE INI
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.login = () => {
+  if(document.getElementById('pass').value === "bebenkasep"){
+    localStorage.setItem("admin_beben","true");
+    showPanel();
+  } else alert("Salah beben!");
+}
+
+function showPanel(){
+  document.getElementById('login').style.display='none';
+  document.getElementById('panel').style.display='block';
+  const q = query(collection(db, "confesses"), where("expiresAt", ">", new Date()));
+  onSnapshot(q, snap=>{
+    const data = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    document.getElementById('count').innerText = data.length;
+    document.getElementById('list').innerHTML = data.map(c=>`
+      <div class="card">
+        <span style="width:80%">${c.text}</span>
+        <button onclick="hapus('${c.id}')" style="background:#ff3b3b;color:#fff">Hapus</button>
+      </div>
+    `).join('');
+  });
+}
+
+window.hapus = async (id) => {
+  if(confirm("Hapus confess ini?")) await deleteDoc(doc(db,"confesses",id));
+}
+
+if(localStorage.getItem("admin_beben")==="true") showPanel();
+</script>
+</body>
+</html>
