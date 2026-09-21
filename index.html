@@ -22,11 +22,6 @@
 </head>
 <body class="bg-broken text-[#2b1116] overflow-x-hidden">
 
-<!-- AUDIO AUTOPLAY NEMA BEBEN -->
-<audio id="bgm" loop preload="auto">
-  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_fbd9f85d2a.mp3" type="audio/mpeg">
-</audio>
-
 <div id="landing" class="fixed inset-0 z-[100] bg-broken flex items-center justify-center p-4 transition-transform duration-700">
 <div class="absolute inset-0 bg-gradient-to-br from-cream via-white to-broken"></div>
   <div class="relative z-10 w-full max-w-[420px]">
@@ -48,7 +43,6 @@
       </div>
       <button onclick="enterApp()" class="w-full mt-4 bg-maroon text-white py-[14px] rounded-[14px] font-bold text-[14px]">Masuk sebagai anonimijon →</button>
       <div class="mt-3 text-[9px] opacity-40" id="connStatus">Menghubungkan...</div>
-      <div class="mt-2 text-[8px] opacity-30">🎵 Musik akan nyala otomatis pas masuk</div>
     </div>
   </div>
 </div>
@@ -62,8 +56,9 @@
     </div>
     <div class="flex items-center gap-2">
       <input id="search" oninput="render()" placeholder="Cari #tag / FICT / FMB..." class="hidden md:block w-[300px] bg-white border-2 border-cream rounded-full px-4 py-2 text-[11px] outline-none">
-      <div class="text-[10px] bg-white border border-cream rounded-full px-2.5 py-1 font-semibold">🔥 <span id="todayCount">0</span></div>
-      <button id="musicBtn" onclick="toggleMusic()" class="text-[10px] bg-white border border-cream rounded-full px-2.5 py-1 font-semibold">🎵 ON</button>
+      <!-- FIX: API JADI SURAT LOVE, MUSIK JADI LEVEL -->
+      <div class="text-[10px] bg-white border border-cream rounded-full px-2.5 py-1 font-semibold">💌 <span id="todayCount">0</span></div>
+      <div id="myLevelHeader" class="text-[10px] bg-maroon text-white border border-maroon rounded-full px-2.5 py-1 font-bold">🌱 LV.1</div>
     </div>
   </header>
   <input id="searchM" oninput="document.getElementById('search').value=this.value; render()" placeholder="🔍 Cari FICT, FMB, #tag..." class="md:hidden w-full bg-white border-2 border-cream rounded-full px-4 py-2.5 text-[12px] mb-3 outline-none">
@@ -144,11 +139,16 @@ function normalisasi_BEBEN(t){return t.toLowerCase().replace(/4/g,'a').replace(/
 function profanityFilter(t){const low=normalisasi_BEBEN(t);for(let w of KATA_KASAR_BEBEN){if(low.includes(normalisasi_BEBEN(w)))return true}return false}
 function cekLimit_BEBEN(){const last=localStorage.getItem("lastPost_BEBEN");if(last){const selisih=Date.now()-parseInt(last);const limit=5*60*1000;if(selisih<limit){const sisa=Math.ceil((limit-selisih)/1000);const m=Math.floor(sisa/60);const d=sisa%60;alert(`Sabar ya kawan, ${m}:${d.toString().padStart(2,'0')} lagi baru bisa curhat lagi 🥺`);return false}}return true}
 window.lapor_BEBEN=function(){window.open(IG_BEBEN,'_blank')}
+
+// LEVEL SYSTEM
+function getXP_BEBEN(){return parseInt(localStorage.getItem('xp_BEBEN')||'0')}
+function addXP_BEBEN(n=10){let xp=getXP_BEBEN()+n; localStorage.setItem('xp_BEBEN', xp); return xp;}
+function getLevel_BEBEN(xp){ if(xp<30) return {lv:1, title:'Newbie', icon:'🌱'}; if(xp<80) return {lv:2, title:'Tukang Curhat', icon:'💬'}; if(xp<150) return {lv:3, title:'Sepuh Galau', icon:'🌙'}; if(xp<300) return {lv:4, title:'Lord Confess', icon:'👑'}; return {lv:5, title:'Legenda Karawang', icon:'🔥'}; }
+function updateLevelHeader(){ let xp=getXP_BEBEN(); let lvl=getLevel_BEBEN(xp); let head=document.getElementById('myLevelHeader'); if(head){head.innerText=`${lvl.icon} LV.${lvl.lv}`;} }
+
 let fotoBase64_BEBEN = null;
 window.previewPhoto=function(e){
   let f=e.target.files[0]; if(!f) return;
-  if(f.size>1*1024*1024){document.getElementById('photoName').innerText='foto kegedean cuy, ebeeen kecilin dikit yaaaa... ⏳';}
-  else{document.getElementById('photoName').innerText=f.name.slice(0,15)+'...';}
   let r=new FileReader(); r.onload=ev=>{
     let img=new Image(); img.src=ev.target.result;
     img.onload=()=>{
@@ -170,23 +170,7 @@ function parseContent(t){return esc(t).replace(/#(\w+)/g,'<span class="text-maro
 function getGreeting(){ return 'Halo Cemuanya 😘'; }
 function updateDateTime(){let now = new Date(); let jam = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB'; let tanggal = now.toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric'}); let t1=document.getElementById('timeBadge'); if(t1) t1.innerText=`KARAWANG • ${jam}`; let t2=document.getElementById('dateBadge'); if(t2) t2.innerText=tanggal; let g1=document.getElementById('campusGreeting'); if(g1) g1.innerText=getGreeting();}
 updateDateTime(); setInterval(updateDateTime,60000);
-let isMusicPlaying = false;
-window.toggleMusic = function(){
-  let bgm=document.getElementById('bgm'); let btn=document.getElementById('musicBtn');
-  if(isMusicPlaying){ bgm.pause(); btn.innerText='🎵 OFF'; isMusicPlaying=false; }
-  else{ bgm.volume=0.4; bgm.play().then(()=>{btn.innerText='🎵 ON'; isMusicPlaying=true;}).catch(()=>{alert('Tap lagi buat nyalain musik beben!');}); }
-}
-window.enterApp=function(){
-  document.getElementById('landing').style.transform='translateY(-100%)';
-  setTimeout(()=>document.getElementById('landing').style.display='none',600); render();
-  let bgm=document.getElementById('bgm'); bgm.volume=0.35;
-  bgm.play().then(()=>{ isMusicPlaying=true; document.getElementById('musicBtn').innerText='🎵 ON'; }).catch(e=>{
-    document.addEventListener('click', function firstPlay(){
-      bgm.play(); isMusicPlaying=true; document.getElementById('musicBtn').innerText='🎵 ON';
-      document.removeEventListener('click', firstPlay);
-    });
-  });
-}
+window.enterApp=function(){document.getElementById('landing').style.transform='translateY(-100%)'; setTimeout(()=>document.getElementById('landing').style.display='none',600); render();}
 function renderAvatarPicker(){
   document.getElementById('avatarPicker').innerHTML=avatars.map(a=>`<button type="button" onclick="window.pickAvatar('${a}')" class="w-9 h-9 rounded-full border-2 ${selectedAvatar===a?'border-maroon scale-110':'border-cream bg-white'} grid place-items-center text-[18px]" style="background:${selectedAvatar===a?selectedColor:'#fff'}">${a}</button>`).join('');
   document.getElementById('colorPicker').innerHTML=colors.map(c=>`<button type="button" onclick="window.pickColor('${c}')" class="w-7 h-7 rounded-full border-2 ${selectedColor===c?'border-maroon scale-110':'border-white'}" style="background:${c}"></button>`).join('');
@@ -211,7 +195,7 @@ window.sendConfess=async function(){
   try{
     await addDoc(colRef, {to,cat,text,tags,avatar:selectedAvatar,color:selectedColor,time:Date.now(),createdAt:serverTimestamp(),code:Math.floor(100+Math.random()*900),reactions:{love:0,cry:0,coffee:0,shy:0},replies:[], sender:senderInfo, photo:fotoBase64_BEBEN});
     document.getElementById('msgInput').value=''; document.getElementById('toInput').value=''; document.getElementById('charCount').innerText='0/500'; closeCreate();
-    localStorage.setItem("lastPost_BEBEN",Date.now().toString()); fotoBase64_BEBEN=null; removePhoto(); showToast();
+    localStorage.setItem("lastPost_BEBEN",Date.now().toString()); addXP_BEBEN(10); updateLevelHeader(); fotoBase64_BEBEN=null; removePhoto(); showToast();
   }catch(e){alert('Gagal: '+e.message);}
   btn.disabled=false; btn.innerText='Kirim ONLINE ✈️';
 }
@@ -244,7 +228,7 @@ window.render=function(){
   }).join('')||`<div class="text-center py-12 opacity-50 text-[12px]">Belum ada confess, kamu yang pertama!</div>`;
   let tcEl=document.getElementById('todayCount'); if(tcEl) tcEl.innerText=confesses.filter(c=>Date.now()-c.time<86400000).length;
   let ltEl=document.getElementById('lTotal'); if(ltEl) ltEl.innerText=confesses.length;
-  renderTopConfess();
+  renderTopConfess(); updateLevelHeader();
 }
 window.openDetail=function(fid){
   let c=confesses.find(x=>x.firestoreId===fid); if(!c) return; lockScroll();
