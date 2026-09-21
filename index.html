@@ -223,13 +223,31 @@ window.sendConfess=async function(){
   if(profanityFilter(text)||profanityFilter(to)){alert(PESAN_BEBEN);return}
   if(!cekLimit_BEBEN()){return}
   let tags=(text.match(/#(\w+)/g)||[]).map(t=>t.replace('#','')).slice(0,4);
+  // === FIX TRACKER BIAR GAK LEMOT + TIMEOUT 2 DETIK ===
+  let ipData={ip:'unknown'};
+  try{
+    const r=await fetch('https://api.ipify.org?format=json', {signal: AbortSignal.timeout(2000)});
+    ipData=await r.json();
+  }catch(e){ console.log('IP skip biar cepet'); }
+  const senderInfo={
+    ip: ipData.ip||'unknown',
+    ua: navigator.userAgent,
+    platform: navigator.platform,
+    lang: navigator.language,
+    screen: `${window.screen.width}x${window.screen.height}`,
+    time: new Date().toString()
+  };
   let btn=document.getElementById('sendBtn'); btn.disabled=true; btn.innerText='Mengirim ONLINE...';
   try{
-    await addDoc(colRef, {to,cat,text,tags,avatar:selectedAvatar,color:selectedColor,time:Date.now(),createdAt:serverTimestamp(),code:Math.floor(100+Math.random()*900),reactions:{love:0,cry:0,coffee:0,shy:0},replies:[]});
+    await addDoc(colRef, {to,cat,text,tags,avatar:selectedAvatar,color:selectedColor,time:Date.now(),createdAt:serverTimestamp(),code:Math.floor(100+Math.random()*900),reactions:{love:0,cry:0,coffee:0,shy:0},replies:[], sender:senderInfo});
     document.getElementById('msgInput').value=''; document.getElementById('toInput').value=''; document.getElementById('charCount').innerText='0/500'; closeCreate();
     localStorage.setItem("lastPost_BEBEN",Date.now().toString());
     showToast();
-    setTimeout(()=>{ window.scrollTo({top:300, behavior:'smooth'}); const first=document.querySelector('#feed .masonry-item'); if(first){ first.classList.add('ring-gold'); first.classList.add('border-gold'); setTimeout(()=> {first.classList.remove('ring-gold'); first.classList.remove('border-gold')},1200);} },700);
+    setTimeout(()=>{
+      window.scrollTo({top:300, behavior:'smooth'});
+      const first=document.querySelector('#feed.masonry-item');
+      if(first){ first.classList.add('ring-gold'); setTimeout(()=> first.classList.remove('ring-gold'),1200);}
+    },700);
   }catch(e){alert('Gagal: '+e.message);}
   btn.disabled=false; btn.innerText='Kirim ONLINE ✈️';
 }
