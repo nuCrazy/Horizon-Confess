@@ -44,7 +44,7 @@
       <div class="flex justify-center items-center gap-2 mb-2">
         <img src="logo.png" class="w-[84px] h-[84px] rounded-full border-[3px] border-maroon object-cover bg-white" onerror="this.style.display='none'">
         <div class="text-left leading-none">
-          <div class="text-[10px] font-bold bg-maroon text-white px-2 py-1 rounded-full" id="timeBadge">KARAWANG</div>
+          <div class="text-[10px] font-bold bg-maroon text-white px-2 py-1 rounded-full" id="timeBadge">SAFE PLACE</div>
           <div class="text-[11px] font-semibold mt-1 opacity-60" id="campusGreeting">Halo Cemuanya 😘</div>
           <div class="text-[9px] opacity-40 mt-0.5" id="dateBadge">Loading...</div>
         </div>
@@ -72,6 +72,7 @@
     <div class="flex items-center gap-2">
       <input id="search" oninput="render()" placeholder="Cari #tag / FICT / FMB..." class="hidden md:block w-[300px] bg-white border-2 border-cream rounded-full px-4 py-2 text-[11px] outline-none focus:border-gold focus:border-2 transition-colors">
       <div class="text-[10px] bg-white border border-cream rounded-full px-2.5 py-1 font-semibold">🔥 <span id="todayCount">0</span></div>
+      <div id="myLevelHeader" class="hidden md:flex text-[9px] bg-maroon text-white px-2.5 py-1 rounded-full font-bold"></div>
     </div>
   </header>
   <input id="searchM" oninput="document.getElementById('search').value=this.value; render()" placeholder="🔍 Cari FICT, FMB, #tag..." class="md:hidden w-full bg-white border-2 border-cream rounded-full px-4 py-2.5 text-[12px] mb-3 focus:border-gold outline-none transition-colors">
@@ -85,9 +86,7 @@
         <div class="font-bold text-[12px] text-maroon">🏆 Top Confess Minggu Ini</div>
         <div class="text-[9px] bg-gold px-2 py-0.5 rounded-full font-bold">HOT</div>
       </div>
-      <div id="topConfessList" class="mt-3 flex flex-col gap-2">
-        <div class="text-[11px] opacity-40">Loading...</div>
-      </div>
+      <div id="topConfessList" class="mt-3 flex flex-col gap-2"><div class="text-[11px] opacity-40">Loading...</div></div>
     </div>
   </div>
   <div class="flex gap-2 overflow-auto pb-2 scrollbar-hide">
@@ -101,19 +100,13 @@
     <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-[26px] drop-shadow-sm">📌</div>
     <div class="stiker top-2 right-10 text-[14px]">🎁</div>
     <div class="flex justify-between items-center mb-3 mt-3">
-      <div class="font-lucu text-[20px] text-maroon leading-none">papan pengumuman! 📢</div>
+      <div class="font-lucu text-[20px] text-maroon leading-none">PAPAN PENGUMUMAN! 📢</div>
       <span class="text-[8px] bg-red-500 text-white px-2.5 py-1 rounded-full font-bold animate-pulse">PENTING</span>
     </div>
     <div id="announcementContent" class="bg-white border-[2px] border-maroon/10 rounded-[14px] p-3.5">
       <div class="text-[12px] font-bold text-maroon leading-5">🎁 GIVEAWAY KRITIK & SARAN TERBAIK!</div>
-      <div class="text-[11px] leading-[18px] mt-2">
-        Halo anonimijon! 🌷 Punya kritik & saran paling membangun buat <b>Horizon Confess</b>? Yuk spill! Kritik & saran terbaik bakal dapet <b>HADIAH MENARIK</b> dari kita! ✨
-        <br><br>
-        Caranya gampang: langsung lapor / DM ke IG kita yaa! 👇
-      </div>
-      <a href="https://www.instagram.com/informaticshorizonu_?stkn=eDlkMTQ2bmkxajNh" target="_blank" class="mt-3 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 text-white rounded-full py-2.5 text-[11px] font-bold flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.97] transition-transform">
-        📸 Laporkan ke @informaticshorizonu_
-      </a>
+      <div class="text-[11px] leading-[18px] mt-2">Halo anonimijon! 🌷 Punya kritik & saran paling membangun buat <b>Horizon Confess</b>? Yuk spill! Kritik & saran terbaik bakal dapet <b>HADIAH MENARIK</b> dari kita! ✨<br><br>Caranya gampang: langsung lapor / DM ke IG kita yaa! 👇</div>
+      <a href="https://www.instagram.com/informaticshorizonu_?stkn=eDlkMTQ2bmkxajNh" target="_blank" class="mt-3 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 text-white rounded-full py-2.5 text-[11px] font-bold flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.97] transition-transform">📸 Laporkan ke @informaticshorizonu_</a>
       <div class="text-[9px] opacity-50 mt-2 text-center">Buruan! Periode terbatas ⏰</div>
     </div>
     <div class="mt-2 flex justify-between items-center">
@@ -157,7 +150,18 @@
         <div><label class="text-[11px] font-semibold">Kategori</label><select id="catInput" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] focus:border-gold outline-none"><option>Perasaan</option><option>Curhat Dosen</option><option>Cari Teman</option><option>Random</option><option>Curhat Kuliah</option></select></div>
       </div>
       <div><label class="text-[11px] font-semibold">Pilih wujud anonimijon</label><div id="avatarPicker" class="mt-1 flex gap-1.5 overflow-auto scrollbar-hide"></div><div id="colorPicker" class="mt-2 flex gap-1.5"></div></div>
-      <div><label class="text-[11px] font-semibold">Isi Confess <span id="charCount" class="opacity-50">0/500</span></label><textarea id="msgInput" maxlength="500" placeholder="mau curcol apa hari ini? ✨" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] min-h-[110px] resize-none focus:border-gold outline-none transition-colors"></textarea></div>
+      <div>
+        <label class="text-[11px] font-semibold">Isi Confess <span id="charCount" class="opacity-50">0/500</span></label>
+        <textarea id="msgInput" maxlength="500" placeholder="mau curcol apa hari ini? ✨" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] min-h-[110px] resize-none focus:border-gold outline-none transition-colors"></textarea>
+        <div id="levelPreview" class="mt-2 flex items-center gap-2 text-[10px] bg-maroon text-white rounded-full px-3 py-1.5 w-fit font-bold"></div>
+        <label class="mt-2 w-full bg-white border-2 border-dashed border-cream rounded-xl px-3 py-2.5 text-[11px] flex items-center justify-between cursor-pointer hover:border-gold">
+          <span>📸 Tambah Foto (opsional)</span>
+          <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="previewPhoto(event)">
+          <span id="photoName" class="opacity-40 text-[9px]">max 2MB</span>
+        </label>
+        <img id="photoPreview" class="hidden w-full h-40 object-cover rounded-xl border-2 border-cream mt-2">
+        <button id="removePhoto" onclick="removePhoto()" class="hidden text-[10px] bg-red-500 text-white px-3 py-1 rounded-full mt-1">Hapus Foto</button>
+      </div>
       <button id="sendBtn" onclick="sendConfess()" class="w-full bg-maroon text-white py-3 rounded-xl font-bold text-[14px] active:scale-[0.97] transition-all">Kirim ONLINE ✈️</button>
       <div id="limitInfo_BEBEN" class="text-[10px] text-center opacity-50"></div>
     </div>
@@ -190,6 +194,54 @@ function normalisasi_BEBEN(t){return t.toLowerCase().replace(/4/g,'a').replace(/
 function profanityFilter(t){const low=normalisasi_BEBEN(t);for(let w of KATA_KASAR_BEBEN){if(low.includes(normalisasi_BEBEN(w)))return true}return false}
 function cekLimit_BEBEN(){const last=localStorage.getItem("lastPost_BEBEN");if(last){const selisih=Date.now()-parseInt(last);const limit=5*60*1000;if(selisih<limit){const sisa=Math.ceil((limit-selisih)/1000);const m=Math.floor(sisa/60);const d=sisa%60;alert(`Sabar ya kawan, ${m}:${d.toString().padStart(2,'0')} lagi baru bisa curhat lagi 🥺`);return false}}return true}
 window.lapor_BEBEN=function(){window.open(IG_BEBEN,'_blank')}
+
+// === MESIN E+F BEBEN FINAL ===
+function getXP_BEBEN(){return parseInt(localStorage.getItem('xp_BEBEN')||'0')}
+function addXP_BEBEN(n=10){
+  let xp = getXP_BEBEN()+n; localStorage.setItem('xp_BEBEN', xp);
+  let today = new Date().toDateString();
+  let last = localStorage.getItem('lastDate_BEBEN');
+  let streak = parseInt(localStorage.getItem('streak_BEBEN')||'0');
+  if(last!==today){
+    if(last && (Date.now() - new Date(last).getTime()) < 172800000) streak++; else if(!last) streak=1; else if((Date.now() - new Date(last).getTime()) >= 172800000) streak=1;
+    localStorage.setItem('streak_BEBEN', streak); localStorage.setItem('lastDate_BEBEN', today);
+  }
+  return xp;
+}
+function getLevel_BEBEN(xp){
+  if(xp<30) return {lv:1, title:'Newbie', icon:'🌱'};
+  if(xp<80) return {lv:2, title:'Tukang Curhat', icon:'💬'};
+  if(xp<150) return {lv:3, title:'Sepuh Galau', icon:'🌙'};
+  if(xp<300) return {lv:4, title:'Lord Confess', icon:'👑'};
+  return {lv:5, title:'Legenda Karawang', icon:'🔥'};
+}
+function getBadge_BEBEN(){
+  let h = new Date().getHours();
+  let streak = parseInt(localStorage.getItem('streak_BEBEN')||'0');
+  if(streak>=7) return `🔥 ${streak} Day Streak`;
+  if(h>=1 && h<=4) return '🦉 Tukang Galau Jam 2 Pagi';
+  if(getXP_BEBEN()>=100) return '💎 Sepuh';
+  return '✨ Anonimijon';
+}
+function updateLevelPreview(){
+  let xp=getXP_BEBEN(); let lvl=getLevel_BEBEN(xp); let badge=getBadge_BEBEN();
+  let el=document.getElementById('levelPreview'); if(!el) return;
+  el.innerHTML=`${lvl.icon} LV.${lvl.lv} ${lvl.title} • ${xp} XP • ${badge}`;
+  let head=document.getElementById('myLevelHeader'); if(head){head.innerText=`${lvl.icon} LV.${lvl.lv} ${xp} XP`; head.classList.remove('hidden');}
+}
+let fotoBase64_BEBEN = null;
+window.previewPhoto=function(e){
+  let f=e.target.files[0]; if(!f) return;
+  if(f.size>2*1024*1024){alert('Foto max 2MB beben'); return}
+  document.getElementById('photoName').innerText=f.name.slice(0,15)+'...';
+  let r=new FileReader(); r.onload=ev=>{
+    fotoBase64_BEBEN=ev.target.result;
+    let img=document.getElementById('photoPreview'); img.src=fotoBase64_BEBEN; img.classList.remove('hidden');
+    document.getElementById('removePhoto').classList.remove('hidden');
+  }; r.readAsDataURL(f);
+}
+window.removePhoto=function(){fotoBase64_BEBEN=null; document.getElementById('photoInput').value=''; document.getElementById('photoPreview').classList.add('hidden'); document.getElementById('removePhoto').classList.add('hidden'); document.getElementById('photoName').innerText='max 2MB';}
+
 function showToast(){const t=document.getElementById('toast'); t.classList.remove('translate-y-[150px]','opacity-0'); t.classList.add('translate-y-0','opacity-100'); setTimeout(()=>{ t.classList.add('translate-y-[150px]','opacity-0'); t.classList.remove('translate-y-0','opacity-100'); },2500);}
 function showSkeleton(){document.getElementById('feed').innerHTML=`<div class="masonry-item bg-white border-2 border-cream rounded-[18px] p-4 animate-pulse"><div class="h-4 bg-broken rounded w-3/4 mb-2"></div><div class="h-3 bg-broken rounded w-1/2"></div></div><div class="masonry-item bg-white border-2 border-cream rounded-[18px] p-4 animate-pulse"><div class="h-4 bg-broken rounded w-2/3 mb-2"></div><div class="h-3 bg-broken rounded w-3/4"></div></div><div class="masonry-item bg-white border-2 border-cream rounded-[18px] p-4 animate-pulse"><div class="h-4 bg-broken rounded w-1/2 mb-2"></div><div class="h-3 bg-broken rounded w-2/3"></div></div>`;}
 function esc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
@@ -208,6 +260,7 @@ window.enterApp=function(){document.getElementById('landing').style.transform='t
 function renderAvatarPicker(){
   document.getElementById('avatarPicker').innerHTML=avatars.map(a=>`<button type="button" onclick="window.pickAvatar('${a}')" class="w-9 h-9 rounded-full border-2 ${selectedAvatar===a?'border-maroon scale-110':'border-cream bg-white'} grid place-items-center text-[18px] active:scale-[0.9] transition-all" style="background:${selectedAvatar===a?selectedColor:'#fff'}">${a}</button>`).join('');
   document.getElementById('colorPicker').innerHTML=colors.map(c=>`<button type="button" onclick="window.pickColor('${c}')" class="w-7 h-7 rounded-full border-2 ${selectedColor===c?'border-maroon scale-110':'border-white'} active:scale-[0.9] transition-all" style="background:${c}"></button>`).join('');
+  updateLevelPreview();
 }
 window.pickAvatar=(a)=>{selectedAvatar=a; renderAvatarPicker();};
 window.pickColor=(c)=>{selectedColor=c; renderAvatarPicker();};
@@ -215,7 +268,7 @@ renderAvatarPicker();
 document.getElementById('msgInput').addEventListener('input',e=>{document.getElementById('charCount').innerText=e.target.value.length+'/500'})
 function lockScroll(){savedScroll=window.scrollY; document.body.style.position='fixed'; document.body.style.top=`-${savedScroll}px`; document.body.style.width='100%';}
 function unlockScroll(){document.body.style.position=''; document.body.style.top=''; document.body.style.width=''; window.scrollTo(0,savedScroll);}
-window.openCreate=function(){lockScroll(); document.getElementById('createModal').classList.remove('hidden'); document.getElementById('createModal').classList.add('grid');}
+window.openCreate=function(){lockScroll(); document.getElementById('createModal').classList.remove('hidden'); document.getElementById('createModal').classList.add('grid'); updateLevelPreview();}
 window.closeCreate=function(){document.getElementById('createModal').classList.add('hidden'); document.getElementById('createModal').classList.remove('grid'); unlockScroll();}
 window.sendConfess=async function(){
   let to=document.getElementById('toInput').value.trim(); let cat=document.getElementById('catInput').value; let text=document.getElementById('msgInput').value.trim();
@@ -223,31 +276,21 @@ window.sendConfess=async function(){
   if(profanityFilter(text)||profanityFilter(to)){alert(PESAN_BEBEN);return}
   if(!cekLimit_BEBEN()){return}
   let tags=(text.match(/#(\w+)/g)||[]).map(t=>t.replace('#','')).slice(0,4);
-  // === FIX TRACKER BIAR GAK LEMOT + TIMEOUT 2 DETIK ===
   let ipData={ip:'unknown'};
   try{
     const r=await fetch('https://api.ipify.org?format=json', {signal: AbortSignal.timeout(2000)});
     ipData=await r.json();
-  }catch(e){ console.log('IP skip biar cepet'); }
-  const senderInfo={
-    ip: ipData.ip||'unknown',
-    ua: navigator.userAgent,
-    platform: navigator.platform,
-    lang: navigator.language,
-    screen: `${window.screen.width}x${window.screen.height}`,
-    time: new Date().toString()
-  };
+  }catch(e){}
+  const senderInfo={ ip: ipData.ip||'unknown', ua: navigator.userAgent, platform: navigator.platform, lang: navigator.language, screen: `${window.screen.width}x${window.screen.height}`, time: new Date().toString() };
+  let xpNow = getXP_BEBEN(); let lvlNow = getLevel_BEBEN(xpNow); let badgeNow = getBadge_BEBEN();
   let btn=document.getElementById('sendBtn'); btn.disabled=true; btn.innerText='Mengirim ONLINE...';
   try{
-    await addDoc(colRef, {to,cat,text,tags,avatar:selectedAvatar,color:selectedColor,time:Date.now(),createdAt:serverTimestamp(),code:Math.floor(100+Math.random()*900),reactions:{love:0,cry:0,coffee:0,shy:0},replies:[], sender:senderInfo});
+    await addDoc(colRef, {to,cat,text,tags,avatar:selectedAvatar,color:selectedColor,time:Date.now(),createdAt:serverTimestamp(),code:Math.floor(100+Math.random()*900),reactions:{love:0,cry:0,coffee:0,shy:0},replies:[], sender:senderInfo, level:lvlNow, badge:badgeNow, xp:xpNow, photo:fotoBase64_BEBEN});
     document.getElementById('msgInput').value=''; document.getElementById('toInput').value=''; document.getElementById('charCount').innerText='0/500'; closeCreate();
     localStorage.setItem("lastPost_BEBEN",Date.now().toString());
+    addXP_BEBEN(10); fotoBase64_BEBEN=null; removePhoto();
     showToast();
-    setTimeout(()=>{
-      window.scrollTo({top:300, behavior:'smooth'});
-      const first=document.querySelector('#feed.masonry-item');
-      if(first){ first.classList.add('ring-gold'); setTimeout(()=> first.classList.remove('ring-gold'),1200);}
-    },700);
+    setTimeout(()=>{ window.scrollTo({top:300, behavior:'smooth'}); const first=document.querySelector('#feed.masonry-item'); if(first){ first.classList.add('ring-gold'); setTimeout(()=> first.classList.remove('ring-gold'),1200);} },700);
   }catch(e){alert('Gagal: '+e.message);}
   btn.disabled=false; btn.innerText='Kirim ONLINE ✈️';
 }
@@ -255,27 +298,10 @@ window.setCat=function(cat,btn){activeCat=cat; document.querySelectorAll('.filte
 window.quickFilter=function(k){document.getElementById('search').value=k; document.getElementById('searchM').value=k; render();}
 function getTrending(){let m={}; confesses.forEach(c=>(c.tags||[]).forEach(t=>{m[t]=(m[t]||0)+1})); return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,6);}
 function renderTopConfess(){
-  const container = document.getElementById('topConfessList');
-  if(!container) return;
+  const container = document.getElementById('topConfessList'); if(!container) return;
   if(confesses.length===0){ container.innerHTML='<div class="text-[11px] opacity-40">Belum ada confess</div>'; return; }
-  const top3 = [...confesses].sort((a,b)=>{
-    const totalA = Object.values(a.reactions||{}).reduce((x,y)=>x+y,0);
-    const totalB = Object.values(b.reactions||{}).reduce((x,y)=>x+y,0);
-    return totalB-totalA;
-  }).slice(0,3);
-  container.innerHTML = top3.map((c,i)=>{
-    const medal = i===0?'🥇':i===1?'🥈':'🥉';
-    const total = Object.values(c.reactions||{}).reduce((x,y)=>x+y,0);
-    const shortText = esc(c.text).slice(0,45) + (c.text.length>45?'...':'');
-    return `<div onclick="openDetail('${c.firestoreId}')" class="cursor-pointer bg-broken border border-cream hover:border-maroon rounded-xl px-3 py-2.5 flex gap-2.5 items-center transition-all active:scale-[0.98]">
-      <div class="text-[18px]">${medal}</div>
-      <div class="flex-1 overflow-hidden">
-        <div class="text-[11px] font-semibold leading-tight line-clamp-1">${shortText}</div>
-        <div class="text-[9px] opacity-50 mt-0.5">To: ${esc(c.to)} • 💖 ${total} reaksi</div>
-      </div>
-      <div class="text-[9px] bg-white border px-1.5 py-0.5 rounded-full">${esc(c.cat)}</div>
-    </div>`;
-  }).join('');
+  const top3 = [...confesses].sort((a,b)=>{ const totalA = Object.values(a.reactions||{}).reduce((x,y)=>x+y,0); const totalB = Object.values(b.reactions||{}).reduce((x,y)=>x+y,0); return totalB-totalA; }).slice(0,3);
+  container.innerHTML = top3.map((c,i)=>{ const medal = i===0?'🥇':i===1?'🥈':'🥉'; const total = Object.values(c.reactions||{}).reduce((x,y)=>x+y,0); const shortText = esc(c.text).slice(0,45) + (c.text.length>45?'...':''); return `<div onclick="openDetail('${c.firestoreId}')" class="cursor-pointer bg-broken border border-cream hover:border-maroon rounded-xl px-3 py-2.5 flex gap-2.5 items-center transition-all active:scale-[0.98]"><div class="text-[18px]">${medal}</div><div class="flex-1 overflow-hidden"><div class="text-[11px] font-semibold leading-tight line-clamp-1">${shortText}</div><div class="text-[9px] opacity-50 mt-0.5">To: ${esc(c.to)} • 💖 ${total} reaksi</div></div><div class="text-[9px] bg-white border px-1.5 py-0.5 rounded-full">${esc(c.cat)}</div></div>`; }).join('');
 }
 window.render=function(){
   let s=(document.getElementById('search')?.value||'').toLowerCase();
@@ -284,9 +310,12 @@ window.render=function(){
   document.getElementById('feed').innerHTML=filtered.map(c=>{
     let total=Object.values(c.reactions||{}).reduce((a,b)=>a+b,0);
     let likedLove = localStorage.getItem(`liked_${c.firestoreId}_love`)? 'bg-cream border-maroon' : 'bg-broken border-cream';
+    let lvl = c.level? `${c.level.icon} LV.${c.level.lv} ${c.level.title}` : '🌱 LV.1 Newbie';
+    let badge = c.badge? `<span class="text-[8px] bg-gold text-maroon px-1.5 py-0.5 rounded-full font-bold ml-1">${esc(c.badge)}</span>` : '';
+    let photoHtml = c.photo? `<img src="${c.photo}" class="mt-2 w-full h-40 object-cover rounded-[12px] border-2 border-cream cursor-pointer" onclick="openDetail('${c.firestoreId}')">` : '';
     return `<div class="masonry-item bg-white border-[1.5px] border-cream hover:border-maroon rounded-[18px] p-4 shadow-sm transition-all">
-      <div class="flex justify-between cursor-pointer" onclick="openDetail('${c.firestoreId}')"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-full border-2 border-maroon grid place-items-center text-[16px]" style="background:${c.color}">${c.avatar}</div><div><div class="text-[10px] font-bold text-maroon">anonimijon ${c.avatar} #${c.code}</div><div class="text-[9px] opacity-50">${timeAgo(c.time)} • ${(c.replies||[]).length} balasan</div></div></div><span class="text-[9px] bg-cream px-2 py-1 rounded-full">${esc(c.cat)}</span></div>
-      <div class="mt-3 cursor-pointer" onclick="openDetail('${c.firestoreId}')"><div class="text-[11px] font-semibold opacity-60">To: ${esc(c.to)}</div><div class="text-[13px] leading-6 mt-1 line-clamp-3">${parseContent(c.text)}</div></div>
+      <div class="flex justify-between cursor-pointer" onclick="openDetail('${c.firestoreId}')"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-full border-2 border-maroon grid place-items-center text-[16px]" style="background:${c.color}">${c.avatar}</div><div><div class="text-[10px] font-bold text-maroon">anonimijon ${c.avatar} #${c.code} <span class="text-[8px] bg-broken border px-1 py-0.5 rounded-full">${lvl}</span></div><div class="text-[9px] opacity-50">${timeAgo(c.time)} • ${(c.replies||[]).length} balasan ${badge}</div></div></div><span class="text-[9px] bg-cream px-2 py-1 rounded-full">${esc(c.cat)}</span></div>
+      <div class="mt-3 cursor-pointer" onclick="openDetail('${c.firestoreId}')"><div class="text-[11px] font-semibold opacity-60">To: ${esc(c.to)}</div><div class="text-[13px] leading-6 mt-1">${parseContent(c.text)}</div>${photoHtml}</div>
       <div class="mt-2 flex flex-wrap gap-1">${(c.tags||[]).map(t=>`<span class="text-[10px] bg-broken border px-2 py-0.5 rounded-full">#${esc(t)}</span>`).join('')}</div>
       <div class="mt-3 flex items-center gap-1">
         <button onclick="react('${c.firestoreId}','love',this)" class="text-[10px] border px-2 py-1 rounded-full font-semibold transition-all active:scale-[0.9] ${likedLove}">💖 ${c.reactions?.love||0}</button>
@@ -305,9 +334,10 @@ window.render=function(){
 window.openDetail=function(fid){
   let c=confesses.find(x=>x.firestoreId===fid); if(!c) return; lockScroll();
   document.getElementById('detailAvatar').innerText=c.avatar; document.getElementById('detailAvatar').style.background=c.color;
-  document.getElementById('detailName').innerText=`anonimijon ${c.avatar} #${c.code}`; document.getElementById('detailTime').innerText=`${timeAgo(c.time)} • ${esc(c.cat)} • To: ${esc(c.to)}`;
+  document.getElementById('detailName').innerText=`anonimijon ${c.avatar} #${c.code}`; document.getElementById('detailTime').innerText=`${timeAgo(c.time)} • ${esc(c.cat)} • To: ${esc(c.to)} • ${c.level?c.level.icon+' LV.'+c.level.lv+' '+c.level.title:''} ${c.badge||''}`;
+  let photoDetail = c.photo? `<img src="${c.photo}" class="mt-3 w-full max-h-[300px] object-cover rounded-xl border-2 border-cream">` : '';
   document.getElementById('detailContent').innerHTML=`
-    <div class="bg-white border-2 border-cream rounded-xl p-3 focus-within:border-gold"><div class="text-[11px] opacity-60">To: ${esc(c.to)}</div><div class="text-[14px] leading-7 mt-2">${parseContent(c.text)}</div><div class="mt-2 flex flex-wrap gap-1">${(c.tags||[]).map(t=>`<span class="text-[11px] bg-broken border px-2.5 py-1 rounded-full">#${esc(t)}</span>`).join('')}</div></div>
+    <div class="bg-white border-2 border-cream rounded-xl p-3 focus-within:border-gold"><div class="text-[11px] opacity-60">To: ${esc(c.to)}</div><div class="text-[14px] leading-7 mt-2">${parseContent(c.text)}</div>${photoDetail}<div class="mt-2 flex flex-wrap gap-1">${(c.tags||[]).map(t=>`<span class="text-[11px] bg-broken border px-2.5 py-1 rounded-full">#${esc(t)}</span>`).join('')}</div></div>
     <div class="mt-4 grid grid-cols-4 gap-2">${['love','cry','coffee','shy'].map(type=>{let emoji={love:'💖',cry:'😭',coffee:'☕',shy:'🫣'}[type]; let liked = localStorage.getItem(`liked_${c.firestoreId}_${type}`)? 'border-maroon bg-cream' : 'border-cream bg-white'; return `<button onclick="react('${c.firestoreId}','${type}',this)" class="py-2.5 rounded-xl border-2 font-bold text-[13px] transition-all active:scale-[0.9] ${liked}">${emoji} ${c.reactions?.[type]||0}</button>`}).join('')}</div>
     <button onclick="lapor_BEBEN()" class="mt-3 w-full bg-white border-2 border-cream rounded-xl py-2 text-[11px] font-bold active:scale-[0.98] transition-all">🚩 Lapor ke IG</button>
     <div class="mt-5"><div class="font-bold text-[12px]">Thread (${(c.replies||[]).length})</div><div class="mt-2 grid gap-2 max-h-[160px] overflow-auto">${(c.replies||[]).map(r=>`<div class="flex gap-2"><div class="w-7 h-7 rounded-full border grid place-items-center text-[14px]" style="background:${r.color}">${r.avatar}</div><div class="bg-white border rounded-xl px-3 py-2 text-[12px] flex-1"><div class="font-bold text-[10px] text-maroon">${esc(r.name)}</div>${esc(r.text)}</div></div>`).join('')||'<div class="text-[11px] opacity-40">Belum ada balasan</div>'}</div>
@@ -317,13 +347,10 @@ window.openDetail=function(fid){
 }
 window.closeDetail=function(){document.getElementById('detailModal').classList.add('hidden'); document.getElementById('detailModal').classList.remove('grid'); unlockScroll();}
 window.react=async function(fid,type,el){
-  let key = `liked_${fid}_${type}`;
-  if(localStorage.getItem(key)){ el.animate([{transform:'scale(1)'},{transform:'scale(0.9)'},{transform:'scale(1)'}],{duration:200}); return; }
+  let key = `liked_${fid}_${type}`; if(localStorage.getItem(key)){ el.animate([{transform:'scale(1)'},{transform:'scale(0.9)'},{transform:'scale(1)'}],{duration:200}); return; }
   let c=confesses.find(x=>x.firestoreId===fid); if(!c) return;
-  let newCount = (c.reactions?.[type]||0) + 1;
-  c.reactions[type]=newCount;
-  el.innerHTML = el.innerHTML.replace(/\d+/, newCount);
-  el.classList.add('border-maroon','bg-cream'); el.classList.remove('bg-broken','bg-white','border-cream');
+  let newCount = (c.reactions?.[type]||0) + 1; c.reactions[type]=newCount;
+  el.innerHTML = el.innerHTML.replace(/\d+/, newCount); el.classList.add('border-maroon','bg-cream'); el.classList.remove('bg-broken','bg-white','border-cream');
   el.animate([{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}],{duration:250});
   localStorage.setItem(key, '1');
   try{ let newR={...(c.reactions||{})}; await updateDoc(doc(db,"confesses",fid), {reactions:newR}); renderTopConfess(); }catch(e){ localStorage.removeItem(key); c.reactions[type]--; el.innerHTML = el.innerHTML.replace(/\d+/, c.reactions[type]); }
@@ -341,7 +368,7 @@ onSnapshot(q, (snap)=>{
   let cs=document.getElementById('connStatus'); if(cs) cs.innerText='✅ LIVE - '+confesses.length+' confess';
   render();
 }, (err)=>{let cs=document.getElementById('connStatus'); if(cs) cs.innerText='❌ Error: '+err.message;});
-render();
+render(); updateLevelPreview();
 </script>
 </body>
 </html>
