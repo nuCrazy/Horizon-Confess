@@ -18,9 +18,22 @@
 .stiker { position: absolute; font-size: 20px; animation: goyang 2s infinite ease-in-out; }
 @keyframes goyang { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* TAMBAHAN LOVE ANIMASI BEBEN - CUMA INI DOANG YANG NEMA TAMBAHIN */
+#love-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.heart-float { position: absolute; bottom: -10vh; animation: loveFloat linear infinite; user-select: none; }
+@keyframes loveFloat {
+  0% { transform: translateY(0) translateX(0) rotate(0deg) scale(0.8); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.7; }
+  100% { transform: translateY(-120vh) translateX(var(--x-move)) rotate(360deg) scale(1.6); opacity: 0; }
+}
 </style>
 </head>
 <body class="bg-broken text-[#2b1116] overflow-x-hidden">
+
+<!-- BACKGROUND LOVE FULL - NEMA TARUH DISINI BEBEN -->
+<div id="love-bg"></div>
 
 <div id="landing" class="fixed inset-0 z-[100] bg-broken flex items-center justify-center p-4 transition-transform duration-700">
 <div class="absolute inset-0 bg-gradient-to-br from-cream via-white to-broken"></div>
@@ -47,7 +60,7 @@
   </div>
 </div>
 
-<div class="max-w-[1200px] mx-auto px-4 pb-28">
+<div class="max-w-[1200px] mx-auto px-4 pb-28 relative z-10">
   <header class="sticky top-0 z-20 bg-broken/90 backdrop-blur-md border-b border-cream px-4 py-3 flex items-center justify-between -mx-4 mb-4">
     <div class="flex items-center gap-2 font-bold text-maroon">
       <img src="logo.png" class="w-9 h-9 rounded-full border-2 border-maroon object-cover bg-white" onerror="this.style.display='none'">
@@ -56,7 +69,6 @@
     </div>
     <div class="flex items-center gap-2">
       <input id="search" oninput="render()" placeholder="Cari #tag / FICT / FMB..." class="hidden md:block w-[300px] bg-white border-2 border-cream rounded-full px-4 py-2 text-[11px] outline-none">
-      <!-- FIX: API JADI SURAT LOVE, MUSIK JADI LEVEL -->
       <div class="text-[10px] bg-white border border-cream rounded-full px-2.5 py-1 font-semibold">💌 <span id="todayCount">0</span></div>
       <div id="myLevelHeader" class="text-[10px] bg-maroon text-white border border-maroon rounded-full px-2.5 py-1 font-bold">🌱 LV.1</div>
     </div>
@@ -122,6 +134,23 @@
 </div>
 <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-maroon text-white px-6 py-3 rounded-full text-[13px] font-bold shadow-[0_10px_30px_rgba(0,0,0,0.3)] translate-y-[150px] opacity-0 transition-all duration-300 z-[200]">Confess kamu udah terkirim! ✨</div>
 
+<script>
+// LOVE ANIMATION SCRIPT - INI DOANG TAMBAHAN NEMA BEBEN
+const loveEmojis = ['💖','💕','❤️','💗','💓','💞','💝','😘','🥰'];
+const loveContainer = document.getElementById('love-bg');
+for(let i=0;i<35;i++){
+  let span = document.createElement('div');
+  span.className = 'heart-float';
+  span.innerText = loveEmojis[Math.floor(Math.random()*loveEmojis.length)];
+  span.style.left = Math.random()*100 + 'vw';
+  span.style.fontSize = (14 + Math.random()*22) + 'px';
+  span.style.animationDuration = (6 + Math.random()*8) + 's';
+  span.style.animationDelay = (Math.random()*5) + 's';
+  span.style.setProperty('--x-move', (Math.random()*200 - 100) + 'px');
+  loveContainer.appendChild(span);
+}
+</script>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -140,7 +169,6 @@ function profanityFilter(t){const low=normalisasi_BEBEN(t);for(let w of KATA_KAS
 function cekLimit_BEBEN(){const last=localStorage.getItem("lastPost_BEBEN");if(last){const selisih=Date.now()-parseInt(last);const limit=5*60*1000;if(selisih<limit){const sisa=Math.ceil((limit-selisih)/1000);const m=Math.floor(sisa/60);const d=sisa%60;alert(`Sabar ya kawan, ${m}:${d.toString().padStart(2,'0')} lagi baru bisa curhat lagi 🥺`);return false}}return true}
 window.lapor_BEBEN=function(){window.open(IG_BEBEN,'_blank')}
 
-// LEVEL SYSTEM
 function getXP_BEBEN(){return parseInt(localStorage.getItem('xp_BEBEN')||'0')}
 function addXP_BEBEN(n=10){let xp=getXP_BEBEN()+n; localStorage.setItem('xp_BEBEN', xp); return xp;}
 function getLevel_BEBEN(xp){ if(xp<30) return {lv:1, title:'Newbie', icon:'🌱'}; if(xp<80) return {lv:2, title:'Tukang Curhat', icon:'💬'}; if(xp<150) return {lv:3, title:'Sepuh Galau', icon:'🌙'}; if(xp<300) return {lv:4, title:'Lord Confess', icon:'👑'}; return {lv:5, title:'Legenda Karawang', icon:'🔥'}; }
