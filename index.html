@@ -133,7 +133,7 @@ const avatars=['🦊','🐱','🐶','🐼','👻','🦄','🐙','🦝']; const c
 let selectedAvatar=avatars[0]; let selectedColor=colors[0];
 let confesses=[]; let activeCat='all'; let savedScroll=0;
 const IG_BEBEN="https://www.instagram.com/informaticshorizonu_?stkn=eDlkMTQ2bmkxajNh";
-const KATA_KASAR_BEBEN=["anjing","babi","bangsat","bajingan","kampret","tolol","goblok","idiot","bego","dongo","brengsek","lonte","kontol","memek","ngentot","tai","eek","jelek","gendut","dekil"];
+const KATA_KASAR_BEBEN=["anjing","babi","bangsat","bajingan","kampret","tolol","goblok","idiot","bego","dongo","brengsek","lonte","kontol","memek","ngentot","eek","jelek","gendut","dekil"];
 const PESAN_BEBEN="aduh gabole gitu dong ngetiknya, jempolnya di jaga yaa";
 function normalisasi_BEBEN(t){return t.toLowerCase().replace(/4/g,'a').replace(/@/g,'a').replace(/1/g,'i').replace(/!/g,'i').replace(/0/g,'o').replace(/3/g,'e').replace(/5/g,'s').replace(/\$/g,'s').replace(/(.)\1{1,}/g,'$1')}
 function profanityFilter(t){const low=normalisasi_BEBEN(t);for(let w of KATA_KASAR_BEBEN){if(low.includes(normalisasi_BEBEN(w)))return true}return false}
