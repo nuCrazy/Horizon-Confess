@@ -2,9 +2,9 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon Confess BETA - anonimijon</title>
+<title>Mahasiswa Bercerita - Safe Space ijon</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script>tailwind.config={theme:{extend:{colors:{maroon:'#800020',maroon2:'#A11D33',broken:'#FFFBF5',cream:'#FFF2E2',gold:'#FFD166'}}}}</script>
+<script>tailwind.config={theme:{extend:{colors:{maroon:'#800020',maroon2:'#A11D33',broken:'#FFFBF5',cream:'#FFF2E2',gold:'#FFD166',heal:'#FFF8E1',sage:'#E8F5E9'}}}}</script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
@@ -15,46 +15,40 @@
 .card-aesthetic { background: white; border-radius: 20px; border: 2.5px solid #7A1F1F; box-shadow: 4px 4px 0px #7A1F1F; transform: rotate(-0.5deg); transition: all 0.2s; }
 .card-aesthetic:nth-child(even) { transform: rotate(0.5deg); }
 .card-aesthetic:hover { transform: rotate(0deg) scale(1.02); box-shadow: 6px 6px 0px #7A1F1F; }
-.stiker { position: absolute; font-size: 20px; animation: goyang 2s infinite ease-in-out; }
-@keyframes goyang { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-
-/* TAMBAHAN LOVE ANIMASI BEBEN - CUMA INI DOANG YANG NEMA TAMBAHIN */
 #love-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
 .heart-float { position: absolute; bottom: -10vh; animation: loveFloat linear infinite; user-select: none; }
 @keyframes loveFloat {
   0% { transform: translateY(0) translateX(0) rotate(0deg) scale(0.8); opacity: 0; }
-  10% { opacity: 0.9; }
-  90% { opacity: 0.7; }
+  10% { opacity: 0.9; } 90% { opacity: 0.7; }
   100% { transform: translateY(-120vh) translateX(var(--x-move)) rotate(360deg) scale(1.6); opacity: 0; }
 }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.toggle-active { background:#800020!important; color:white!important; border-color:#800020!important; }
 </style>
 </head>
 <body class="bg-broken text-[#2b1116] overflow-x-hidden">
-
-<!-- BACKGROUND LOVE FULL - NEMA TARUH DISINI BEBEN -->
 <div id="love-bg"></div>
 
 <div id="landing" class="fixed inset-0 z-[100] bg-broken flex items-center justify-center p-4 transition-transform duration-700">
 <div class="absolute inset-0 bg-gradient-to-br from-cream via-white to-broken"></div>
-  <div class="relative z-10 w-full max-w-[420px]">
+  <div class="relative z-10 w-full max-w-[440px]">
     <div class="bg-white border-[3px] border-maroon rounded-[28px] p-7 shadow-[0_20px_60px_rgba(128,0,32,0.16)] text-center">
       <div class="flex justify-center items-center gap-2 mb-2">
-        <img src="logo.png" class="w-[84px] h-[84px] rounded-full border-[3px] border-maroon object-cover bg-white" onerror="this.style.display='none'">
+        <div class="w-[84px] h-[84px] rounded-full border-[3px] border-maroon grid place-items-center text-[36px] bg-cream">💛</div>
         <div class="text-left leading-none">
-          <div class="text-[10px] font-bold bg-maroon text-white px-2 py-1 rounded-full" id="timeBadge">SAFE PLACE</div>
-          <div class="text-[11px] font-semibold mt-1 opacity-60" id="campusGreeting">Halo Cemuanya 😘</div>
+          <div class="text-[10px] font-bold bg-maroon text-white px-2 py-1 rounded-full" id="timeBadge">SAFE SPACE</div>
+          <div class="text-[11px] font-semibold mt-1 opacity-60">Halo ijon, kamu aman di sini 😘</div>
           <div class="text-[9px] opacity-40 mt-0.5" id="dateBadge">Loading...</div>
         </div>
       </div>
-      <h1 class="text-[36px] font-extrabold leading-[0.9] text-maroon mt-3">Horizon<br><span class="text-maroon2">Confess</span> <span class="text-[12px] bg-gold text-maroon px-2 py-0.5 rounded-full">ONLINE</span></h1>
-      <div class="mt-4 text-center">
-        <div class="bg-broken border-2 border-cream rounded-[16px] py-4">
-          <div class="font-extrabold text-maroon text-[32px] leading-none" id="lTotal">0</div>
-          <div class="text-[10px] font-bold opacity-60 tracking-widest mt-1">TOTAL CONFESS</div>
-        </div>
+      <h1 class="text-[34px] font-extrabold leading-[0.9] text-maroon mt-3">Mahasiswa<br><span class="text-maroon2">Bercerita</span> <span class="text-[10px] bg-gold text-maroon px-2 py-0.5 rounded-full">IJON</span></h1>
+      <p class="text-[11px] mt-3 leading-5 opacity-70">Tempat cerita tanpa judge. Mau anonim atau pakai nama asli, semua perasaan valid. Kalau berat banget, kamu gak sendiri.</p>
+      <div class="mt-4 grid grid-cols-2 gap-2 text-center">
+        <div class="bg-broken border-2 border-cream rounded-[16px] py-3"><div class="font-extrabold text-maroon text-[22px] leading-none" id="lTotal">0</div><div class="text-[9px] font-bold opacity-60 tracking-widest mt-1">CERITA TERBAGI</div></div>
+        <div class="bg-sage border-2 border-green-100 rounded-[16px] py-3"><div class="font-lucu text-[16px] leading-none text-green-800" id="affirmDaily">Kamu cukup.</div><div class="text-[9px] font-bold opacity-60 tracking-widest mt-1">AFFIRM HARI INI</div></div>
       </div>
-      <button onclick="enterApp()" class="w-full mt-4 bg-maroon text-white py-[14px] rounded-[14px] font-bold text-[14px]">Masuk sebagai anonimijon →</button>
+      <button onclick="enterApp()" class="w-full mt-4 bg-maroon text-white py-[14px] rounded-[14px] font-bold text-[14px]">Masuk ke Safe Space →</button>
+      <button onclick="window.open('https://wa.me/628118385472?text=Halo%20Kak%2C%20aku%20butuh%20teman%20cerita','_blank')" class="w-full mt-2 bg-white border-2 border-maroon text-maroon py-[10px] rounded-[14px] font-bold text-[11px]">🆘 Butuh bantuan cepat? Klik di sini</button>
       <div class="mt-3 text-[9px] opacity-40" id="connStatus">Menghubungkan...</div>
     </div>
   </div>
@@ -63,65 +57,98 @@
 <div class="max-w-[1200px] mx-auto px-4 pb-28 relative z-10">
   <header class="sticky top-0 z-20 bg-broken/90 backdrop-blur-md border-b border-cream px-4 py-3 flex items-center justify-between -mx-4 mb-4">
     <div class="flex items-center gap-2 font-bold text-maroon">
-      <img src="logo.png" class="w-9 h-9 rounded-full border-2 border-maroon object-cover bg-white" onerror="this.style.display='none'">
-      <span class="leading-none text-[14px]">Horizon<br>Confess</span>
-      <span class="text-[9px] bg-gold text-maroon px-2 py-0.5 rounded-full">ONLINE</span>
+      <div class="w-9 h-9 rounded-full border-2 border-maroon grid place-items-center bg-cream text-[16px]">💛</div>
+      <span class="leading-none text-[13px]">Mahasiswa<br>Bercerita</span><span class="text-[9px] bg-gold text-maroon px-2 py-0.5 rounded-full">SAFE</span>
     </div>
     <div class="flex items-center gap-2">
-      <input id="search" oninput="render()" placeholder="Cari #tag / FICT / FMB..." class="hidden md:block w-[300px] bg-white border-2 border-cream rounded-full px-4 py-2 text-[11px] outline-none">
-      <div class="text-[10px] bg-white border border-cream rounded-full px-2.5 py-1 font-semibold">💌 <span id="todayCount">0</span></div>
+      <input id="search" oninput="render()" placeholder="Cari cerita healing..." class="hidden md:block w-[280px] bg-white border-2 border-cream rounded-full px-4 py-2 text-[11px] outline-none">
+      <button onclick="breathing()" class="text-[10px] bg-sage border border-green-200 rounded-full px-3 py-1.5 font-semibold">🌬️ Napas 1 menit</button>
       <div id="myLevelHeader" class="text-[10px] bg-maroon text-white border border-maroon rounded-full px-2.5 py-1 font-bold">🌱 LV.1</div>
     </div>
   </header>
-  <input id="searchM" oninput="document.getElementById('search').value=this.value; render()" placeholder="🔍 Cari FICT, FMB, #tag..." class="md:hidden w-full bg-white border-2 border-cream rounded-full px-4 py-2.5 text-[12px] mb-3 outline-none">
+
+  <!-- MOOD CHECK + HELP -->
+  <div class="grid md:grid-cols-3 gap-3 mb-4">
+    <div class="bg-white border-2 border-maroon/20 rounded-[18px] p-4 md:col-span-2">
+      <div class="font-bold text-[12px] text-maroon">🌈 Cek mood kamu hari ini, jon?</div>
+      <div class="flex gap-2 mt-2 overflow-auto scrollbar-hide" id="moodCheck">
+        <button onclick="pickMood('😭','Sedih')" class="mood-btn bg-broken border-2 border-cream px-3 py-1.5 rounded-full text-[11px]">😭 Sedih</button>
+        <button onclick="pickMood('😤','Capek')" class="mood-btn bg-broken border-2 border-cream px-3 py-1.5 rounded-full text-[11px]">😤 Capek</button>
+        <button onclick="pickMood('🥺','Butuh teman')" class="mood-btn bg-broken border-2 border-cream px-3 py-1.5 rounded-full text-[11px]">🥺 Butuh teman</button>
+        <button onclick="pickMood('😊','Lumayan')" class="mood-btn bg-broken border-2 border-cream px-3 py-1.5 rounded-full text-[11px]">😊 Lumayan</button>
+        <button onclick="pickMood('✨','Semangat')" class="mood-btn bg-broken border-2 border-cream px-3 py-1.5 rounded-full text-[11px]">✨ Semangat</button>
+      </div>
+      <div id="moodResponse" class="text-[11px] mt-2 p-2 bg-cream rounded-xl hidden"></div>
+    </div>
+    <div class="bg-white border-2 border-green-200 rounded-[18px] p-4 bg-gradient-to-br from-sage to-white">
+      <div class="font-bold text-[11px] text-green-800">💛 Kamu Gak Sendiri</div>
+      <div class="text-[10px] leading-4 mt-1 opacity-70">Kalau pikiran berat banget & pengen nyerah, tolong hubungi: <b>119 ext 8</b> / HALO Kemenkes 1500-567 / DM teman terpercaya. Cerita di sini juga boleh.</div>
+    </div>
+  </div>
 
   <div class="bg-white border-2 border-maroon/20 rounded-[18px] p-4 mb-4">
-    <div class="flex justify-between items-center"><div class="font-bold text-[12px] text-maroon">🏆 Top Confess Minggu Ini</div><div class="text-[9px] bg-gold px-2 py-0.5 rounded-full font-bold">HOT</div></div>
+    <div class="flex justify-between items-center"><div class="font-bold text-[12px] text-maroon">🏆 Cerita Paling Supportive Minggu Ini</div><div class="text-[9px] bg-gold px-2 py-0.5 rounded-full font-bold">HEALING</div></div>
     <div id="topConfessList" class="mt-3 flex flex-col gap-2"><div class="text-[11px] opacity-40">Loading...</div></div>
   </div>
 
   <div class="flex gap-2 overflow-auto pb-2 scrollbar-hide">
     <button class="filter-btn active bg-maroon text-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('all',this)">Semua</button>
-    <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Perasaan',this)">💘 Perasaan</button>
-    <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Curhat Dosen',this)">😤 Curhat Dosen</button>
-    <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Cari Teman',this)">🤝 Cari Teman</button>
-    <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Random',this)">🎉 Random</button>
+    <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Curhat Berat',this)">🌧️ Curhat Berat</button>
+    <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Butuh Teman Cerita',this)">🤗 Butuh Teman</button>
+    <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Lelah Kuliah',this)">📚 Lelah Kuliah</button>
+    <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Cerita Bahagia',this)">✨ Bahagia</button>
+    <button class="filter-btn bg-white border-2 border-maroon px-4 py-1.5 rounded-full text-[11px] font-semibold" onclick="setCat('Healing Corner',this)">🌿 Healing</button>
   </div>
 
-  <div class="card-aesthetic p-4 mb-4 relative bg-yellow-50/90 overflow-hidden">
-    <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-[26px]">📌</div>
-    <div class="stiker top-2 right-10 text-[14px]">🎁</div>
-    <div class="flex justify-between items-center mb-3 mt-3"><div class="font-lucu text-[20px] text-maroon leading-none">PAPAN PENGUMUMAN! 📢</div><span class="text-[8px] bg-red-500 text-white px-2.5 py-1 rounded-full font-bold animate-pulse">PENTING</span></div>
-    <div class="bg-white border-[2px] border-maroon/10 rounded-[14px] p-3.5"><div class="text-[12px] font-bold text-maroon">🎁 GIVEAWAY KRITIK & SARAN TERBAIK!</div><div class="text-[11px] leading-[18px] mt-2">Halo anonimijon! 🌷 Punya kritik & saran paling membangun? Yuk spill!</div><a href="https://www.instagram.com/informaticshorizonu_" target="_blank" class="mt-3 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 text-white rounded-full py-2.5 text-[11px] font-bold flex items-center justify-center gap-2">📸 Laporkan ke @informaticshorizonu_</a></div>
-  </div>
   <div id="feed" class="masonry mt-3 gap-4"></div>
 </div>
 
-<button onclick="openCreate()" class="fixed bottom-6 right-6 z-30 bg-maroon text-white px-5 py-3.5 rounded-full font-bold text-[13px] shadow-[0_12px_30px_rgba(128,0,32,0.4)]">➕ Spill sebagai anonimijon</button>
+<button onclick="openCreate()" class="fixed bottom-6 right-6 z-30 bg-maroon text-white px-5 py-3.5 rounded-full font-bold text-[13px] shadow-[0_12px_30px_rgba(128,0,32,0.4)]">💛 Cerita di sini</button>
 
+<!-- CREATE MODAL -->
 <div id="createModal" class="fixed inset-0 z-[80] bg-[#2b1116]/35 backdrop-blur-md hidden place-items-center p-4">
-  <div class="bg-broken border-[3px] border-maroon rounded-[22px] max-w-[460px] w-full p-5 relative max-h-[90vh] overflow-auto">
-    <div class="flex justify-between items-center mb-4"><h3 class="font-bold text-maroon text-[14px]">Spill anonimijon ONLINE</h3><button onclick="closeCreate()" class="w-8 h-8 bg-white border-2 border-maroon rounded-full grid place-items-center font-bold text-maroon">✕</button></div>
+  <div class="bg-broken border-[3px] border-maroon rounded-[22px] max-w-[500px] w-full p-5 relative max-h-[92vh] overflow-auto">
+    <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-maroon text-[14px]">Tulis Ceritamu, jon — aman di sini</h3><button onclick="closeCreate()" class="w-8 h-8 bg-white border-2 border-maroon rounded-full grid place-items-center font-bold text-maroon">✕</button></div>
     <div class="space-y-3">
-      <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-[11px] font-semibold">Untuk Siapa</label><input id="toInput" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] outline-none"></div>
-        <div><label class="text-[11px] font-semibold">Kategori</label><select id="catInput" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px]"><option>Perasaan</option><option>Curhat Dosen</option><option>Cari Teman</option><option>Random</option><option>Curhat Kuliah</option></select></div>
-      </div>
-      <div><label class="text-[11px] font-semibold">Pilih wujud anonimijon</label><div id="avatarPicker" class="mt-1 flex gap-1.5 overflow-auto scrollbar-hide"></div><div id="colorPicker" class="mt-2 flex gap-1.5"></div></div>
-      <div>
-        <label class="text-[11px] font-semibold">Isi Confess <span id="charCount" class="opacity-50">0/500</span></label>
-        <textarea id="msgInput" maxlength="500" placeholder="mau curcol apa hari ini? ✨" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] min-h-[110px] resize-none outline-none"></textarea>
-        <div class="mt-3 grid grid-cols-2 gap-2">
-          <button type="button" onclick="document.getElementById('photoInputGallery').click()" class="bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[11px] font-semibold flex items-center justify-center gap-1.5 hover:border-gold">🖼️ Galeri</button>
-          <button type="button" onclick="document.getElementById('photoInputCamera').click()" class="bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[11px] font-semibold flex items-center justify-center gap-1.5 hover:border-gold">📸 Kamera</button>
+      <!-- MODE ANONIM / NAMA ASLI -->
+      <div class="bg-white border-2 border-cream rounded-xl p-3">
+        <label class="text-[11px] font-bold text-maroon">Mode Cerita</label>
+        <div class="grid grid-cols-2 gap-2 mt-2">
+          <button id="modeAnon" onclick="setMode('anon')" class="toggle-active border-2 rounded-xl py-2.5 text-[12px] font-bold">🤫 Anonim</button>
+          <button id="modeReal" onclick="setMode('real')" class="bg-white border-2 border-cream rounded-xl py-2.5 text-[12px] font-bold">🫶 Nama Asli</button>
         </div>
-        <input type="file" id="photoInputGallery" accept="image/*" class="hidden" onchange="previewPhoto(event)">
-        <input type="file" id="photoInputCamera" accept="image/*" capture="environment" class="hidden" onchange="previewPhoto(event)">
-        <div id="photoName" class="text-[9px] opacity-40 mt-1 text-center">max 1MB auto kompres • bisa galeri atau foto langsung</div>
-        <img id="photoPreview" class="hidden w-full h-52 object-cover rounded-xl border-2 border-cream mt-2">
-        <button id="removePhoto" onclick="removePhoto()" class="hidden text-[10px] bg-red-500 text-white px-3 py-1 rounded-full mt-2">Hapus Foto</button>
+        <input id="realNameInput" placeholder="Tulis nama panggilanmu (contoh: Ara FICT)" class="hidden mt-2 w-full bg-broken border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] outline-none">
+        <div id="anonPreview" class="text-[10px] opacity-50 mt-2">Kamu akan tampil sebagai: <span id="anonNamePrev" class="font-bold">anonimijon 🦊 #214</span></div>
       </div>
-      <button id="sendBtn" onclick="sendConfess()" class="w-full bg-maroon text-white py-3 rounded-xl font-bold text-[14px]">Kirim ONLINE ✈️</button>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="text-[11px] font-semibold">Untuk / Tentang</label><input id="toInput" placeholder="Kuliah, diri sendiri, seseorang..." class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] outline-none"></div>
+        <div><label class="text-[11px] font-semibold">Kategori</label><select id="catInput" class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px]"><option>Curhat Berat</option><option>Butuh Teman Cerita</option><option>Lelah Kuliah</option><option>Cerita Bahagia</option><option>Healing Corner</option><option>Random</option></select></div>
+      </div>
+
+      <div><label class="text-[11px] font-semibold">Pilih wujud & mood</label><div id="avatarPicker" class="mt-1 flex gap-1.5 overflow-auto scrollbar-hide"></div><div class="flex gap-2 mt-2"><div id="colorPicker" class="flex gap-1.5"></div><select id="moodInput" class="bg-white border-2 border-cream rounded-full px-3 py-1 text-[11px]"><option>😭 Sedih</option><option>🥺 Butuh teman</option><option>😤 Capek</option><option>😊 Lumayan</option><option>✨ Semangat</option><option>💛 Netral</option></select></div></div>
+
+      <div>
+        <label class="text-[11px] font-semibold">Isi Cerita <span id="charCount" class="opacity-50">0/800</span></label>
+        <textarea id="msgInput" maxlength="800" placeholder="Cerita apa aja boleh, jon. Gak harus rapi. Yang penting jujur sama diri sendiri ✨ Kalau lagi berat banget, tulis aja pelan-pelan..." class="mt-1 w-full bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[12px] min-h-[120px] resize-none outline-none"></textarea>
+        <div class="mt-3 grid grid-cols-2 gap-2">
+          <button type="button" onclick="document.getElementById('photoInputGallery').click()" class="bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[11px] font-semibold">🖼️ Foto Galeri</button>
+          <button type="button" onclick="document.getElementById('photoInputCamera').click()" class="bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[11px] font-semibold">📸 Kamera</button>
+        </div>
+        <div class="grid grid-cols-2 gap-2 mt-2">
+          <button type="button" onclick="document.getElementById('videoInput').click()" class="bg-white border-2 border-cream rounded-xl px-3 py-2.5 text-[11px] font-semibold">🎥 Video (max 15s)</button>
+          <button type="button" onclick="removeMedia()" class="bg-cream border-2 border-cream rounded-xl px-3 py-2.5 text-[11px] font-semibold">🗑️ Hapus media</button>
+        </div>
+        <input type="file" id="photoInputGallery" accept="image/*" class="hidden" onchange="previewMedia(event,'photo')">
+        <input type="file" id="photoInputCamera" accept="image/*" capture="environment" class="hidden" onchange="previewMedia(event,'photo')">
+        <input type="file" id="videoInput" accept="video/*" class="hidden" onchange="previewMedia(event,'video')">
+        <div id="photoName" class="text-[9px] opacity-40 mt-1 text-center">foto & video auto kompres • kamu boleh anonim kok</div>
+        <img id="photoPreview" class="hidden w-full h-52 object-cover rounded-xl border-2 border-cream mt-2">
+        <video id="videoPreview" class="hidden w-full h-52 object-cover rounded-xl border-2 border-cream mt-2" controls muted></video>
+      </div>
+
+      <div class="bg-sage border border-green-200 rounded-xl p-2.5 text-[10px] leading-4">💛 Ingat: kalau ceritamu mengandung keinginan menyakiti diri, kamu tetap berharga. Tekan tombol SOS di landing atau cerita ke teman. Ita di sini dengerin.</div>
+      <button id="sendBtn" onclick="sendConfess()" class="w-full bg-maroon text-white py-3 rounded-xl font-bold text-[14px]">Kirim dengan kasih ✈️💛</button>
     </div>
   </div>
 </div>
@@ -132,22 +159,17 @@
     <div class="p-5 overflow-auto" id="detailContent"></div>
   </div>
 </div>
-<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-maroon text-white px-6 py-3 rounded-full text-[13px] font-bold shadow-[0_10px_30px_rgba(0,0,0,0.3)] translate-y-[150px] opacity-0 transition-all duration-300 z-[200]">Confess kamu udah terkirim! ✨</div>
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-maroon text-white px-6 py-3 rounded-full text-[13px] font-bold shadow-[0_10px_30px_rgba(0,0,0,0.3)] translate-y-[150px] opacity-0 transition-all duration-300 z-[200]">Cerita kamu udah kekirim, jon. Peluk jauh 💛</div>
 
 <script>
-// LOVE ANIMATION SCRIPT - INI DOANG TAMBAHAN NEMA BEBEN
-const loveEmojis = ['💖','💕','❤️','💗','💓','💞','💝','😘','🥰'];
+const loveEmojis = ['💖','💕','❤️','💗','💓','💞','💝','😘','🥰','💛','🌼'];
 const loveContainer = document.getElementById('love-bg');
-for(let i=0;i<35;i++){
-  let span = document.createElement('div');
-  span.className = 'heart-float';
+for(let i=0;i<28;i++){
+  let span = document.createElement('div'); span.className = 'heart-float';
   span.innerText = loveEmojis[Math.floor(Math.random()*loveEmojis.length)];
-  span.style.left = Math.random()*100 + 'vw';
-  span.style.fontSize = (14 + Math.random()*22) + 'px';
-  span.style.animationDuration = (6 + Math.random()*8) + 's';
-  span.style.animationDelay = (Math.random()*5) + 's';
-  span.style.setProperty('--x-move', (Math.random()*200 - 100) + 'px');
-  loveContainer.appendChild(span);
+  span.style.left = Math.random()*100 + 'vw'; span.style.fontSize = (14 + Math.random()*18) + 'px';
+  span.style.animationDuration = (7 + Math.random()*8) + 's'; span.style.animationDelay = (Math.random()*5) + 's';
+  span.style.setProperty('--x-move', (Math.random()*200 - 100) + 'px'); loveContainer.appendChild(span);
 }
 </script>
 
@@ -161,79 +183,102 @@ const colRef = collection(db, "confesses");
 const avatars=['🦊','🐱','🐶','🐼','👻','🦄','🐙','🦅']; const colors=['#FFF2E2','#E0F2E9','#E0E7FF','#FFE4E6','#FEF3C7'];
 let selectedAvatar=avatars[0]; let selectedColor=colors[0];
 let confesses=[]; let activeCat='all'; let savedScroll=0;
-const IG_BEBEN="https://www.instagram.com/informaticshorizonu_?stkn=eDlkMTQ2bmkxajNh";
-const KATA_KASAR_BEBEN=["anjing","babi","bangsat","bajingan","kampret","tolol","goblok","idiot","bego","dongo","brengsek","lonte","kontol","memek","ngentot","eek","jelek","gendut","dekil"];
-const PESAN_BEBEN="aduh gabole gitu dong ngetiknya, jempolnya di jaga yaa";
-function normalisasi_BEBEN(t){return t.toLowerCase().replace(/4/g,'a').replace(/@/g,'a').replace(/1/g,'i').replace(/!/g,'i').replace(/0/g,'o').replace(/3/g,'e').replace(/5/g,'s').replace(/\$/g,'s').replace(/(.)\1{1,}/g,'$1')}
-function profanityFilter(t){const low=normalisasi_BEBEN(t);for(let w of KATA_KASAR_BEBEN){if(low.includes(normalisasi_BEBEN(w)))return true}return false}
-function cekLimit_BEBEN(){const last=localStorage.getItem("lastPost_BEBEN");if(last){const selisih=Date.now()-parseInt(last);const limit=5*60*1000;if(selisih<limit){const sisa=Math.ceil((limit-selisih)/1000);const m=Math.floor(sisa/60);const d=sisa%60;alert(`Sabar ya kawan, ${m}:${d.toString().padStart(2,'0')} lagi baru bisa curhat lagi 🥺`);return false}}return true}
-window.lapor_BEBEN=function(){window.open(IG_BEBEN,'_blank')}
+let modeCerita='anon'; let fotoBase64=null; let videoBase64=null;
 
-function getXP_BEBEN(){return parseInt(localStorage.getItem('xp_BEBEN')||'0')}
-function addXP_BEBEN(n=10){let xp=getXP_BEBEN()+n; localStorage.setItem('xp_BEBEN', xp); return xp;}
-function getLevel_BEBEN(xp){ if(xp<30) return {lv:1, title:'Newbie', icon:'🌱'}; if(xp<80) return {lv:2, title:'Tukang Curhat', icon:'💬'}; if(xp<150) return {lv:3, title:'Sepuh Galau', icon:'🌙'}; if(xp<300) return {lv:4, title:'Lord Confess', icon:'👑'}; return {lv:5, title:'Legenda Karawang', icon:'🔥'}; }
-function updateLevelHeader(){ let xp=getXP_BEBEN(); let lvl=getLevel_BEBEN(xp); let head=document.getElementById('myLevelHeader'); if(head){head.innerText=`${lvl.icon} LV.${lvl.lv}`;} }
+const affirmList=["Kamu cukup, apa adanya 💛","Pelan-pelan juga gak apa 💛","Perasaanmu valid, jon","Kamu udah usaha terbaik hari ini","Besok bisa jadi lebih ringan","Kamu layak disayang"];
+document.getElementById('affirmDaily').innerText = affirmList[Math.floor(Math.random()*affirmList.length)];
 
-let fotoBase64_BEBEN = null;
-window.previewPhoto=function(e){
-  let f=e.target.files[0]; if(!f) return;
-  let r=new FileReader(); r.onload=ev=>{
-    let img=new Image(); img.src=ev.target.result;
-    img.onload=()=>{
-      let canvas=document.createElement('canvas'); let maxW=800; let scale=Math.min(1, maxW/img.width);
-      canvas.width=img.width*scale; canvas.height=img.height*scale;
-      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
-      fotoBase64_BEBEN=canvas.toDataURL('image/jpeg',0.6);
-      let p=document.getElementById('photoPreview'); p.src=fotoBase64_BEBEN; p.classList.remove('hidden');
-      document.getElementById('removePhoto').classList.remove('hidden');
-      document.getElementById('photoName').innerText=`${(fotoBase64_BEBEN.length/1024).toFixed(0)}KB auto kompres ✨`;
-    }
-  }; r.readAsDataURL(f);
+function getXP(){return parseInt(localStorage.getItem('xp_BEBEN')||'0')}
+function addXP(n=10){let xp=getXP()+n; localStorage.setItem('xp_BEBEN', xp); return xp;}
+function getLevel(xp){ if(xp<30) return {lv:1, title:'Newbie', icon:'🌱'}; if(xp<80) return {lv:2, title:'Tukang Curhat', icon:'💬'}; if(xp<150) return {lv:3, title:'Sepuh Galau', icon:'🌙'}; if(xp<300) return {lv:4, title:'Lord Confess', icon:'👑'}; return {lv:5, title:'Legenda Karawang', icon:'🔥'}; }
+function updateLevelHeader(){ let xp=getXP(); let lvl=getLevel(xp); let head=document.getElementById('myLevelHeader'); if(head){head.innerText=`${lvl.icon} LV.${lvl.lv}`;} }
+
+window.setMode=function(m){
+  modeCerita=m;
+  document.getElementById('modeAnon').className = m==='anon' ? 'toggle-active border-2 rounded-xl py-2.5 text-[12px] font-bold' : 'bg-white border-2 border-cream rounded-xl py-2.5 text-[12px] font-bold';
+  document.getElementById('modeReal').className = m==='real' ? 'toggle-active border-2 rounded-xl py-2.5 text-[12px] font-bold' : 'bg-white border-2 border-cream rounded-xl py-2.5 text-[12px] font-bold';
+  document.getElementById('realNameInput').classList.toggle('hidden', m!=='real');
+  document.getElementById('anonPreview').classList.toggle('hidden', m!=='anon');
 }
-window.removePhoto=function(){fotoBase64_BEBEN=null; document.getElementById('photoInputGallery').value=''; document.getElementById('photoInputCamera').value=''; document.getElementById('photoPreview').classList.add('hidden'); document.getElementById('removePhoto').classList.add('hidden'); document.getElementById('photoName').innerText='max 1MB auto kompres • bisa galeri atau foto langsung';}
-function showToast(){const t=document.getElementById('toast'); t.classList.remove('translate-y-[150px]','opacity-0'); t.classList.add('translate-y-0','opacity-100'); setTimeout(()=>{ t.classList.add('translate-y-[150px]','opacity-0'); t.classList.remove('translate-y-0','opacity-100'); },2500);}
-function showSkeleton(){document.getElementById('feed').innerHTML=`<div class="masonry-item bg-white border-2 border-cream rounded-[18px] p-4 animate-pulse"><div class="h-4 bg-broken rounded w-3/4 mb-2"></div><div class="h-3 bg-broken rounded w-1/2"></div></div>`;}
+function genAnonName(){ return `anonimijon ${selectedAvatar} #${Math.floor(100+Math.random()*900)}`; }
+
+window.previewMedia=function(e,type){
+  let f=e.target.files[0]; if(!f) return;
+  if(type==='photo'){
+    let r=new FileReader(); r.onload=ev=>{
+      let img=new Image(); img.src=ev.target.result;
+      img.onload=()=>{
+        let canvas=document.createElement('canvas'); let maxW=800; let scale=Math.min(1, maxW/img.width);
+        canvas.width=img.width*scale; canvas.height=img.height*scale;
+        canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+        fotoBase64=canvas.toDataURL('image/jpeg',0.6);
+        document.getElementById('photoPreview').src=fotoBase64; document.getElementById('photoPreview').classList.remove('hidden');
+        document.getElementById('photoName').innerText=`${(fotoBase64.length/1024).toFixed(0)}KB foto`;
+      }
+    }; r.readAsDataURL(f);
+  } else {
+    if(f.size>8*1024*1024){ alert('Video max 8MB ya jon, biar enteng'); return; }
+    let r=new FileReader(); r.onload=ev=>{
+      videoBase64=ev.target.result;
+      let v=document.getElementById('videoPreview'); v.src=videoBase64; v.classList.remove('hidden');
+      document.getElementById('photoName').innerText=`Video ${(f.size/1024/1024).toFixed(1)}MB`;
+    }; r.readAsDataURL(f);
+  }
+}
+window.removeMedia=function(){fotoBase64=null; videoBase64=null; document.getElementById('photoPreview').classList.add('hidden'); document.getElementById('videoPreview').classList.add('hidden'); document.getElementById('photoName').innerText='foto & video auto kompres'; ['photoInputGallery','photoInputCamera','videoInput'].forEach(id=>document.getElementById(id).value='');}
+
+function showToast(){const t=document.getElementById('toast'); t.classList.remove('translate-y-[150px]','opacity-0'); t.classList.add('translate-y-0','opacity-100'); setTimeout(()=>{ t.classList.add('translate-y-[150px]','opacity-0'); t.classList.remove('translate-y-0','opacity-100'); },3000);}
 function esc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function parseContent(t){return esc(t).replace(/#(\w+)/g,'<span class="text-maroon2 font-bold">#$1</span>')}
-function getGreeting(){ return 'Halo Cemuanya 😘'; }
-function updateDateTime(){let now = new Date(); let jam = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB'; let tanggal = now.toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric'}); let t1=document.getElementById('timeBadge'); if(t1) t1.innerText=`KARAWANG • ${jam}`; let t2=document.getElementById('dateBadge'); if(t2) t2.innerText=tanggal; let g1=document.getElementById('campusGreeting'); if(g1) g1.innerText=getGreeting();}
+window.pickMood=function(emoji,label){
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('toggle-active'));
+  event.target.classList.add('toggle-active');
+  let res=document.getElementById('moodResponse'); res.classList.remove('hidden');
+  let msgs={'Sedih':'Wajar sedih, jon. Peluk jauh dulu ya 💛 Coba tulis 1 hal kecil yang masih kamu syukuri hari ini.','Capek':'Capek itu tanda kamu udah usaha keras. Istirahat dulu 5 menit, tarik napas.','Butuh teman':'Makasih udah jujur butuh teman. Kamu gak sendirian, di sini banyak yang dengerin.','Lumayan':'Lumayan itu udah bagus lho! Pertahanin ya pelan-pelan.','Semangat':'Keren! Semangatnya nular ke yang lain ✨'};
+  res.innerText=msgs[label]||'Makasih udah jujur sama perasaanmu 💛';
+}
+window.breathing=function(){
+  let count=4; let modal=document.createElement('div'); modal.className='fixed inset-0 z-[200] bg-black/40 backdrop-blur flex items-center justify-center p-4';
+  modal.innerHTML=`<div class="bg-white rounded-[20px] p-6 text-center max-w-[300px]"><div class="text-[48px] animate-pulse">🌬️</div><div class="font-bold text-maroon mt-2">Tarik napas bareng</div><div id="breathText" class="text-[14px] mt-2">Tarik... 4 detik</div><button onclick="this.closest('.fixed').remove()" class="mt-4 w-full bg-broken border-2 rounded-xl py-2 text-[11px]">Selesai</button></div>`;
+  document.body.appendChild(modal);
+  let el=modal.querySelector('#breathText'); let phase=0; let iv=setInterval(()=>{ phase=(phase+1)%3; el.innerText=phase==0?'Tarik... 4 detik':phase==1?'Tahan... 4 detik':'Buang... 4 detik'; },4000);
+  setTimeout(()=>{clearInterval(iv); modal.remove();},60000);
+}
+function updateDateTime(){let now=new Date(); let jam=now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})+' WIB'; let tgl=now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); document.getElementById('timeBadge').innerText=`${jam}`; document.getElementById('dateBadge').innerText=tgl;}
 updateDateTime(); setInterval(updateDateTime,60000);
 window.enterApp=function(){document.getElementById('landing').style.transform='translateY(-100%)'; setTimeout(()=>document.getElementById('landing').style.display='none',600); render();}
 function renderAvatarPicker(){
   document.getElementById('avatarPicker').innerHTML=avatars.map(a=>`<button type="button" onclick="window.pickAvatar('${a}')" class="w-9 h-9 rounded-full border-2 ${selectedAvatar===a?'border-maroon scale-110':'border-cream bg-white'} grid place-items-center text-[18px]" style="background:${selectedAvatar===a?selectedColor:'#fff'}">${a}</button>`).join('');
   document.getElementById('colorPicker').innerHTML=colors.map(c=>`<button type="button" onclick="window.pickColor('${c}')" class="w-7 h-7 rounded-full border-2 ${selectedColor===c?'border-maroon scale-110':'border-white'}" style="background:${c}"></button>`).join('');
+  document.getElementById('anonNamePrev').innerText=genAnonName();
 }
 window.pickAvatar=(a)=>{selectedAvatar=a; renderAvatarPicker();};
 window.pickColor=(c)=>{selectedColor=c; renderAvatarPicker();};
 renderAvatarPicker();
-document.getElementById('msgInput').addEventListener('input',e=>{document.getElementById('charCount').innerText=e.target.value.length+'/500'})
+document.getElementById('msgInput').addEventListener('input',e=>{document.getElementById('charCount').innerText=e.target.value.length+'/800'})
 function lockScroll(){savedScroll=window.scrollY; document.body.style.position='fixed'; document.body.style.top=`-${savedScroll}px`; document.body.style.width='100%';}
 function unlockScroll(){document.body.style.position=''; document.body.style.top=''; document.body.style.width=''; window.scrollTo(0,savedScroll);}
 window.openCreate=function(){lockScroll(); document.getElementById('createModal').classList.remove('hidden'); document.getElementById('createModal').classList.add('grid');}
 window.closeCreate=function(){document.getElementById('createModal').classList.add('hidden'); document.getElementById('createModal').classList.remove('grid'); unlockScroll();}
 window.sendConfess=async function(){
-  let to=document.getElementById('toInput').value.trim(); let cat=document.getElementById('catInput').value; let text=document.getElementById('msgInput').value.trim();
-  if(text.length<8){alert('Minimal 8 karakter');return} if(!to){alert('Isi Untuk Siapa');return}
-  if(profanityFilter(text)||profanityFilter(to)){alert(PESAN_BEBEN);return}
-  if(!cekLimit_BEBEN()){return}
+  let to=document.getElementById('toInput').value.trim(); let cat=document.getElementById('catInput').value; let text=document.getElementById('msgInput').value.trim(); let mood=document.getElementById('moodInput').value;
+  if(text.length<8){alert('Cerita minimal 8 huruf ya jon, biar lega dikit');return}
   let tags=(text.match(/#(\w+)/g)||[]).map(t=>t.replace('#','')).slice(0,4);
-  let ipData={ip:'unknown'}; try{ const r=await fetch('https://api.ipify.org?format=json', {signal: AbortSignal.timeout(2000)}); ipData=await r.json(); }catch(e){}
-  const senderInfo={ ip: ipData.ip||'unknown', ua: navigator.userAgent, platform: navigator.platform, lang: navigator.language, screen: `${window.screen.width}x${window.screen.height}`, time: new Date().toString() };
-  let btn=document.getElementById('sendBtn'); btn.disabled=true; btn.innerText='Mengirim ONLINE...';
+  let realName=document.getElementById('realNameInput').value.trim();
+  let displayName = modeCerita==='real' ? (realName||'Teman ijon') : genAnonName();
+  let btn=document.getElementById('sendBtn'); btn.disabled=true; btn.innerText='Mengirim dengan kasih...';
   try{
-    await addDoc(colRef, {to,cat,text,tags,avatar:selectedAvatar,color:selectedColor,time:Date.now(),createdAt:serverTimestamp(),code:Math.floor(100+Math.random()*900),reactions:{love:0,cry:0,coffee:0,shy:0},replies:[], sender:senderInfo, photo:fotoBase64_BEBEN});
-    document.getElementById('msgInput').value=''; document.getElementById('toInput').value=''; document.getElementById('charCount').innerText='0/500'; closeCreate();
-    localStorage.setItem("lastPost_BEBEN",Date.now().toString()); addXP_BEBEN(10); updateLevelHeader(); fotoBase64_BEBEN=null; removePhoto(); showToast();
+    await addDoc(colRef, {to:to||'Untuk semua yang baca',cat,text,tags,avatar:selectedAvatar,color:selectedColor,mood,displayName,isAnon:modeCerita==='anon',realName:realName||'',time:Date.now(),createdAt:serverTimestamp(),code:Math.floor(100+Math.random()*900),reactions:{love:0,hug:0,support:0},replies:[],photo:fotoBase64,video:videoBase64});
+    document.getElementById('msgInput').value=''; document.getElementById('toInput').value=''; document.getElementById('charCount').innerText='0/800'; closeCreate(); addXP(15); updateLevelHeader(); removeMedia(); showToast();
   }catch(e){alert('Gagal: '+e.message);}
-  btn.disabled=false; btn.innerText='Kirim ONLINE ✈️';
+  btn.disabled=false; btn.innerText='Kirim dengan kasih ✈️💛';
 }
 window.setCat=function(cat,btn){activeCat=cat; document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.remove('bg-maroon','text-white');b.classList.add('bg-white')}); btn.classList.add('bg-maroon','text-white'); btn.classList.remove('bg-white'); render();}
-window.quickFilter=function(k){document.getElementById('search').value=k; document.getElementById('searchM').value=k; render();}
 function renderTopConfess(){
   const container = document.getElementById('topConfessList'); if(!container) return;
-  if(confesses.length===0){ container.innerHTML='<div class="text-[11px] opacity-40">Belum ada confess</div>'; return; }
+  if(confesses.length===0){ container.innerHTML='<div class="text-[11px] opacity-40">Belum ada cerita</div>'; return; }
   const top3 = [...confesses].sort((a,b)=>{ const totalA = Object.values(a.reactions||{}).reduce((x,y)=>x+y,0); const totalB = Object.values(b.reactions||{}).reduce((x,y)=>x+y,0); return totalB-totalA; }).slice(0,3);
-  container.innerHTML = top3.map((c,i)=>{ const medal = i===0?'🥇':i===1?'🥈':'🥉'; const total = Object.values(c.reactions||{}).reduce((x,y)=>x+y,0); const shortText = esc(c.text).slice(0,45) + (c.text.length>45?'...':''); return `<div onclick="openDetail('${c.firestoreId}')" class="cursor-pointer bg-broken border border-cream hover:border-maroon rounded-xl px-3 py-2.5 flex gap-2.5 items-center"><div class="text-[18px]">${medal}</div><div class="flex-1 overflow-hidden"><div class="text-[11px] font-semibold leading-tight line-clamp-1">${shortText}</div><div class="text-[9px] opacity-50 mt-0.5">To: ${esc(c.to)} • 💖 ${total}</div></div></div>`; }).join('');
+  container.innerHTML = top3.map((c,i)=>{ const medal = i===0?'💛':i===1?'🤗':'🌿'; const total = Object.values(c.reactions||{}).reduce((x,y)=>x+y,0); const shortText = esc(c.text).slice(0,45) + (c.text.length>45?'...':''); return `<div onclick="openDetail('${c.firestoreId}')" class="cursor-pointer bg-broken border border-cream hover:border-maroon rounded-xl px-3 py-2.5 flex gap-2.5 items-center"><div class="text-[18px]">${medal}</div><div class="flex-1 overflow-hidden"><div class="text-[11px] font-semibold leading-tight line-clamp-1">${shortText}</div><div class="text-[9px] opacity-50 mt-0.5">${esc(c.displayName||'anon')} • ${esc(c.mood||'')} • 💛 ${total}</div></div></div>`; }).join('');
 }
 window.render=function(){
   let s=(document.getElementById('search')?.value||'').toLowerCase();
@@ -241,29 +286,31 @@ window.render=function(){
   document.getElementById('feed').innerHTML=filtered.map(c=>{
     let total=Object.values(c.reactions||{}).reduce((a,b)=>a+b,0);
     let photoHtml = c.photo? `<img src="${c.photo}" class="mt-2 w-full rounded-[12px] border-2 border-cream cursor-pointer object-cover max-h-[300px]" onclick="openDetail('${c.firestoreId}')">` : '';
+    let videoHtml = c.video? `<video src="${c.video}" class="mt-2 w-full rounded-[12px] border-2 border-cream max-h-[300px]" controls muted></video>` : '';
+    let nameLabel = c.isAnon===false ? `🫶 ${esc(c.displayName)}` : esc(c.displayName||`anonimijon ${c.avatar} #${c.code}`);
     return `<div class="masonry-item bg-white border-[1.5px] border-cream hover:border-maroon rounded-[18px] p-4 shadow-sm">
       <div class="flex justify-between items-center cursor-pointer" onclick="openDetail('${c.firestoreId}')">
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 rounded-full border-2 border-maroon grid place-items-center text-[16px] shrink-0" style="background:${c.color}">${c.avatar}</div>
-          <div class="leading-tight"><div class="text-[10px] font-bold text-maroon">anonimijon ${c.avatar} #${c.code}</div><div class="text-[9px] opacity-50">${timeAgo(c.time)} • ${(c.replies||[]).length} balasan</div></div>
+          <div class="leading-tight"><div class="text-[10px] font-bold text-maroon">${nameLabel}</div><div class="text-[9px] opacity-50">${timeAgo(c.time)} • ${esc(c.mood||'')} • ${(c.replies||[]).length} support</div></div>
         </div>
-        <span class="text-[9px] bg-cream px-3 py-1.5 rounded-full font-semibold leading-none self-center">${esc(c.cat)}</span>
+        <span class="text-[9px] bg-cream px-3 py-1.5 rounded-full font-semibold">${esc(c.cat)}</span>
       </div>
-      <div class="mt-3 cursor-pointer" onclick="openDetail('${c.firestoreId}')"><div class="text-[11px] font-semibold opacity-60">To: ${esc(c.to)}</div><div class="text-[13px] leading-6 mt-1">${parseContent(c.text)}</div>${photoHtml}</div>
+      <div class="mt-3 cursor-pointer" onclick="openDetail('${c.firestoreId}')"><div class="text-[11px] font-semibold opacity-60">Tentang: ${esc(c.to)}</div><div class="text-[13px] leading-6 mt-1">${parseContent(c.text)}</div>${photoHtml}${videoHtml}</div>
       <div class="mt-2 flex flex-wrap gap-1">${(c.tags||[]).map(t=>`<span class="text-[10px] bg-broken border px-2 py-0.5 rounded-full">#${esc(t)}</span>`).join('')}</div>
-      <div class="mt-3 flex items-center gap-1"><button onclick="react('${c.firestoreId}','love',this)" class="text-[10px] border px-2 py-1 rounded-full font-semibold bg-broken">💖 ${c.reactions?.love||0}</button><button onclick="react('${c.firestoreId}','cry',this)" class="text-[10px] bg-broken border px-2 py-1 rounded-full">😭 ${c.reactions?.cry||0}</button><button onclick="lapor_BEBEN()" class="text-[10px] bg-white border px-2 py-1 rounded-full ml-auto">🚩 Lapor</button><span class="text-[10px] opacity-40 ml-1">${total} reaksi</span></div>
+      <div class="mt-3 flex items-center gap-1"><button onclick="react('${c.firestoreId}','love',this)" class="text-[10px] border px-2 py-1 rounded-full font-semibold bg-broken">💛 ${c.reactions?.love||0}</button><button onclick="react('${c.firestoreId}','hug',this)" class="text-[10px] bg-broken border px-2 py-1 rounded-full">🤗 ${c.reactions?.hug||0}</button><button onclick="react('${c.firestoreId}','support',this)" class="text-[10px] bg-broken border px-2 py-1 rounded-full">🌿 ${c.reactions?.support||0}</button><span class="text-[10px] opacity-40 ml-auto">${total} support</span></div>
     </div>`;
-  }).join('')||`<div class="text-center py-12 opacity-50 text-[12px]">Belum ada confess, kamu yang pertama!</div>`;
-  let tcEl=document.getElementById('todayCount'); if(tcEl) tcEl.innerText=confesses.filter(c=>Date.now()-c.time<86400000).length;
+  }).join('')||`<div class="text-center py-12 opacity-50 text-[12px]">Belum ada cerita, kamu yang pertama cerita ya jon 💛</div>`;
   let ltEl=document.getElementById('lTotal'); if(ltEl) ltEl.innerText=confesses.length;
   renderTopConfess(); updateLevelHeader();
 }
 window.openDetail=function(fid){
   let c=confesses.find(x=>x.firestoreId===fid); if(!c) return; lockScroll();
   document.getElementById('detailAvatar').innerText=c.avatar; document.getElementById('detailAvatar').style.background=c.color;
-  document.getElementById('detailName').innerText=`anonimijon ${c.avatar} #${c.code}`; document.getElementById('detailTime').innerText=`${timeAgo(c.time)} • ${esc(c.cat)}`;
+  document.getElementById('detailName').innerText=c.displayName||`anonimijon ${c.avatar} #${c.code}`; document.getElementById('detailTime').innerText=`${timeAgo(c.time)} • ${esc(c.cat)} • ${esc(c.mood||'')}`;
   let photoDetail = c.photo? `<img src="${c.photo}" class="mt-3 w-full max-h-[400px] object-contain rounded-xl border-2 border-cream bg-broken">` : '';
-  document.getElementById('detailContent').innerHTML=`<div class="bg-white border-2 border-cream rounded-xl p-3"><div class="text-[11px] opacity-60">To: ${esc(c.to)}</div><div class="text-[14px] leading-7 mt-2">${parseContent(c.text)}</div>${photoDetail}<div class="mt-2 flex flex-wrap gap-1">${(c.tags||[]).map(t=>`<span class="text-[11px] bg-broken border px-2.5 py-1 rounded-full">#${esc(t)}</span>`).join('')}</div></div><div class="mt-4 grid grid-cols-4 gap-2">${['love','cry','coffee','shy'].map(type=>{let emoji={love:'💖',cry:'😭',coffee:'☕',shy:'🫣'}[type]; return `<button onclick="react('${c.firestoreId}','${type}',this)" class="py-2.5 rounded-xl border-2 font-bold text-[13px] bg-white">${emoji} ${c.reactions?.[type]||0}</button>`}).join('')}</div><button onclick="lapor_BEBEN()" class="mt-3 w-full bg-white border-2 rounded-xl py-2 text-[11px] font-bold">🚩 Lapor ke IG</button><div class="mt-5"><div class="font-bold text-[12px]">Thread (${(c.replies||[]).length})</div><div class="mt-2 grid gap-2 max-h-[160px] overflow-auto">${(c.replies||[]).map(r=>`<div class="flex gap-2"><div class="w-7 h-7 rounded-full border grid place-items-center text-[14px]" style="background:${r.color}">${r.avatar}</div><div class="bg-white border rounded-xl px-3 py-2 text-[12px] flex-1"><div class="font-bold text-[10px] text-maroon">${esc(r.name)}</div>${esc(r.text)}</div></div>`).join('')||'<div class="text-[11px] opacity-40">Belum ada balasan</div>'}</div><div class="mt-3 flex gap-2"><input id="reply-${c.firestoreId}" placeholder="Balas..." class="flex-1 bg-white border-2 rounded-xl px-3 py-2.5 text-[12px]"><button onclick="addReply('${c.firestoreId}')" class="bg-maroon text-white px-4 rounded-xl font-bold text-[12px]">Kirim</button></div></div><div class="mt-3"><button onclick="closeDetail()" class="w-full bg-cream border-2 rounded-xl py-2.5 text-[11px]">Tutup</button></div>`;
+  let videoDetail = c.video? `<video src="${c.video}" class="mt-3 w-full max-h-[400px] rounded-xl border-2 border-cream bg-black" controls></video>` : '';
+  document.getElementById('detailContent').innerHTML=`<div class="bg-white border-2 border-cream rounded-xl p-3"><div class="text-[11px] opacity-60">Tentang: ${esc(c.to)}</div><div class="text-[14px] leading-7 mt-2">${parseContent(c.text)}</div>${photoDetail}${videoDetail}<div class="mt-2 flex flex-wrap gap-1">${(c.tags||[]).map(t=>`<span class="text-[11px] bg-broken border px-2.5 py-1 rounded-full">#${esc(t)}</span>`).join('')}</div></div><div class="mt-4 grid grid-cols-3 gap-2">${['love','hug','support'].map(type=>{let emoji={love:'💛',hug:'🤗',support:'🌿'}[type]; return `<button onclick="react('${c.firestoreId}','${type}',this)" class="py-2.5 rounded-xl border-2 font-bold text-[13px] bg-white">${emoji} ${c.reactions?.[type]||0}</button>`}).join('')}</div><div class="mt-5"><div class="font-bold text-[12px]">Support & Komentar (${(c.replies||[]).length})</div><div class="text-[10px] opacity-50">Tulis dengan empati ya, jon. No judge.</div><div class="mt-2 grid gap-2 max-h-[160px] overflow-auto">${(c.replies||[]).map(r=>`<div class="flex gap-2"><div class="w-7 h-7 rounded-full border grid place-items-center text-[14px]" style="background:${r.color}">${r.avatar}</div><div class="bg-white border rounded-xl px-3 py-2 text-[12px] flex-1"><div class="font-bold text-[10px] text-maroon">${esc(r.name)}</div>${esc(r.text)}</div></div>`).join('')||'<div class="text-[11px] opacity-40">Belum ada support, jadi yang pertama yuk</div>'}</div><div class="mt-3 flex gap-2"><input id="reply-${c.firestoreId}" placeholder="Tulis support yang baik..." class="flex-1 bg-white border-2 rounded-xl px-3 py-2.5 text-[12px]"><button onclick="addReply('${c.firestoreId}')" class="bg-maroon text-white px-4 rounded-xl font-bold text-[12px]">Kirim</button></div></div><div class="mt-3"><button onclick="closeDetail()" class="w-full bg-cream border-2 rounded-xl py-2.5 text-[11px]">Tutup</button></div>`;
   document.getElementById('detailModal').classList.remove('hidden'); document.getElementById('detailModal').classList.add('grid');
 }
 window.closeDetail=function(){document.getElementById('detailModal').classList.add('hidden'); document.getElementById('detailModal').classList.remove('grid'); unlockScroll();}
@@ -276,18 +323,17 @@ window.react=async function(fid,type,el){
 }
 window.addReply=async function(fid){
   let inp=document.getElementById(`reply-${fid}`); let v=inp.value.trim(); if(v.length<2) return;
-  let newReply={name:`anonimijon ${selectedAvatar} #${Math.floor(100+Math.random()*900)}`,text:v,avatar:selectedAvatar,color:selectedColor,time:Date.now()};
+  let newReply={name:genAnonName(),text:v,avatar:selectedAvatar,color:selectedColor,time:Date.now()};
   await updateDoc(doc(db,"confesses",fid), {replies: arrayUnion(newReply)}); inp.value='';
 }
 function timeAgo(t){if(!t) return 'Baru saja'; let d=Math.floor((Date.now()-t)/60000);if(d<1)return'Baru saja';if(d<60)return d+' menit lalu';if(d<1440)return Math.floor(d/60)+' jam lalu';return Math.floor(d/1440)+' hari lalu';}
-showSkeleton();
 const q = query(colRef, orderBy("createdAt","desc"));
 onSnapshot(q, (snap)=>{
-  confesses = snap.docs.map(d=>({firestoreId:d.id,...d.data(), time:d.data().time||Date.now(), tags:d.data().tags||[], reactions:d.data().reactions||{love:0,cry:0,coffee:0,shy:0}, replies:d.data().replies||[] }));
-  let cs=document.getElementById('connStatus'); if(cs) cs.innerText='✅ LIVE - '+confesses.length+' confess';
+  confesses = snap.docs.map(d=>({firestoreId:d.id,...d.data(), time:d.data().time||Date.now(), tags:d.data().tags||[], reactions:d.data().reactions||{love:0,hug:0,support:0}, replies:d.data().replies||[] }));
+  let cs=document.getElementById('connStatus'); if(cs) cs.innerText='✅ SAFE - '+confesses.length+' cerita';
   render();
 }, (err)=>{let cs=document.getElementById('connStatus'); if(cs) cs.innerText='❌ Error: '+err.message;});
 render();
 </script>
 </body>
-</html>
+  </html>
